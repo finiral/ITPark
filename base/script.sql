@@ -1,4 +1,5 @@
 create database Itpark;
+\c Itpark
  create table Classe(
     id_Classe serial primary key,
     intitule varchar(10) 
@@ -73,7 +74,7 @@ create table MouvementPlace(
     date_Heure_MouvementPlace TIMESTAMP WITHOUT TIME ZONE,
     status smallint,
     check(status = 0 or status = 1 )
-)
+);
 
 -- 1. Fonction vueFonctionBase
 -- Description: Fonction qui retourne les parkings avec des places libres dans un lieu spécifique.
@@ -113,8 +114,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- 3. Fonction getMvtPlaceEntrant
--- Description: Fonction qui obtient les mouvements de place entrants d'un parking pour un mois donné.
-CREATE OR REPLACE FUNCTION  GetMouvementPlaceEnter(mois INT,idParking INT) 
+-- Description: Fonction qui obtient les mouvements de place entrants d'un parking pour un mois/annee donné.
+CREATE OR REPLACE FUNCTION  GetMouvementPlaceEnter(mois INT,annee INT,idParking INT) 
 RETURNS TABLE(
     id_Parking INT, 
     id_Place INT, 
@@ -125,13 +126,15 @@ BEGIN
     RETURN QUERY
     SELECT mp.id_Parking, mp.id_Place,mp.matricule,mp.date_Heure_MouvementPlace
     FROM MouvementPlace mp
-    WHERE EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = mois AND mp.status = 1 AND mp.id_Parking=idParking;
+    WHERE EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = mois 
+    AND EXTRACT(YEAR FROM mp.date_Heure_MouvementPlace) = annee
+    AND mp.status = 1 AND mp.id_Parking=idParking;
 END;
 $$ LANGUAGE plpgsql;
 
 -- 4. Fonction getMvtPlaceSortant
--- Description: Fonction qui obtient les mouvements de place sortants d'un parking pour un mois donné.
-CREATE OR REPLACE FUNCTION GetMouvementPlaceOut(mois INT,idParking INT) 
+-- Description: Fonction qui obtient les mouvements de place sortants d'un parking pour un mois/annee donné.
+CREATE OR REPLACE FUNCTION GetMouvementPlaceOut(mois INT,annee INT,idParking INT) 
 RETURNS TABLE(
     id_Parking INT, 
     id_Place INT, 
@@ -142,7 +145,9 @@ BEGIN
     RETURN QUERY
     SELECT mp.id_Parking, mp.id_Place, mp.matricule, mp.date_Heure_MouvementPlace
     FROM MouvementPlace mp
-    WHERE EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = mois AND mp.status = 0 AND mp.id_Parking=idParking;
+    WHERE EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = mois 
+    AND EXTRACT(YEAR FROM mp.date_Heure_MouvementPlace) = annee
+    AND mp.status = 0 AND mp.id_Parking=idParking;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -150,6 +155,7 @@ $$ LANGUAGE plpgsql;
 -- Description: Fonction qui obtient les paiements pour un mois donné et pour un collaborateur spécifique.
 CREATE OR REPLACE FUNCTION GetPaiement(
     mois INT, 
+    annee INT,
     idParking INT) 
 RETURNS DECIMAL AS $$
 DECLARE
@@ -158,7 +164,9 @@ BEGIN
     SELECT SUM(pa.montant)
     INTO total_montant
     FROM Paiement pa
-    WHERE EXTRACT(MONTH FROM pa.date_paiement) = mois AND pa.id_Parking = idParking;
+    WHERE EXTRACT(MONTH FROM pa.date_paiement) = mois 
+    AND EXTRACT(YEAR FROM pa.date_paiement) = annee 
+    AND pa.id_Parking = idParking;
 
     RETURN total_montant;
 END;
@@ -194,7 +202,7 @@ $$ LANGUAGE plpgsql;
 -- 7. Fonction GetPlaceEnterCount
 -- Description: Fonction qui compte le nombre d'entrée dans un parking 
 -- pour chaque intervalle d'heure lors d'un mois donné
-CREATE OR REPLACE FUNCTION GetPlaceEnterCount(mois INT,idParking INT) 
+CREATE OR REPLACE FUNCTION GetPlaceEnterCount(mois INT, annee INT,idParking INT) 
 RETURNS TABLE(
     heure INT,
     count_mouvement INT
@@ -215,6 +223,7 @@ BEGIN
         EXTRACT(HOUR FROM mp.date_Heure_MouvementPlace) = generate_series
     WHERE 
         EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = mois 
+        AND EXTRACT(YEAR FROM mp.date_Heure_MouvementPlace) = annee
         AND mp.status = 1 AND mp.id_Parking=idParking
     GROUP BY 
         generate_series
@@ -222,3 +231,41 @@ BEGIN
         heure;
 END;
 $$ LANGUAGE plpgsql;
+
+-- 8. Fonction GetPlaceOutCount
+-- Description: Fonction qui compte le nombre d'entrée dans un parking 
+-- pour chaque intervalle d'heure lors d'un mois donné
+CREATE OR REPLACE FUNCTION GetPlaceOutCount(mois INT,annee INT ,idParking INT) 
+RETURNS TABLE(
+    heure INT,
+    count_mouvement INT
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        generate_series(0, 23) AS heure, 
+        COALESCE(SUM(CASE 
+            WHEN EXTRACT(HOUR FROM mp.date_Heure_MouvementPlace) = generate_series THEN 1 
+            ELSE 0 
+        END), 0) AS count_mouvement
+    FROM 
+        generate_series(0, 23) 
+    LEFT JOIN 
+        MouvementPlace mp 
+    ON 
+        EXTRACT(HOUR FROM mp.date_Heure_MouvementPlace) = generate_series
+    WHERE 
+        EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = mois 
+        AND EXTRACT(YEAR FROM mp.date_Heure_MouvementPlace) = annee
+        AND mp.status = 0 AND mp.id_Parking=idParking
+    GROUP BY 
+        generate_series
+    ORDER BY 
+        heure;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+-- Requete pour avoir l'heure avec entrée max parking
+SELECT * from GetPlaceOutCount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from GetPlaceOutCount($mois,$annee,$idParking));

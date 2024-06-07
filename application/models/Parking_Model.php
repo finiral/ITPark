@@ -37,24 +37,38 @@ class Parking_Model extends CI_Model{
     }
 
     #calcul recette total du parking
-    public function getRecette($mois,$idParking){
-        $query=$this->db->get("GetPaiement($mois,$idParking)");
+    public function getRecette($mois,$annee,$idParking){
+        $query=$this->db->get("GetPaiement($mois,$annee,$idParking)");
         return $query->row_array()["total_montant"];
     }
 
     #calcul recette du parking part du collaborateur 
-    public function getRecetteCollab($mois,$idParking){
-        $query=$this->db->get("GetPaiement($mois,$idParking)");
-        $montant=$query->row_array()["total_montant"];
+    public function getRecetteCollab($mois,$annee,$idParking){
+        $montant=$this->getRecette($mois,$annee,$idParking);
         return (40*$montant)/100;
     }
 
     #calcul recette du parking part de l'admin 
-    public function getRecetteAdmin($mois,$idParking){
-        $query=$this->db->get("GetPaiement($mois,$idParking)");
-        $montant=$query->row_array()["total_montant"];
+    public function getRecetteAdmin($mois,$annee,$idParking){
+        $montant=$this->getRecette($mois,$annee,$idParking);
         $montant60=(60*$montant)/100;
         $res=$montant60-((16.5*$montant60)/100);
         return $res;
+    }
+
+    #recherche debut heure pointe d'un parking (heure avec le plus d'entrée)
+    public function getDebutHeurePointe($mois,$annee,$idParking){
+        $sql="SELECT * from GetPlaceEnterCount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from GetPlaceEnterCount($mois,$annee,$idParking));";
+        $query=$this->db->query($sql);
+        $res=$query->row_array();
+        return $res["heure"];
+    }
+
+    #recherche fin heure pointe d'un parking (heure avec le plus d'entrée)
+    public function getFinHeurePointe($mois,$annee,$idParking){
+        $sql="SELECT * from GetPlaceOutCount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from GetPlaceOutCount($mois,$annee,$idParking));";
+        $query=$this->db->query($sql);
+        $res=$query->row_array();
+        return $res["heure"];
     }
 }
