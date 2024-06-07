@@ -33,8 +33,62 @@ class Parking_Model extends CI_Model{
     public function getAll()
     {
         $query = $this->db->get('Parking');
-        return $query->result();
+        return $query->result_array();
     }
+ 
+    public function getRandomParkings() {
+        $allParkings = $this->getAll();
+        // Mélanger pour obtenir un ordre aléatoire
+        shuffle($allParkings);
+        
+        return $allParkings;
+    }
+    
+    public function getParkingByCriteria($criteria = array()){
+        // Commencez par la requête de base
+        $requete = "SELECT * FROM Parking WHERE 1=1";
+        $params = array();
+    
+        if (isset($criteria['id_Classe'])) {
+            $requete .= " AND id_Classe = ?";
+            $params[] = $criteria['id_Classe'];
+        }
+    
+        if (isset($criteria['id_Lieu'])) {
+            $requete .= " AND id_Lieu = ?";
+            $params[] = $criteria['id_Lieu'];
+        }
+    
+        if (isset($criteria['nombre_place'])) {
+            $requete .= " AND nombre_place = ?";
+            $params[] = $criteria['nombre_place'];
+        }
+    
+        if (isset($criteria['prix_min'])) {
+            $requete .= " AND prix >= ?";
+            $params[] = $criteria['prix_min'];
+        }
+    
+        if (isset($criteria['prix_max'])) {
+            $requete .= " AND prix <= ?";
+            $params[] = $criteria['prix_max'];
+        }
+    
+        if (isset($criteria['description'])) {
+            $requete .= " AND description LIKE ?";
+            $params[] = "%" . $criteria['description'] . "%";
+        }
+        $query = $this->db->query($requete, $params);
+        
+        // Stockez les résultats dans un tableau
+        $rep = array();
+        foreach ($query->result_array() as $row) {
+            $rep[] = $row;
+        }
+        
+        return $rep;
+    }
+    
 
     #calcul recette total du parking
     public function getRecette($mois,$annee,$idParking){

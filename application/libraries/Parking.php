@@ -86,13 +86,13 @@ class Parking
     }
 
     /* Liste des parkings */
-    public function get_All_Parkings()
+    public function getAllParkings()
     {
         return $this->CI->Parking_Model->getAll();
     }
 
     /* Récupérer un parking par son id */
-    public function get_Parking_By_Id($id)
+    public function getParkingById($id)
     {
         return $this->CI->Parking_Model->getById($id);
     }

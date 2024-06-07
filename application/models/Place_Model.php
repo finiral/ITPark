@@ -33,6 +33,6 @@ class Place_Model extends CI_Model{
     public function getAll()
     {
         $query = $this->db->get('Place');
-        return $query->result();
+        return $query->result_array();
     }
 }

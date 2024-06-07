@@ -33,6 +33,6 @@ class MouvementPlace_Model extends CI_Model{
     public function getAll()
     {
         $query = $this->db->get('MouvementPlace');
-        return $query->result();
+        return $query->result_array();
     }
 }
