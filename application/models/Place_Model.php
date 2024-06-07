@@ -35,4 +35,18 @@ class Place_Model extends CI_Model{
         $query = $this->db->get('Place');
         return $query->result_array();
     }
+        
+    // Fonction pour changer le statut de la place
+    public function changeState($id, $state) {
+        $this->db->set('status', $state);
+        $this->db->where('id', $id);
+        $this->db->update('Place');
+    }
+
+    // Fonction qui récupère tout les places libre pour un parking donné
+        // Fonction dans la database
+    public function getPlaceFreeForOneParking($id_parking) {     
+        $query = $this->db->query("SELECT * FROM GetPlaceFreeForOneParking(?)", array($id_parking));
+        return $query->result();
+    }
 }

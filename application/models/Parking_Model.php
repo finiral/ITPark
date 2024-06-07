@@ -36,6 +36,7 @@ class Parking_Model extends CI_Model{
         return $query->result_array();
     }
  
+    // Fonction pour avoir liste parking ordre aléatoire
     public function getRandomParkings() {
         $allParkings = $this->getAll();
         // Mélanger pour obtenir un ordre aléatoire
@@ -44,6 +45,7 @@ class Parking_Model extends CI_Model{
         return $allParkings;
     }
     
+    // Fonction avoir liste parking suivant des critères
     public function getParkingByCriteria($criteria = array()){
         // Commencez par la requête de base
         $requete = "SELECT * FROM Parking WHERE 1=1";
