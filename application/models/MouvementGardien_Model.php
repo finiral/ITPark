@@ -10,24 +10,24 @@
         
         // Fonction pour récupérer tous les mouvements des gardiens
         public function getMouvementGardien() {
-            $query = $this->db->get('Mouvementgardien');
+            $query = $this->db->get('mouvementgardien');
             return $query->result_array();
         }
 
         // Fonction pour ajouter un mouvement
         public function insertMouvementGardien($data) {
-            $this->db->insert('Mouvementgardien', $data);
+            $this->db->insert('mouvementgardien', $data);
         }
         
         // Fonction pour mettre à jour les informations d'un Gardien
         public function updateMovementGardien($id, $data) {
-            $this->db->where('id', $id);
-            $this->db->update('Mouvementgardien', $data);
+            $this->db->where('id_mouvementgardien', $id);
+            $this->db->update('mouvementgardien', $data);
         }
         
         // Fonction pour supprimer un gardien
         public function deleteMovementGardien($id) {
-            $this->db->where('id', $id);
-            $this->db->delete('Mouvementgardien');
+            $this->db->where('id_mouvementgardien', $id);
+            $this->db->delete('mouvementgardien');
         }
     }

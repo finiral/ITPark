@@ -104,12 +104,12 @@ class Paiement
     public function insert()
     {
         $data = array(
-            'id_Parking' => $this->id_parking,
+            'id_parking' => $this->id_parking,
             'matricule' => $this->matricule,
             'montant' => $this->montant,
-            'date_Paiement' => $this->date_paiement,
+            'date_paiement' => $this->date_paiement,
             'numero_telephone' => $this->numero_telephone,
-            'isReservation' => $this->isreservation
+            'isreservation' => $this->isreservation
         );
         return $this->CI->Paiement_Model->insert($data);
     }
@@ -117,12 +117,12 @@ class Paiement
     public function update()
     {
         $data = array(
-            'id_Parking' => $this->id_parking,
+            'id_parking' => $this->id_parking,
             'matricule' => $this->matricule,
             'montant' => $this->montant,
-            'date_Paiement' => $this->date_paiement,
+            'date_paiement' => $this->date_paiement,
             'numero_telephone' => $this->numero_telephone,
-            'isReservation' => $this->isreservation
+            'isreservation' => $this->isreservation
         );
         return $this->CI->Paiement_Model->update($this->id_paiement, $data);
     }
@@ -136,13 +136,13 @@ class Paiement
     {
         $data = $this->CI->Paiement_Model->getByid($id);
         if ($data) {
-            $this->id_paiement = $data['id_Paiement'];
-            $this->id_parking = $data['id_Parking'];
+            $this->id_paiement = $data['id_paiement'];
+            $this->id_parking = $data['id_parking'];
             $this->matricule = $data['matricule'];
             $this->montant = $data['montant'];
-            $this->date_paiement = $data['date_Paiement'];
+            $this->date_paiement = $data['date_paiement'];
             $this->numero_telephone = $data['numero_telephone'];
-            $this->isreservation = $data['isReservation'];
+            $this->isreservation = $data['isreservation'];
         }
         return $data;
     }

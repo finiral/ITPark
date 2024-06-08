@@ -18,10 +18,10 @@ class Utilisateur_Model extends CI_Model
 
     public function getParkings($id_user)
     {
-    $this->db->select('accessproprietaire.id_Parking, parking.id_Parking, parking.id_Classe, parking.id_Lieu, parking.nombre_place, parking.prix, parking.description');
+    $this->db->select('accessproprietaire.id_parking, parking.id_parking, parking.id_classe, parking.id_lieu, parking.nombre_place, parking.prix, parking.description');
     $this->db->from('parking');
-    $this->db->join('accessproprietaire', 'accessproprietaire.id_Parking = parking.id_Parking');
-    $this->db->where('accessproprietaire.id_Utilisateur', $id_user);
+    $this->db->join('accessproprietaire', 'accessproprietaire.id_parking = parking.id_parking');
+    $this->db->where('accessproprietaire.id_utilisateur', $id_user);
     $query = $this->db->get();
     return $query->result_array();
     }
@@ -30,7 +30,7 @@ class Utilisateur_Model extends CI_Model
     // Récupérer un utilisateur par son id
     public function getById($id)
     {
-        $query = $this->db->get_where('utilisateur', array('id_Utilisateur' => $id));
+        $query = $this->db->get_where('utilisateur', array('id_utilisateur' => $id));
         return $query->row();
     }
 
@@ -85,7 +85,7 @@ class Utilisateur_Model extends CI_Model
     // Suppression d'un utilisateur
     public function delete($id)
     {
-        $this->db->where('id_Utilisateur', $id);
+        $this->db->where('id_utilisateur', $id);
         return $this->db->delete('utilisateur');
     }
 }

@@ -9,30 +9,30 @@ class MouvementPlace_Model extends CI_Model{
 
     public function insert($data)
     {
-        return $this->db->insert('MouvementPlace', $data);
+        return $this->db->insert('mouvementplace', $data);
     }
 
     public function update($id, $data)
     {
-        $this->db->where('id_MouvementPlace', $id);
-        return $this->db->update('MouvementPlace', $data);
+        $this->db->where('id_mouvementplace', $id);
+        return $this->db->update('mouvementplace', $data);
     }
 
     public function delete($id)
     {
-        $this->db->where('id_MouvementPlace', $id);
-        return $this->db->delete('MouvementPlace');
+        $this->db->where('id_mouvementplace', $id);
+        return $this->db->delete('mouvementplace');
     }
 
     public function getById($id)
     {
-        $query = $this->db->get_where('MouvementPlace', array('id_MouvementPlace' => $id));
+        $query = $this->db->get_where('mouvementplace', array('id_mouvementplace' => $id));
         return $query->row_array();
     }
 
     public function getAll()
     {
-        $query = $this->db->get('MouvementPlace');
+        $query = $this->db->get('mouvementplace');
         return $query->result_array();
     }
 }

@@ -19,15 +19,14 @@ class Collaborateur_Model extends CI_Model{
     }
 
     // Méthode pour calculer la recette totale de chaque parking pour chaque collaborateur
-    public function getTotalRecetteCollaborateur($mois, $id_Utilisateur) {
+    public function getTotalRecetteCollaborateur($mois,$annee, $id_Utilisateur) {
         $this->load->model('Parking_Model');
         $parkings = $this->getParkingsByCollaborateur($id_Utilisateur);
         
         $totalRecette = 0;
         foreach ($parkings as $parking) {
             $id_Parking = $parking['id_parking'];
-            $toralRecette += $this->Parking_Model->getRecetteCollab($mois,$id_Parking);
-            // $totalRecette += $recette;
+            $totalRecette += $this->Parking_Model->getRecetteCollab($mois,$annee,$id_Parking);
         }
         
         return $totalRecette;

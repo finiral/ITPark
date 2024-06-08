@@ -12,17 +12,17 @@ class Classe_Model extends CI_Model
     }
 
     public function update($id,$data){
-        $this->db->where('id_Classe',$id);
+        $this->db->where('id_classe',$id);
         return $this->db->update('classe',$data);
     }
 
     public function delete($id){
-        $this->db->where('id_Classe',$id);
+        $this->db->where('id_classe',$id);
         return $this->db->delete('classe');
     }
 
     public function getByid($id){
-        $query = $this->db->get_where('classe',array('id'=>$id));
+        $query = $this->db->get_where('classe',array('id_classe'=>$id));
         return $query->row_array();
     }
 

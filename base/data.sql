@@ -12,6 +12,12 @@ INSERT INTO Parking (id_Classe, id_Lieu, nombre_place, prix, description) VALUES
 (2, 2, 20, 20, 'Parking VIP avec services additionnels'),
 (3, 3, 100, 30, 'Parking économique avec accès facile');
 
+INSERT INTO Utilisateur (identifiant, mdp, status) VALUES
+('user1@example.com','password123',1),
+('user2@example.com','password456',0),
+('user3@example.com','password789',1);
+
+
 INSERT INTO Accessproprietaire (id_Utilisateur,id_Parking) values (1,1);
 INSERT INTO Accessproprietaire (id_Utilisateur,id_Parking) values (2,1);
 INSERT INTO Accessproprietaire (id_Utilisateur,id_Parking) values (3,1);
@@ -22,10 +28,6 @@ INSERT INTO Place (numero_place, id_Parking, status) VALUES
 (1, 2, 1), (2, 2, 0), (3, 2, 0),
 (1, 3, 1), (2, 3, 1), (3, 3, 0);
 
-INSERT INTO Utilisateur (identifiant, mdp, status) VALUES
-('user1@example.com','password123',1),
-('user2@example.com','password456',0),
-('user3@example.com','password789',1);
 
 INSERT INTO MouvementPlace (id_Parking, id_Place, matricule, date_Heure_MouvementPlace, status) VALUES
 (1, 1, 'ABC1234', '2023-06-01 08:00:00', 1),

@@ -12,12 +12,12 @@ class Paiement_Model extends CI_Model
     }
 
     public function update($id,$data){
-        $this->db->where('id_Paiement',$id);
+        $this->db->where('id_paiement',$id);
         return $this->db->update('paiement',$data);
     }
 
     public function delete($id){
-        $this->db->where('id_Paiement',$id);
+        $this->db->where('id_paiement',$id);
         return $this->db->delete('paiement');
     }
 

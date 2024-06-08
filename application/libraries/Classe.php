@@ -65,10 +65,23 @@ class Classe
     public function getByid($id)
     {
         return $this->CI->Classe_Model->getByid($id);
+        if ($data) {
+             $this->id_classe = $data['id_classe'];
+             $this->intitule = $data['intitule'];
+            }
+        return $data;
     }
 
     public function getAll()
     {
-        return $this->CI->Classe_Model->getAll();
+        $data = $this->CI->Classe_Model->getAll();
+        $classes = array();
+        foreach ($data as $item) {
+             $classes[] = new self(
+                 $item->id_Classe,
+                 $item->intitule,
+             );
+         }
+         return $classes;
      }
 }

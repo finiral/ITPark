@@ -9,30 +9,30 @@ class Parking_Model extends CI_Model{
 
     public function insert($data)
     {
-        return $this->db->insert('Parking', $data);
+        return $this->db->insert('parking', $data);
     }
 
     public function update($id, $data)
     {
-        $this->db->where('id_Parking', $id);
-        return $this->db->update('Parking', $data);
+        $this->db->where('id_parking', $id);
+        return $this->db->update('parking', $data);
     }
 
     public function delete($id)
     {
-        $this->db->where('id_Parking', $id);
-        return $this->db->delete('Parking');
+        $this->db->where('id_parking', $id);
+        return $this->db->delete('parking');
     }
 
     public function getById($id)
     {
-        $query = $this->db->get_where('Parking', array('id_Parking' => $id));
+        $query = $this->db->get_where('parking', array('id_parking' => $id));
         return $query->row_array();
     }
 
     public function getAll()
     {
-        $query = $this->db->get('Parking');
+        $query = $this->db->get('parking');
         return $query->result_array();
     }
  
@@ -48,17 +48,17 @@ class Parking_Model extends CI_Model{
     // Fonction avoir liste parking suivant des critères
     public function getParkingByCriteria($criteria = array()){
         // Commencez par la requête de base
-        $requete = "SELECT * FROM Parking WHERE 1=1";
+        $requete = "SELECT * FROM parking WHERE 1=1";
         $params = array();
     
-        if (isset($criteria['id_Classe'])) {
-            $requete .= " AND id_Classe = ?";
-            $params[] = $criteria['id_Classe'];
+        if (isset($criteria['id_classe'])) {
+            $requete .= " AND id_classe = ?";
+            $params[] = $criteria['id_classe'];
         }
     
-        if (isset($criteria['id_Lieu'])) {
-            $requete .= " AND id_Lieu = ?";
-            $params[] = $criteria['id_Lieu'];
+        if (isset($criteria['id_lieu'])) {
+            $requete .= " AND id_lieu = ?";
+            $params[] = $criteria['id_lieu'];
         }
     
         if (isset($criteria['nombre_place'])) {
@@ -94,8 +94,8 @@ class Parking_Model extends CI_Model{
 
     #calcul recette total du parking
     public function getRecette($mois,$annee,$idParking){
-        $query=$this->db->get("GetPaiement($mois,$annee,$idParking)");
-        return $query->row_array()["total_montant"];
+        $query=$this->db->get("getpaiement($mois,$annee,$idParking)");
+        return $query->row_array()["getpaiement"];
     }
 
     #calcul recette du parking part du collaborateur 
@@ -114,7 +114,7 @@ class Parking_Model extends CI_Model{
 
     #recherche debut heure pointe d'un parking (heure avec le plus d'entrée)
     public function getDebutHeurePointe($mois,$annee,$idParking){
-        $sql="SELECT * from GetPlaceEnterCount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from GetPlaceEnterCount($mois,$annee,$idParking));";
+        $sql="SELECT * from getplaceentercount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from getplaceentercount($mois,$annee,$idParking));";
         $query=$this->db->query($sql);
         $res=$query->row_array();
         return $res["heure"];
@@ -122,9 +122,18 @@ class Parking_Model extends CI_Model{
 
     #recherche fin heure pointe d'un parking (heure avec le plus d'entrée)
     public function getFinHeurePointe($mois,$annee,$idParking){
-        $sql="SELECT * from GetPlaceOutCount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from GetPlaceOutCount($mois,$annee,$idParking));";
+        $sql="SELECT * from getplaceoutcount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from getplaceoutcount($mois,$annee,$idParking));";
         $query=$this->db->query($sql);
         $res=$query->row_array();
         return $res["heure"];
+    }
+
+    #fonction qui reserve
+    public function reserver($dataResa,$dataPaiement){
+        $this->CI->load->model('Reservation_Model');
+        $this->CI->load->model('Paiement_Model');
+
+        $this->Reservation_Model->insert($dataResa);
+        $this->Paiement_Model->insert($dataPaiement);
     }
 }

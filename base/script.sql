@@ -1,12 +1,12 @@
-create database Itpark;
-\c Itpark
- create table Classe(
+create database itpark;
+\c itpark
+create table Classe(
     id_Classe serial primary key,
-    intitule varchar(10) 
+    intitule varchar(30) 
 );
 create table Lieu(
     id_Lieu serial primary key,
-    nom varchar(100),
+    nom varchar(255),
     longitude decimal(10,2),
     latitude decimal(10,2)
 );
@@ -29,7 +29,7 @@ create table Place(
 create table Utilisateur(
     id_Utilisateur serial primary key,
     identifiant VARCHAR(100),
-    mdp varchar(30),
+    mdp varchar(255),
     status smallInt,
     check(status = 0 or status = 1 or status = 2)
 );
@@ -38,19 +38,19 @@ create table Accessproprietaire(
     id_Accessproprietaire serial primary key,
     id_Utilisateur INT references Utilisateur(id_Utilisateur),
     id_Parking INT references Parking(id_Parking)
-)
+);
 --vaovao
 create table Mouvementgardien(
     id_Mouvementgardien serial primary key,
     id_Utilisateur INT references Utilisateur(id_Utilisateur),
     id_Parking INT references Parking(id_Parking),
     Date_Mouvementgardien date
-)
+);
 create table Reservation(
     id_Reservation serial primary key,
     id_Parking int references Parking(id_Parking),
     id_Place int references Place(id_Place),
-    numero_telephone Char(12),
+    numero_telephone varChar(13),
     date_heure_reservation TIMESTAMP WITHOUT TIME ZONE,
     duree smallInt
 );
@@ -61,7 +61,7 @@ create table Paiement(
     matricule varchar(20),
     montant decimal(10,2),
     date_Paiement DATE,
-    numero_telephone varchar(12),
+    numero_telephone varchar(13),
     isReservation smallInt,
     check(isReservation = 0 or isReservation = 1 )
 );
@@ -161,7 +161,7 @@ RETURNS DECIMAL AS $$
 DECLARE
     total_montant DECIMAL := 0;
 BEGIN
-    SELECT SUM(pa.montant)
+    SELECT COALESCE(SUM(pa.montant), 0)
     INTO total_montant
     FROM Paiement pa
     WHERE EXTRACT(MONTH FROM pa.date_paiement) = mois 
@@ -202,70 +202,74 @@ $$ LANGUAGE plpgsql;
 -- 7. Fonction GetPlaceEnterCount
 -- Description: Fonction qui compte le nombre d'entrée dans un parking 
 -- pour chaque intervalle d'heure lors d'un mois donné
-CREATE OR REPLACE FUNCTION GetPlaceEnterCount(mois INT, annee INT,idParking INT) 
+CREATE OR REPLACE FUNCTION GetPlaceEnterCount(
+    mois INT,
+    annee INT,
+    idParking INT
+) 
 RETURNS TABLE(
     heure INT,
-    count_mouvement INT
+    count_mouvement BIGINT
 ) AS $$
 BEGIN
     RETURN QUERY
     SELECT 
-        generate_series(0, 23) AS heure, 
-        COALESCE(SUM(CASE 
-            WHEN EXTRACT(HOUR FROM mp.date_Heure_MouvementPlace) = generate_series THEN 1 
-            ELSE 0 
-        END), 0) AS count_mouvement
+        gs.heure, 
+        COALESCE(COUNT(mp.date_Heure_MouvementPlace), 0) AS count_mouvement
     FROM 
-        generate_series(0, 23) 
+        generate_series(0, 23) AS gs(heure) 
     LEFT JOIN 
         MouvementPlace mp 
     ON 
-        EXTRACT(HOUR FROM mp.date_Heure_MouvementPlace) = generate_series
-    WHERE 
-        EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = mois 
+        EXTRACT(HOUR FROM mp.date_Heure_MouvementPlace) = gs.heure
+        AND EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = mois
         AND EXTRACT(YEAR FROM mp.date_Heure_MouvementPlace) = annee
-        AND mp.status = 1 AND mp.id_Parking=idParking
+        AND mp.status = 1
+        AND mp.id_Parking = idParking
     GROUP BY 
-        generate_series
+        gs.heure
     ORDER BY 
-        heure;
+        gs.heure;
 END;
 $$ LANGUAGE plpgsql;
+
 
 -- 8. Fonction GetPlaceOutCount
 -- Description: Fonction qui compte le nombre d'entrée dans un parking 
 -- pour chaque intervalle d'heure lors d'un mois donné
-CREATE OR REPLACE FUNCTION GetPlaceOutCount(mois INT,annee INT ,idParking INT) 
+CREATE OR REPLACE FUNCTION GetPlaceOutCount(
+    mois INT,
+    annee INT,
+    idParking INT
+) 
 RETURNS TABLE(
     heure INT,
-    count_mouvement INT
+    count_mouvement BIGINT
 ) AS $$
 BEGIN
     RETURN QUERY
     SELECT 
-        generate_series(0, 23) AS heure, 
-        COALESCE(SUM(CASE 
-            WHEN EXTRACT(HOUR FROM mp.date_Heure_MouvementPlace) = generate_series THEN 1 
-            ELSE 0 
-        END), 0) AS count_mouvement
+        gs.heure, 
+        COALESCE(COUNT(mp.date_Heure_MouvementPlace), 0) AS count_mouvement
     FROM 
-        generate_series(0, 23) 
+        generate_series(0, 23) AS gs(heure) 
     LEFT JOIN 
         MouvementPlace mp 
     ON 
-        EXTRACT(HOUR FROM mp.date_Heure_MouvementPlace) = generate_series
-    WHERE 
-        EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = mois 
+        EXTRACT(HOUR FROM mp.date_Heure_MouvementPlace) = gs.heure
+        AND EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = mois
         AND EXTRACT(YEAR FROM mp.date_Heure_MouvementPlace) = annee
-        AND mp.status = 0 AND mp.id_Parking=idParking
+        AND mp.status = 0 
+        AND mp.id_Parking = idParking
     GROUP BY 
-        generate_series
+        gs.heure
     ORDER BY 
-        heure;
+        gs.heure;
 END;
 $$ LANGUAGE plpgsql;
 
 
 
+
 -- Requete pour avoir l'heure avec entrée max parking
-SELECT * from GetPlaceOutCount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from GetPlaceOutCount($mois,$annee,$idParking));
+SELECT * from GetPlaceOutCount(6,2023,1) where count_mouvement=(SELECT max(count_mouvement) from GetPlaceOutCount(6,2023,1));
