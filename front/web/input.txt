@@ -1,0 +1,20 @@
+class
+    intitule : text 
+lieu 
+    nom : text
+    coordonne
+        longitude : text
+        latitude  : text
+parking 
+    lieu                        : text
+    nombre de place             : number    
+    proprietaire                : text
+    prix                        : number
+    class                       : select 
+    description preise du lieu  : textarea
+
+utilisateur
+    idparking                   : obligatoir
+    mot de passe                : obligatoir
+    numero telephone            : optionnel pour gardien, obligatoir pour collaborateur
+    email                       : obligatoir pour collaborateur
