@@ -13,9 +13,9 @@ INSERT INTO Parking (id_Classe, id_Lieu, nombre_place, prix, description) VALUES
 (3, 3, 100, 30, 'Parking économique avec accès facile');
 
 INSERT INTO Utilisateur (identifiant, mdp, status) VALUES
-('user1@example.com','password123',1),
-('user2@example.com','password456',0),
-('user3@example.com','password789',1);
+('user1@example.com',MD5('password123'),1),
+('user2@example.com',MD5('password456'),0),
+('user3@example.com',MD5('password789'),1);
 
 
 INSERT INTO Accessproprietaire (id_Utilisateur,id_Parking) values (1,1);

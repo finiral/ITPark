@@ -39,7 +39,7 @@ class Utilisateur_Model extends CI_Model
     {
         $query = $this->db->get_where('utilisateur', array(
             'identifiant' => $identifiant,
-            'mdp' => $mdp,
+            'mdp' => md5($mdp),
             'status' => $status
         ));
         return $query->row();
