@@ -136,4 +136,10 @@ class Parking_Model extends CI_Model{
         $this->Reservation_Model->insert($dataResa);
         $this->Paiement_Model->insert($dataPaiement);
     }
+
+    #fonction calcul de prevision d'un {mois,annee}
+    #TO-DO after : getPrevisionAdmin & getPrevisionCollab
+    public function getPrevision($mois,$annee){
+
+    }
 }
