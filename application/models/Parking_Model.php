@@ -137,6 +137,26 @@ class Parking_Model extends CI_Model{
         $this->Paiement_Model->insert($dataPaiement);
     }
 
+    public function getVariation($mois,$annee,$idParking)
+    {
+        $recette1=$this->getRecette($mois,$annee-1,$idParking);
+        $recette2=$this->getRecette($mois,$annee-2,$idParking);
+        $moyenne=($recette1+$recette2)/2;
+        $recette=$this->getRecette($mois,$annee,$idParking);
+        return $recette/$moyenne;
+    }
+
+    public function getMoyenneVariation($mois,$annee,$idParking)
+    {
+        $moisfor=1;
+        $variance=0;
+        while($moisfor<=$mois){
+            $variance=$variance+$this->getVariation($moisfor,$annee,$idParking);
+            $moisfor=$moisfor+1;
+        }
+        return $variance/($moisfor-1);
+    }
+
     #fonction calcul de prevision d'un {mois,annee}
     #TO-DO after : getPrevisionAdmin & getPrevisionCollab
     public function getPrevision($mois,$annee){
