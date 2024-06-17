@@ -268,8 +268,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- view
+ CREATE VIEW v_Parking AS
+ SELECT
+     p.id_Parking,
+     c.intitule AS classe_nom,
+     l.nom AS lieu_nom,
+     p.nombre_place,
+     p.prix,
+     p.description
+ FROM
+     Parking p
+ JOIN
+     Classe c ON p.id_Classe = c.id_Classe
+ JOIN
+     Lieu l ON p.id_Lieu = l.id_Lieu;
 
 
-
--- Requete pour avoir l'heure avec entrée max parking
-SELECT * from GetPlaceOutCount(6,2023,1) where count_mouvement=(SELECT max(count_mouvement) from GetPlaceOutCount(6,2023,1));

@@ -36,61 +36,87 @@ class Parking_Model extends CI_Model{
         return $query->result_array();
     }
  
+    public function getInfoParkingComplet()
+    {
+        $requete = "SELECT * FROM  v_parking";
+        $query = $this->db->query($requete);
+         // Stockez les résultats dans un tableau
+         $rep = array();
+         foreach ($query->result_array() as $row) {
+             $rep[] = $row;
+         }
+         
+         return $rep;
+        
+    }  
     // Fonction pour avoir liste parking ordre aléatoire
     public function getRandomParkings() {
-        $allParkings = $this->getAll();
+        $allParkings = $this->getInfoParkingComplet();
         // Mélanger pour obtenir un ordre aléatoire
         shuffle($allParkings);
         
         return $allParkings;
     }
-    
+
     // Fonction avoir liste parking suivant des critères
-    public function getParkingByCriteria($criteria = array()){
+    public function getParkingByCriteria($criteria = array()) {
         // Commencez par la requête de base
-        $requete = "SELECT * FROM parking WHERE 1=1";
+        $requete = "SELECT * FROM v_parking";
         $params = array();
-    
-        if (isset($criteria['id_classe'])) {
-            $requete .= " AND id_classe = ?";
-            $params[] = $criteria['id_classe'];
+        $conditions = false; // Flag to check if any condition is added
+        // Handle multiple classes in a more scalable way
+        if (isset($criteria['classes']) && is_array($criteria['classes'])) {
+            $placeholders = implode(',', array_fill(0, count($criteria['classes']), '?'));
+            $requete .= " WHERE classe_nom IN ($placeholders)";
+            $params = array_merge($params, $criteria['classes']);
+            $conditions = true;
         }
     
-        if (isset($criteria['id_lieu'])) {
-            $requete .= " AND id_lieu = ?";
-            $params[] = $criteria['id_lieu'];
-        }
-    
-        if (isset($criteria['nombre_place'])) {
-            $requete .= " AND nombre_place = ?";
-            $params[] = $criteria['nombre_place'];
+        if (isset($criteria['lieu_nom'])) {
+            if ($conditions) {
+                $requete .= " AND LOWER(lieu_nom) LIKE LOWER(?)";
+            } else {
+                $requete .= " WHERE LOWER(lieu_nom) LIKE LOWER(?)";
+            }
+            $params[] = '%' . strtolower($criteria['lieu_nom']) . '%';
+            $conditions = true;
         }
     
         if (isset($criteria['prix_min'])) {
-            $requete .= " AND prix >= ?";
+            if ($conditions) {
+                $requete .= " AND prix >= ?";
+            } else {
+                $requete .= " WHERE prix >= ?";
+            }
             $params[] = $criteria['prix_min'];
+            $conditions = true;
         }
     
         if (isset($criteria['prix_max'])) {
-            $requete .= " AND prix <= ?";
+            if ($conditions) {
+                $requete .= " AND prix <= ?";
+            } else {
+                $requete .= " WHERE prix <= ?";
+            }
             $params[] = $criteria['prix_max'];
+            $conditions = true;
         }
     
-        if (isset($criteria['description'])) {
-            $requete .= " AND description LIKE ?";
-            $params[] = "%" . $criteria['description'] . "%";
+        // If no conditions were added, query without WHERE clause
+        if (!$conditions) {
+            $requete = "SELECT * FROM v_parking";
         }
+    
         $query = $this->db->query($requete, $params);
-        
+    
         // Stockez les résultats dans un tableau
         $rep = array();
         foreach ($query->result_array() as $row) {
             $rep[] = $row;
         }
-        
+    
         return $rep;
     }
-    
 
     #calcul recette total du parking
     public function getRecette($mois,$annee,$idParking){
