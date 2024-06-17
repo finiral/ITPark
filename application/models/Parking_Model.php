@@ -1,6 +1,7 @@
-<?php 
-defined('BASEPATH') OR exit('No direct script access allowed');
-class Parking_Model extends CI_Model{
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+class Parking_Model extends CI_Model
+{
     public function __construct()
     {
         parent::__construct();
@@ -35,101 +36,109 @@ class Parking_Model extends CI_Model{
         $query = $this->db->get('parking');
         return $query->result_array();
     }
- 
+
     // Fonction pour avoir liste parking ordre aléatoire
-    public function getRandomParkings() {
+    public function getRandomParkings()
+    {
         $allParkings = $this->getAll();
         // Mélanger pour obtenir un ordre aléatoire
         shuffle($allParkings);
-        
+
         return $allParkings;
     }
-    
+
     // Fonction avoir liste parking suivant des critères
-    public function getParkingByCriteria($criteria = array()){
+    public function getParkingByCriteria($criteria = array())
+    {
         // Commencez par la requête de base
         $requete = "SELECT * FROM parking WHERE 1=1";
         $params = array();
-    
+
         if (isset($criteria['id_classe'])) {
             $requete .= " AND id_classe = ?";
             $params[] = $criteria['id_classe'];
         }
-    
+
         if (isset($criteria['id_lieu'])) {
             $requete .= " AND id_lieu = ?";
             $params[] = $criteria['id_lieu'];
         }
-    
+
         if (isset($criteria['nombre_place'])) {
             $requete .= " AND nombre_place = ?";
             $params[] = $criteria['nombre_place'];
         }
-    
+
         if (isset($criteria['prix_min'])) {
             $requete .= " AND prix >= ?";
             $params[] = $criteria['prix_min'];
         }
-    
+
         if (isset($criteria['prix_max'])) {
             $requete .= " AND prix <= ?";
             $params[] = $criteria['prix_max'];
         }
-    
+
         if (isset($criteria['description'])) {
             $requete .= " AND description LIKE ?";
             $params[] = "%" . $criteria['description'] . "%";
         }
         $query = $this->db->query($requete, $params);
-        
+
         // Stockez les résultats dans un tableau
         $rep = array();
         foreach ($query->result_array() as $row) {
             $rep[] = $row;
         }
-        
+
         return $rep;
     }
-    
+
 
     #calcul recette total du parking
-    public function getRecette($mois,$annee,$idParking){
-        $query=$this->db->get("getpaiement($mois,$annee,$idParking)");
+    public function getRecette($mois, $annee, $idParking)
+    {
+        $query = $this->db->get("getpaiement($mois,$annee,$idParking)");
         return $query->row_array()["getpaiement"];
     }
 
     #calcul recette du parking part du collaborateur 
-    public function getRecetteCollab($mois,$annee,$idParking){
-        $montant=$this->getRecette($mois,$annee,$idParking);
-        return (40*$montant)/100;
+    public function getRecetteCollab($mois, $annee, $idParking)
+    {
+        $montant = $this->getRecette($mois, $annee, $idParking);
+        return (40 * $montant) / 100;
     }
 
     #calcul recette du parking part de l'admin 
-    public function getRecetteAdmin($mois,$annee,$idParking){
-        $montant=$this->getRecette($mois,$annee,$idParking);
-        $montant60=(60*$montant)/100;
-        $res=$montant60-((16.5*$montant60)/100);
+    public function getRecetteAdmin($mois, $annee, $idParking)
+    {
+        $montant = $this->getRecette($mois, $annee, $idParking);
+        $montant60 = (60 * $montant) / 100;
+        $res = $montant60 - ((16.5 * $montant60) / 100);
         return $res;
     }
 
     #recherche debut heure pointe d'un parking (heure avec le plus d'entrée)
-    public function getDebutHeurePointe($mois,$annee,$idParking){
-        $sql="SELECT * from getplaceentercount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from getplaceentercount($mois,$annee,$idParking));";
-        $query=$this->db->query($sql);
-        $res=$query->row_array();
+    public function getDebutHeurePointe($mois, $annee, $idParking)
+    {
+        $sql = "SELECT * from getplaceentercount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from getplaceentercount($mois,$annee,$idParking));";
+        $query = $this->db->query($sql);
+        $res = $query->row_array();
         return $res["heure"];
     }
 
     #recherche fin heure pointe d'un parking (heure avec le plus d'entrée)
-    public function getFinHeurePointe($mois,$annee,$idParking){
-        $sql="SELECT * from getplaceoutcount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from getplaceoutcount($mois,$annee,$idParking));";
-        $query=$this->db->query($sql);
-        $res=$query->row_array();
+    public function getFinHeurePointe($mois, $annee, $idParking)
+    {
+        $sql = "SELECT * from getplaceoutcount($mois,$annee,$idParking) where count_mouvement=(SELECT max(count_mouvement) from getplaceoutcount($mois,$annee,$idParking));";
+        $query = $this->db->query($sql);
+        $res = $query->row_array();
         return $res["heure"];
     }
 
     #fonction qui reserve
-    public function reserver($dataResa,$dataPaiement){
+    public function reserver($dataResa, $dataPaiement)
+    {
         $this->CI->load->model('Reservation_Model');
         $this->CI->load->model('Paiement_Model');
 
@@ -137,29 +146,34 @@ class Parking_Model extends CI_Model{
         $this->Paiement_Model->insert($dataPaiement);
     }
 
-    public function getVariation($mois,$annee,$idParking)
+    public function getVariation($mois, $annee, $idParking)
     {
-        $recette1=$this->getRecette($mois,$annee-1,$idParking);
-        $recette2=$this->getRecette($mois,$annee-2,$idParking);
-        $moyenne=($recette1+$recette2)/2;
-        $recette=$this->getRecette($mois,$annee,$idParking);
-        return $recette/$moyenne;
+        $recette1 = $this->getRecette($mois, $annee - 1, $idParking);
+        $recette2 = $this->getRecette($mois, $annee - 2, $idParking);
+        $moyenne = ($recette1 + $recette2) / 2;
+        $recette = $this->getRecette($mois, $annee, $idParking);
+        return $recette / $moyenne;
     }
 
-    public function getMoyenneVariation($mois,$annee,$idParking)
+    public function getMoyenneVariation($mois, $annee, $idParking)
     {
-        $moisfor=1;
-        $variance=0;
-        while($moisfor<=$mois){
-            $variance=$variance+$this->getVariation($moisfor,$annee,$idParking);
-            $moisfor=$moisfor+1;
+        $moisfor = 1;
+        $variance = 0;
+        while ($moisfor <= $mois) {
+            $variance = $variance + $this->getVariation($moisfor, $annee, $idParking);
+            $moisfor = $moisfor + 1;
         }
-        return $variance/($moisfor-1);
+        return $variance / ($moisfor - 1);
     }
 
     #fonction calcul de prevision d'un {mois,annee}
     #TO-DO after : getPrevisionAdmin & getPrevisionCollab
-    public function getPrevision($mois,$annee){
-
+    public function getPrevision($mois, $annee, $idParking)
+    {
+        $recette1 = $this->getRecette($mois, $annee - 1, $idParking);
+        $recette2 = $this->getRecette($mois, $annee - 2, $idParking);
+        $moyenne = ($recette1 + $recette2) / 2;
+        $moyenneVariation = $this->getMoyenneVariation($mois-1, $annee, $idParking);
+        return $moyenneVariation * $moyenne;
     }
 }
