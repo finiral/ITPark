@@ -98,8 +98,9 @@ class Parking_Model extends CI_Model
     #calcul recette total du parking
     public function getRecette($mois, $annee, $idParking)
     {
-        $query = $this->db->get("getpaiement($mois,$annee,$idParking)");
-        return $query->row_array()["getpaiement"];
+        $this->load->model("Recette_Model");
+        $res = $this->Recette_Model->get("getpaiement($mois,$annee,$idParking");
+        return $res->row_array()["getpaiement"];
     }
 
     #calcul recette du parking part du collaborateur 
@@ -139,8 +140,8 @@ class Parking_Model extends CI_Model
     #fonction qui reserve
     public function reserver($dataResa, $dataPaiement)
     {
-        $this->CI->load->model('Reservation_Model');
-        $this->CI->load->model('Paiement_Model');
+        $this->load->model('Reservation_Model');
+        $this->load->model('Paiement_Model');
 
         $this->Reservation_Model->insert($dataResa);
         $this->Paiement_Model->insert($dataPaiement);
@@ -168,12 +169,75 @@ class Parking_Model extends CI_Model
 
     #fonction calcul de prevision d'un {mois,annee}
     #TO-DO after : getPrevisionAdmin & getPrevisionCollab
-    public function getPrevision($mois, $annee, $idParking)
+    public function getPrevisionMoisApres($mois, $annee, $idParking)
     {
         $recette1 = $this->getRecette($mois, $annee - 1, $idParking);
         $recette2 = $this->getRecette($mois, $annee - 2, $idParking);
         $moyenne = ($recette1 + $recette2) / 2;
-        $moyenneVariation = $this->getMoyenneVariation($mois-1, $annee, $idParking);
+        $moyenneVariation = $this->getMoyenneVariation($mois - 1, $annee, $idParking);
         return $moyenneVariation * $moyenne;
+    }
+    public function getPrevision($mois, $annee, $idParking)
+    {
+        $this->load->model('Recette_Model');
+        $lastMonth = $this->Recette_Model->getLastMonth($annee, $idParking); //le dernier mois ou il y avait une recette reelle
+        $prevision = 0;
+        while ($lastMonth < 11) {
+            if ($lastMonth == $mois - 1) {
+                $prevision = $this->getPrevisionMoisApres($mois, $annee, $idParking);
+                $this->Recette_Model->deletePrevision($idParking);
+                return $prevision;
+            } else {
+                $prevision = $this->getPrevisionMoisApres($lastMonth + 1, $annee, $idParking);
+                $this->Recette_Model->addPrevision($lastMonth + 1, $annee, $idParking, $prevision);
+                $lastMonth++;
+            }
+        }
+    }
+
+    public function prepareRecette2D($idParking)
+    {
+        $this->load->model("Paiement_Model");
+        $res = array(array());
+        $moisAnnee = $this->Paiement_Model->getMostRecent($idParking);
+        $mois = $moisAnnee["mois"];
+        $an = $moisAnnee["annee"];
+        for ($a = $an - 2; $a <= $an; $a++) {
+            $mfinal = 12;
+            if ($a == $an) {
+                $mfinal = $mois;
+            }
+            for ($m = 1; $m <= $mfinal; $m++) {
+                $res[$a][$m] = $this->getRecette($m, $a, $idParking);
+            }
+        }
+        return $res;
+    }
+
+    public function getPrevision2D($moisTarget, $anneeTarget, $idParking)
+    {
+        $this->load->model("Paiement_Model");
+        $moisAnnee = $this->Paiement_Model->getMostRecent($idParking);
+        $mois = $moisAnnee["mois"];
+        $an = $moisAnnee["annee"];
+        $moyenneVariation = $this->getMoyenneVariation($mois, $an, $idParking);
+        ///PREPARATION DU TABLEAU
+        $tab = $this->prepareRecette2D($idParking);
+        while ($an <= $anneeTarget) {
+            $mfinal = 12;
+            $mdebut = $mois + 1;
+            if ($an != $moisAnnee["annee"]) {
+                $mdebut = 1;
+            }
+            if ($an == $anneeTarget) {
+                $mfinal = $moisTarget;
+            }
+            for ($m = $mdebut; $m <= $mfinal; $m++) {
+                $moyenne = ($tab[$an - 1][$m] + $tab[$an - 2][$m]) / 2;
+                $tab[$an][$m] = $this->$moyenne * $moyenneVariation;
+            }
+            $an++;
+        }
+        return $tab;
     }
 }

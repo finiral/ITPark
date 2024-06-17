@@ -75,6 +75,16 @@ create table MouvementPlace(
     status smallint,
     check(status = 0 or status = 1 )
 );
+--vaovao
+create table Recette(
+    id_Recette serial primary key,
+    id_Parking int references Parking(id_Parking),
+    montant decimal(10,2),
+    mois smallInt,
+    annee smallInt,
+    status smallInt,
+    check(status = 0 or status = 1 )
+);
 
 -- 1. Fonction vueFonctionBase
 -- Description: Fonction qui retourne les parkings avec des places libres dans un lieu spécifique.
@@ -268,8 +278,3 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
-
-
--- Requete pour avoir l'heure avec entrée max parking
-SELECT * from GetPlaceOutCount(6,2023,1) where count_mouvement=(SELECT max(count_mouvement) from GetPlaceOutCount(6,2023,1));
