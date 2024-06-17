@@ -68,7 +68,12 @@ class Login extends CI_Controller
             redirect("login/$redirect");
         }
         else{
-            echo "Utilisateur existant";
+            $this->load->model("Parking_Model");
+            // var_dump($this->Parking_Model->getInfoParkingComplet());
+    
+            $parkings  = $this->Parking_Model->getInfoParkingComplet();
+            $data['parking'] = $parkings;
+            $this->load->view("home/home", $data);
         }
     }
 }
