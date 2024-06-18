@@ -50,6 +50,13 @@ class Place_Model extends CI_Model{
         return $query->result_array();
     }
 
+    // vaovao
+    // Fonction qui récupère toutes les places d'une parking donnée
+    public function getPlacesByParking($id_parking) {
+        $query = $this->db->get_where('place', array('id_parking' => $id_parking));
+        return $query->result_array();
+    }
+
     // Fonction qui prend le mouvement le plus récent de la matricule
     public function getMouvement($matricule, $status)
     {
