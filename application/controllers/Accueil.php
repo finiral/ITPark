@@ -1,8 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class recherche extends CI_Controller
+class Accueil extends CI_Controller
 {
+    public function index(){
+        redirect("accueil/recherche");
+    }
+
     public function recherche()
     {
         $this->load->model("Parking_Model");
@@ -25,9 +29,11 @@ class recherche extends CI_Controller
         if (!empty($max)) {
             $criteria['prix_max'] = (string) $max;
         } 
+        $data["title"]="Page de recherche";
+        $data["description"] = "Page de recherche Parking ITpark";
+        $data["contents"] = "home/home";
 		$data['recherche'] = $this->Parking_Model->getParkingByCriteria($criteria);
-		var_dump($criteria['classes']);
-        $this->load->view("home/home",$data);
+        $this->load->view("templates2/template2",$data);
 		
     }
 }

@@ -11,7 +11,7 @@
     <title><?php echo $title?></title>
 </head>
 
-<body class="bg-gray">
+<body class="bg-dark-gray">
     <div class="container">
         <nav class="navbar navbar-expand-lg head bg-dark fixed-top ">
             <div class="container-fluid justify-content-md-start justify-content-center">
