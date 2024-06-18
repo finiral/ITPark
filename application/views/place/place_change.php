@@ -9,7 +9,7 @@
     </div>
 </nav>
 <div class=" row mt-6">
-    <div class="body pe-0 pe-md-2 pe-lg-2">
+    <div class="body pe-0 pe-md-0 pe-lg-0">
         <div class="row croquis mx-0 pb-3 pe-md-3 pe-lg-3 bg-light">
             <div class="col-lg-8 col-md-12 mx-0 mt-1x` bg-light">
                 <div class="row p-3">
