@@ -22,6 +22,6 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->model("Parking_Model");
 		/* var_dump($this->Parking_Model->prepareRecette2D(1)); */
-		var_dump($this->Parking_Model->getPrevision2D(2,2024,1));
+		var_dump($this->Parking_Model->getPrevision2D(1,2024,1));
 	}
 }

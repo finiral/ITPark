@@ -75,17 +75,6 @@ create table MouvementPlace(
     status smallint,
     check(status = 0 or status = 1 )
 );
---vaovao
-create table Recette(
-    id_Recette serial primary key,
-    id_Parking int references Parking(id_Parking),
-    montant decimal(10,2),
-    mois smallInt,
-    annee smallInt,
-    status smallInt,
-    check(status = 0 or status = 1 )
-);
-
 -- 1. Fonction vueFonctionBase
 -- Description: Fonction qui retourne les parkings avec des places libres dans un lieu spécifique.
 CREATE OR REPLACE FUNCTION  GetPlaceParkingFreeOnPlace(param_idLieu INT) 
