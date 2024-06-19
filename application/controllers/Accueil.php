@@ -34,7 +34,6 @@ class Accueil extends CI_Controller
         $data["contents"] = "home/home";
 		$data['recherche'] = $this->Parking_Model->getParkingByCriteria($criteria);
         $this->load->view("templates2/template2",$data);
-		
     }
 }
 

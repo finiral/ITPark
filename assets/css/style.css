@@ -26,6 +26,21 @@ a {
   color: #4154f1;
   text-decoration: none;
 }
+.list-logo{
+  font-size:50px;
+}
+.car-icon{
+  color:#E63D36;
+}
+.brand-1{
+  color: white;
+  font-weight: bolder;
+}
+
+.brand-2{
+  color: #E63D36;
+  font-weight: bolder;
+}
 
 a:hover {
   color: #717ff5;

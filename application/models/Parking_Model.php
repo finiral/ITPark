@@ -46,9 +46,19 @@ class Parking_Model extends CI_Model{
              $rep[] = $row;
          }
          
-         return $rep;
-        
-    }  
+         return $rep;  
+    }
+    
+    public function getInfoParkingCompletId($idParking)
+    {
+        $requete = "SELECT * FROM  v_parking where id_parking=$idParking";
+        $query = $this->db->query($requete);
+         // Stockez les résultats dans un tableau
+         if ($query->row_array()) {
+             return $query->row_array();
+         }
+    }
+
     // Fonction pour avoir liste parking ordre aléatoire
     public function getRandomParkings() {
         $allParkings = $this->getInfoParkingComplet();
