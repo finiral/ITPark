@@ -30,7 +30,7 @@
     </nav>
 
     <!-- ======= Header ======= -->
-    <header class="header bg-dark fixed-top">
+    <header class="headerRecherche bg-dark fixed-top">
     <div class="container-fluid justify-content-md-start justify-content-center">
         <a class="navbar-brand brand" href="#">
           <span class=""><img class="rounded" src="<?php echo base_url("assets/image/directions_car_24dp_FILL0_wght400_GRAD0_opsz24.png") ?>" alt=""></span>

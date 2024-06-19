@@ -16,6 +16,7 @@ class Information extends CI_Controller
         $data["title"]="Information du parking";
         $data["description"] = "Page d'informations d'un parking";
         $data["contents"] = "information/information";
+        $data["id"]=$parking["id_parking"];
         $data["prix"]=$parking["prix"];
         $data["lieu"]=$parking["lieu_nom"];
         $data["classe"]=$parking["classe_nom"];

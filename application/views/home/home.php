@@ -10,7 +10,7 @@
             </div><!-- End Page Title -->
 
 
-            <div class="information  col-lg-7">
+            <div class="information  pb-3 col-lg-7">
 
                 <?php
                 if (count($recherche) == 0) { ?>
