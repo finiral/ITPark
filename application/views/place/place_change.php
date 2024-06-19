@@ -40,10 +40,13 @@
                         </div>
                     </div>
                     <div class="col-7  p-1 colon-2 justify-content-center"><button href="" class="btn btn-dark bouton w-100">Reserver</button></div>
-                    <div class="col-3  p-1 colon-3 d-flex justify-content-end">
-                        <div class="moov h-100 bg-dark">
-                            <div class="boule h-100 bg-light bl-slide"></div>
-                        </div>
+                    <div class="col-3  p-1 colon-3 d-flex justify-content-end" ng-controller="place">
+                        <form action="" >
+                            <div class="moov h-100 bg-dark" ng-click="reserve()">
+                                <input type="hidden" class="val" ng-model="value" name="val" >
+                                <div class="boule h-100 bg-light bl-slide" ></div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <?php } ?>
@@ -51,3 +54,5 @@
         </div>
     </div>
 </div>
+
+<script src="<?php echo base_url("assets/js/moov-menu.js") ?>"></script>
