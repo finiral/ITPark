@@ -1,11 +1,10 @@
 
 
 <!-- Ajouter l'élément de fond flou -->
-<!-- <div id="blurBackground" class="blur-background hidden"></div> -->
 
-    <center>
+    <center class="pt-5 mt-5">
         <?php if(isset($recherche)): ?>
-        <div class="main-content">
+        <div class="main-content min-vh-100 mt-5 p-3">
         <div class="titlePage">
             <h3 style="color: rgb(0, 0, 0);">Liste des parkings</h3>
             <h1 style="font-weight: bold;color:#E63D36 ;"> réduction 10%  </h1> 
@@ -14,7 +13,13 @@
 
         
         <div class="information  col-lg-7">
-            <?php foreach ($recherche as $p) { ?>
+
+            <?php 
+            if(count($recherche)==0){?>
+                <h1>Aucun parking ne correspond a vos recherches</h1>
+            <?php }
+            else{
+            foreach ($recherche as $p) { ?>
                 <div class="element col-11 col-lg-10 mt-3"> 
                         <div class="element-2">
                             <div class="row justify-content-center">
@@ -23,8 +28,8 @@
                                         <p><?php echo $p['id_parking'] ?></p>
                                     </div>
                                 </div>
-                                <div class="col-5">
-                                    <div class="row">
+                                <div class="col-5 ">
+                                    <div class="row text-wrap">
                                         <div class="icon-text-inline">
                                             <i class="bi bi-geo-alt-fill"></i> <!-- Exemple d'icône Font Awesome -->
                                             <span class="lieu"><?php echo $p['lieu_nom'] ?></span>
@@ -40,12 +45,14 @@
                             </div>   
                         </div>
                 </div>
-            <?php }?>
+            <?php } }?>
         </div>
     
     <?php endif; ?>
     </center>
 <br>
+<div id="blurBackground" class="blur-background hidden"></div>
+
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 <script src="<?php echo base_url("assets/js/function.js")?>"> </script> 
 

@@ -284,4 +284,8 @@ $$ LANGUAGE plpgsql;
  JOIN
      Lieu l ON p.id_Lieu = l.id_Lieu;
 
-
+--view paiement par jour
+    date_Paiement DATE,
+    date_Paiement DATE,
+create or replace view v_PaiementDay as select id_parking,sum(montant),date_Paiement from paiement group by 
+date_Paiement,id_Parking order by date_Paiement;

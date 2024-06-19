@@ -24,13 +24,13 @@
   <title><?php echo $title ?></title>
 </head>
 
-<body class="bg-white">
+<body class="bg-white ">
     <nav class="navbar navbar-expand-lg head bg-dark">
       
     </nav>
 
     <!-- ======= Header ======= -->
-    <header class="header bg-dark">
+    <header class="header bg-dark fixed-top">
     <div class="container-fluid justify-content-md-start justify-content-center">
         <a class="navbar-brand brand" href="#">
           <span class=""><img class="rounded" src="<?php echo base_url("assets/image/directions_car_24dp_FILL0_wght400_GRAD0_opsz24.png") ?>" alt=""></span>
@@ -40,7 +40,7 @@
         </a>
       </div>
       <form method="GET" action="<?php echo site_url("accueil/recherche"); ?>">
-        <div class="row justify-content-center">
+        <div class="justify-content-center">
           <div class="container d-flex justify-content-center align-items-center">
 
             <div class="col-8 col-md-6">
@@ -55,7 +55,7 @@
         </div>
         
 
-        <div class="row mt-2 mb-2 justify-content-center ">
+        <div class="mt-2 mb-2 justify-content-center ">
           <p class="d-inline-flex gap-1">
             <center>
               <button class="buttonSearche  toolbox-active " type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" style="width: 100px;">budget</button>
