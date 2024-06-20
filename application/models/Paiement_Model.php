@@ -31,6 +31,12 @@ class Paiement_Model extends CI_Model
     return $query->result_array();
     }
 
+    public function getMostRecent($idParking){
+        $query=$this->db->query("SELECT EXTRACT(YEAR FROM date_paiement) AS annee,EXTRACT(MONTH FROM date_paiement) AS mois FROM paiement WHERE id_parking=$idParking ORDER BY date_paiement DESC LIMIT 1;");
+        return $query->row_array();
+
+    }
+
 }
 
 ?>

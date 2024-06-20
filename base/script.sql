@@ -75,7 +75,6 @@ create table MouvementPlace(
     status smallint,
     check(status = 0 or status = 1 )
 );
-
 -- 1. Fonction vueFonctionBase
 -- Description: Fonction qui retourne les parkings avec des places libres dans un lieu spécifique.
 CREATE OR REPLACE FUNCTION  GetPlaceParkingFreeOnPlace(param_idLieu INT) 
@@ -287,5 +286,6 @@ $$ LANGUAGE plpgsql;
 --view paiement par jour
     date_Paiement DATE,
     date_Paiement DATE,
+    
 create or replace view v_PaiementDay as select id_parking,sum(montant),date_Paiement from paiement group by 
 date_Paiement,id_Parking order by date_Paiement;

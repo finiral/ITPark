@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class Collaborateur_Model extends CI_Model{
+class Collaborateur_Model extends CI_Model
+{
 
     public function __construct()
     {
@@ -9,8 +10,17 @@ class Collaborateur_Model extends CI_Model{
         $this->load->model('Parking_Model');
         $this->load->model('Utilisateur_Model');
     }
+
+    // Fonction pour récupérer tous les COLLABORATEURS
+    public function getAll()
+    {
+        $query = $this->db->get_where('utilisateur', array('status' => 1));
+        return $query->result_array();
+    }
+
     // Méthode pour obtenir les parkings d'un collaborateur
-    public function getParkingsByCollaborateur($id_Utilisateur) {
+    public function getParkingsByCollaborateur($id_Utilisateur)
+    {
         $this->db->select('id_parking');
         $this->db->from('accessproprietaire');
         $this->db->where('id_utilisateur', $id_Utilisateur);
@@ -19,18 +29,22 @@ class Collaborateur_Model extends CI_Model{
     }
 
     // Méthode pour calculer la recette totale de chaque parking pour chaque collaborateur
-    public function getTotalRecetteCollaborateur($mois,$annee, $id_Utilisateur) {
+    public function getTotalRecetteCollaborateur($mois, $annee, $id_Utilisateur)
+    {
         $this->load->model('Parking_Model');
         $parkings = $this->getParkingsByCollaborateur($id_Utilisateur);
-        
+
         $totalRecette = 0;
         foreach ($parkings as $parking) {
             $id_Parking = $parking['id_parking'];
-            $totalRecette += $this->Parking_Model->getRecetteCollab($mois,$annee,$id_Parking);
+            $totalRecette += $this->Parking_Model->getRecetteCollab($mois, $annee, $id_Parking);
         }
-        
+
         return $totalRecette;
     }
 
+    // Fonction pour avoir la total de prevision d'un mois annee d'un collaborateur
+    public function getTotalPrevision($mois, $annee,$idCollab)
+    {
+    }
 }
-?>

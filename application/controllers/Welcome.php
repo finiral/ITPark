@@ -20,7 +20,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->model("Utilisateur_Model");
-		var_dump($this->Utilisateur_Model->getByNamePwdType("user1@example.com","password123",1));
+		$this->load->model("Parking_Model");
+		/* var_dump($this->Parking_Model->prepareRecette2D(1)); */
+		var_dump($this->Parking_Model->getPrevision2D(1,2024,1));
 	}
 }
