@@ -267,3 +267,25 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- view
+ CREATE VIEW v_Parking AS
+ SELECT
+     p.id_Parking,
+     c.intitule AS classe_nom,
+     l.nom AS lieu_nom,
+     p.nombre_place,
+     p.prix,
+     p.description
+ FROM
+     Parking p
+ JOIN
+     Classe c ON p.id_Classe = c.id_Classe
+ JOIN
+     Lieu l ON p.id_Lieu = l.id_Lieu;
+
+--view paiement par jour
+    date_Paiement DATE,
+    date_Paiement DATE,
+    
+create or replace view v_PaiementDay as select id_parking,sum(montant),date_Paiement from paiement group by 
+date_Paiement,id_Parking order by date_Paiement;

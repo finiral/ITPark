@@ -68,7 +68,13 @@ class Login extends CI_Controller
             redirect("login/$redirect");
         }
         else{
-            echo "Utilisateur existant";
+            if($user["status"]==0){
+                redirect("dashboard/index");
+            }
+            else{
+                redirect("accueil/recherche");
+            }
+            
         }
     }
 }
