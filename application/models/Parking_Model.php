@@ -76,20 +76,6 @@ class Parking_Model extends CI_Model
         // Commencez par la requête de base
         $requete = "SELECT * FROM v_parking";
         $params = array();
-
-        if (isset($criteria['id_classe'])) {
-            $requete .= " AND id_classe = ?";
-            $params[] = $criteria['id_classe'];
-        }
-
-        if (isset($criteria['id_lieu'])) {
-            $requete .= " AND id_lieu = ?";
-            $params[] = $criteria['id_lieu'];
-        }
-
-        if (isset($criteria['nombre_place'])) {
-            $requete .= " AND nombre_place = ?";
-            $params[] = $criteria['nombre_place'];
         $conditions = false; // Flag to check if any condition is added
         // Handle multiple classes in a more scalable way
         if (isset($criteria['classes']) && is_array($criteria['classes'])) {
@@ -108,7 +94,7 @@ class Parking_Model extends CI_Model
             $params[] = '%' . strtolower($criteria['lieu_nom']) . '%';
             $conditions = true;
         }
-
+    
         if (isset($criteria['prix_min'])) {
             if ($conditions) {
                 $requete .= " AND prix >= ?";
@@ -118,7 +104,7 @@ class Parking_Model extends CI_Model
             $params[] = $criteria['prix_min'];
             $conditions = true;
         }
-
+    
         if (isset($criteria['prix_max'])) {
             if ($conditions) {
                 $requete .= " AND prix <= ?";
@@ -128,23 +114,20 @@ class Parking_Model extends CI_Model
             $params[] = $criteria['prix_max'];
             $conditions = true;
         }
-
-        if (isset($criteria['description'])) {
-            $requete .= " AND description LIKE ?";
-            $params[] = "%" . $criteria['description'] . "%";
-   
+    
         // If no conditions were added, query without WHERE clause
         if (!$conditions) {
             $requete = "SELECT * FROM v_parking";
         }
     
         $query = $this->db->query($requete, $params);
+    
         // Stockez les résultats dans un tableau
         $rep = array();
         foreach ($query->result_array() as $row) {
             $rep[] = $row;
         }
-
+    
         return $rep;
     }
 
