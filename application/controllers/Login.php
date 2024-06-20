@@ -68,7 +68,13 @@ class Login extends CI_Controller
             redirect("login/$redirect");
         }
         else{
-            redirect("accueil/recherche");
+            if($user["status"]==0){
+                redirect("dashboard/index");
+            }
+            else{
+                redirect("accueil/recherche");
+            }
+            
         }
     }
 }
