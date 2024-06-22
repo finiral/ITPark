@@ -37,7 +37,12 @@ class Parking_Model extends CI_Model
         return $query->result_array();
     }
 
- 
+    public function getAllVParking()
+    {
+        $query= $this->db->get('v_parking');
+        return $query->result_array();
+
+    }
     public function getInfoParkingComplet()
     {
         $requete = "SELECT * FROM  v_parking";
