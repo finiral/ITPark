@@ -32,8 +32,21 @@ class Up_de extends CI_Controller
         $data["title"]="Page de recherche";
         $data["description"] = "Page de recherche Parking ITpark";
         $data["contents"] = "up_de/parking";
-		$data['recherche'] = $this->Parking_Model->getAllVParking();
+		$data['recherche'] = $this->Parking_Model->getParkingActu();
         $this->load->view("templates2/template_rech",$data);
+    }
+    public function deleteParking($id)
+    {   
+        $this->load->model("CorbeilleParking_Model");
+        $this->load->model("Parking_Model");
+        $current_date = date('Y-m-d H:i:s');
+        $data=array(
+            'id_parking' => $id,
+            'date_suppression'=>$current_date
+        );
+        $this->CorbeilleParking_Model->insertCorbeilleParking($data);
+        $data['recherche'] = $this->Parking_Model->getParkingActu();
+        redirect("up_de/recherche");
     }
 }
 

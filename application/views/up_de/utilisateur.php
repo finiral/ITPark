@@ -1,44 +1,56 @@
 <!-- Ajouter l'élément de fond flou -->
 
 <center class="pt-5 mt-5">
-    <?php if (isset($recherche)) : ?>
+    <?php if (isset($utilisateurs)) : ?>
         <div class="main-content min-vh-100 mt-5 p-3">
             <div class="titlePage">
-                <h3 style="color: rgb(0, 0, 0);">Liste des parkings</h3>
-                <h1 style="font-weight: bold;color:#E63D36 ;"> réduction 10% </h1>
-                <p style="color: black;">en heure creuse</p>
+                <h3 style="color: rgb(0, 0, 0);">Liste des utilisateurs</h3>
+                <!-- <h1 style="font-weight: bold;color:#E63D36 ;"> réduction 10% </h1>
+                <p style="color: black;">en heure creuse</p> -->
             </div><!-- End Page Title -->
 
 
             <div class="information  pb-3 col-lg-7">
-
+                <form method="get" action="<?php echo site_url("utilisateur/recherche") ?>">
+                    <div class="row">
+                        <div class="col-8 p-3 ">
+                            <div class="row float-right">
+                                <div class="col-2 form-group"><input type="number" class="form-control" name="id" ></div>
+                                <div class="col-8 form-group"><input type="text" class="form-control" name="identifiant" ></div>
+                                <div class="col-2"><input type="submit" class="btn btn-danger" value="trouver" ></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <?php
-                if (count($recherche) == 0) { ?>
-                    <h1>Aucun parking ne correspond a vos recherches</h1>
+                if (count($utilisateurs) == 0) { ?>
+                    <h1>Aucun utilisateur</h1>
                     <?php } else {
-                    foreach ($recherche as $p) { ?>
+                    for ($i=0; $i<count($utilisateurs); $i++) { 
+                        $user=$utilisateurs[$i]; ?>
                     <div class="row element-2 opt-2 my-2">
                         <a href="<?php 
-                        $id=$p['id_parking'];
-                        echo site_url("information/parking/$id");?>" style="color: black;" class="col-9">
+                        $id=$user['id_utilisateur'];
+                        echo site_url("information/utilisateur/$id");?>" style="color: black;" class="col-9">
                             <div class="element col-11 col-lg-10 mt-3">
                                 <div class="">
                                     <div class="row justify-content-center">
                                         <div class="col-2">
                                             <div class="number-place">
-                                                <p><?php echo $p['id_parking'] ?></p>
+                                                <p><?php echo $i+1 ?></p>
                                             </div>
                                         </div>
                                         <div class="col-6 ">
                                             <div class="row text-wrap">
                                                 <div class="icon-text-inline">
                                                     <i class="bi bi-geo-alt-fill"></i> <!-- Exemple d'icône Font Awesome -->
-                                                    <span class="lieu"><?php echo $p['lieu_nom'] ?></span>
+                                                    <span class="lieu"><?php echo $user['identifiant'] ?></span>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <p>Place: <?php echo $p['nombre_place'] ?></p>
-                                                <p><?php echo $p['prix'] ?> Ar</p>
+                                            <div class="row text-wrap">
+                                                <div class="icon-text-inline">
+                                                    <span class="lieu"><?php echo $id ?></span>
+                                                </div>
                                             </div>
                                         </div>
                                         
@@ -47,10 +59,10 @@
                             </div>
                         </a>
                         <div class="col-2">
-                                            <div class="row"><a href="#"class="btn btn-dark">modifier</a></div>
-                                            <div class="row my-1"><a href="<?php echo site_url("up_de/deleteParking/$id")?> " class="btn btn-danger">suprimer</a></div>
-                                        </div>  
-                                        </div>
+                            <div class="row"><a class="btn btn-dark" href="<?php echo site_url("utilisateur/redirectForm/$id") ?>">modifier</a></div>
+                            <div class="row my-1"><a class="btn btn-danger" href="<?php echo site_url("utilisateur/delete/$id") ?>">suprimer</a></div>
+                        </div>  
+                    </div>
                 <?php }
                 } ?>
             </div>

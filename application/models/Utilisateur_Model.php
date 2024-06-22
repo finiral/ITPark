@@ -45,6 +45,14 @@ class Utilisateur_Model extends CI_Model
         return $query->row_array();
     }
 
+    // vaovao
+    // Fonction pour récupérer tous les utilisateurs présents
+    public function getAllByEtat()
+    {
+        $query = $this->db->get_where('utilisateur', array('etat' => 1));
+        return $query->result_array();
+    }
+
     // Insertion d'un utilisateur
     public function insert($data)
     {
@@ -87,6 +95,34 @@ class Utilisateur_Model extends CI_Model
     {
         $this->db->where('id_utilisateur', $id);
         return $this->db->delete('utilisateur');
+    }
+
+    // vaovao
+    // Modification de l'état de l'utilisateur(mbola ao sa tsia)
+    public function update_etat($id) {
+        $this->db->where('id_utilisateur', $id);
+        return $this->db->update('utilisateur', array('etat' => 0));
+    }
+
+    // vaovao
+    // Recherche utilisateur(s) à partir de son id et de son identifiant
+    public function searchUser($id, $identifiant) {
+        $this->db->where('etat', 1);
+        if (!empty($id)) {
+            $this->db->like('cast(id_utilisateur as text)', $id);
+        }
+        if (!empty($identifiant)) {
+            $this->db->like('identifiant', $identifiant);
+        }
+        $query = $this->db->get('utilisateur');
+        return $query->result_array();
+    }
+
+    // vaovoa
+    // Récupération des status des utilisateurs
+    public function getAllStatusUser() {
+        $query = $this->db->get('status_utilisateur');
+        return $query->result_array();
     }
 }
 ?>
