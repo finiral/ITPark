@@ -9,52 +9,6 @@
 <body>
 
   <div id="header" data-include="header2.html"></div>
-  <script>
-    window.addEventListener("load",function(){
-      var form = document.getElementById("formBenefice")
-      form.addEventListener("submit", function(event) {
-        event.preventDefault(); // évite de faire le submit par défaut
-        displayPublications();
-      });
-
-      function displayPublications() {
-      ///create the xhr
-      var xhr;
-      try {
-        xhr = new ActiveXObject('Msxml2.XMLHTTP');
-      } catch (e) {
-        try {
-          xhr = new ActiveXObject('Microsoft.XMLHTTP');
-        } catch (e2) {
-          try {
-            xhr = new XMLHttpRequest();
-          } catch (e3) {
-            xhr = false;
-          }
-        }
-      }
-      // Configurez la requête
-      xhr.open("POST", "<?php echo site_url("dashboard/beneficeAnnee") ?>");
-
-      // Les données envoyées
-      xhr.send(new FormData(form));
-
-      // Definissez ce qui se passe en cas d'erreur
-      xhr.addEventListener("error", function(event) {
-        alert('Oups! Quelque chose s\'est mal passé.');
-      });
-
-
-      ///en cas de success
-      xhr.addEventListener("load", function(event) {
-        res=JSON.parse(xhr.responseText, true)
-        alert(res["1"])
-        
-      })
-    }
-    })
-    
-  </script>
   <form id="formBenefice" method="post">
 
     <div class="main-content ">
@@ -111,5 +65,17 @@
   <script src="<?php echo base_url("assets/js/main.js"); ?>"></script>
 
 </body>
+
+<script src="<?php echo base_url("assets/js/ajax.js"); ?>"></script>
+<script src="<?php echo base_url("assets/js/dashboard_ajax.js"); ?>"></script>
+<script>
+  window.addEventListener("load", function() {
+    var form = document.getElementById("formBenefice")
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // évite de faire le submit par défaut
+      getRecetteAnnee(new FormData(form), "<?php echo site_url("dashboard/beneficeAnnee") ?>");
+    })
+  });
+</script>
 
 </html>
