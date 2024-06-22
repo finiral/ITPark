@@ -67,7 +67,7 @@ h6 {
 }
 .list-logo
 {
-  font-size: 50px;qaaaaaaaqa
+  font-size: 50px;
 }
 .car-icon
 {
@@ -109,20 +109,18 @@ h6 {
 
 .element-2 {
   padding-top: 13px; 
+  /* border: 2px solid gainsboro !important; */
   border-radius: 11px;
   min-height: 70px;
-  padding-top: 13px; 
+  /* padding-top: 13px;   */
   background-color: #ffffff;
   box-shadow: 1px 1px 1px 1px;
   border : none ; 
-  transition: 0.5s;
-}
-.opt-2{
-  min-height: 70px !important;
+  transition: 0.1s ease-in;
 }
 .element .element-2:hover 
 {
-  background-color: #000000;
+  background-color: #414141;
   color: white;
 }
 .info{
@@ -135,7 +133,25 @@ h6 {
   font-size: 40px;
   font-weight: bold;
 }
-
+.titlePage { 
+  z-index: 1;
+  border: 2px solid rgb(95, 95, 95);
+  margin-top: 0px !important;
+  background-color: white !important;
+  right: 1rem;
+  border-radius: 17px;
+}
+.quit-but{
+  cursor: pointer;
+  border-radius: 35%;
+}
+.critere {
+  border: none !important;
+}
+.rech {
+  background-color: transparent !important;
+  border: none !important;
+}
 .button-resa 
 {
    text-align: center;
@@ -192,13 +208,28 @@ h6 {
 
 .buttonSearche {
   color: white;
-  border-radius: 40px;
+  border: 1px solid #E63D36 !important;
   background-color: #E63D36;
+  /* border-radius: 17px; */
+  /* background-color: #E63D36; */
   border: none;
+}
+
+.img-filter {
+  width:40px;
+  filter:invert(1);
+}
+.img-filter:hover{
+  filter: invert(0);
+}
+
+.buttonSearche:hover{
+  background-color: #E63D36;
 }
 
 /* css niampi blur */
 .blur-background {
+  transition: 1s ease-in-out;
   position: fixed;
   top: 0;
   left: 0;

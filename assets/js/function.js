@@ -17,7 +17,16 @@ function includeHTML() {
     });
 
 }
+function delPub(){
+    const pub = document.querySelector('.pub');
+    // const but = document.querySelector('.quit-but');
+    // but.addEventListener('click', () => {
+        pub.classList.toggle('d-none');
+    // });
+    // pub.classList.toggle('d-non');
+}
 
+// delPub();
 includeHTML() ; 
 
 function blur()

@@ -1,17 +1,29 @@
 <!-- Ajouter l'élément de fond flou -->
 
-<center class="pt-5 mt-5">
+<div class="pt-5 mt-5">
     <?php if (isset($recherche)) : ?>
         <div class="main-content min-vh-100 mt-5 p-3">
-            <div class="titlePage">
-                <h3 style="color: rgb(0, 0, 0);">Liste des parkings</h3>
-                <h1 style="font-weight: bold;color:#E63D36 ;"> réduction 10% </h1>
-                <p style="color: black;">en heure creuse</p>
-            </div><!-- End Page Title -->
-
-
-            <div class="information  pb-3 col-lg-7">
-
+            <div class="titlePage col-7 col-lg-3 row position-absolute pub pt-2 pe-2">
+                <div class="col-10 col-lg-11 ps-3 pt-1">
+                    <h5 style="font-weight: bold;color:#E63D36 ;"> réduction 10% </h5>
+                    <p style="color: black;">en heure creuse</p>
+                </div>
+                <div class="col-2 col-lg-1 p-0">
+                    <button class="quit-but w-100" onclick="delPub()">x</button>
+                </div>
+        </div><!-- End Page Title -->
+        
+        
+                <div class="information  pb-3 col-lg-12">
+                    
+                <h3 class="text-center" style="color: rgb(0, 0, 0);">Liste des parkings</h3>
+                <div class="mx-auto col-lg-7 ps-3">
+                    
+                <button class="  toolbox-active btn btn-outline-danger " type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample3" style="">
+                    <span><i class="fa-solid fa-sliders"></i></span>
+                    Tous les filtres
+                </button>
+                </div>
                 <?php
                 if (count($recherche) == 0) { ?>
                     <h1>Aucun parking ne correspond a vos recherches</h1>
@@ -20,11 +32,11 @@
                         <a href="<?php 
                         $id=$p['id_parking'];
                         echo site_url("information/parking/$id");?>" style="color: black;">
-                            <div class="element col-11 col-lg-10 mt-3">
+                            <div class="element col-11 col-lg-7 mt-3 mx-auto">
                                 <div class="element-2">
                                     <div class="row justify-content-center">
                                         <div class="col-2">
-                                            <div class="number-place">
+                                            <div class="number-place text-center">
                                                 <p><?php echo $p['id_parking'] ?></p>
                                             </div>
                                         </div>
@@ -51,7 +63,7 @@
             </div>
 
         <?php endif; ?>
-</center>
+            </div>
 <br>
 <div id="blurBackground" class="blur-background hidden"></div>
 
