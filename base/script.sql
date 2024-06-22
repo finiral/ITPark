@@ -289,3 +289,13 @@ $$ LANGUAGE plpgsql;
     
 create or replace view v_PaiementDay as select id_parking,sum(montant),date_Paiement from paiement group by 
 date_Paiement,id_Parking order by date_Paiement;
+
+
+Create or replace VIEW v_count_place_used as 
+select 
+    count(id_place) as count_place
+from
+    place 
+where 
+    status = 1;
+

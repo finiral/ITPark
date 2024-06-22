@@ -1,29 +1,25 @@
-function benefDash() {
+// Déclarez une variable pour stocker l'instance d'ApexCharts
+let benefChart = null;
+
+function benefDashChart(keys,values) {
+  
   document.addEventListener("DOMContentLoaded", () => {
     const series = {
       "monthDataSeries1": {
-        "prices": [
-          8107.85, 8128.0, 8122.9, 8165.5, 8340.7, 8423.7, 8423.5, 8514.3, 8481.85, 
-          8487.7, 8506.9, 8626.2, 8668.95, 8602.3, 8607.55, 8512.9, 8496.25, 8600.65, 
-          8881.1, 9340.85
-        ],
-        "dates": [
-          "13 Nov 2017", "14 Nov 2017", "15 Nov 2017", "16 Nov 2017", "17 Nov 2017", 
-          "20 Nov 2017", "21 Nov 2017", "22 Nov 2017", "23 Nov 2017", "24 Nov 2017", 
-          "27 Nov 2017", "28 Nov 2017", "29 Nov 2017", "30 Nov 2017", "01 Dec 2017", 
-          "04 Dec 2017", "05 Dec 2017", "06 Dec 2017", "07 Dec 2017", "08 Dec 2017"
-        ]
+        "prices":values,
+        "dates": keys
       }
     };
-  
-    new ApexCharts(document.querySelector("#benefChart"), {
+
+    benefChart = new ApexCharts(document.querySelector("#benefChart"), {
       series: [{
         name: "STOCK ABC",
         data: series.monthDataSeries1.prices
       }],
       chart: {
+        id:'mychart',
         type: 'area',
-        height: 350, 
+        height: 350,
         zoom: {
           enabled: true // Activer le zoom
         }
@@ -52,100 +48,31 @@ function benefDash() {
       legend: {
         horizontalAlign: 'left'
       }
-    }).render();
+    });
+
+    benefChart.render(); // Rendre le graphique
   });
 }
 
-function recetteDash()
-{
-  document.addEventListener("DOMContentLoaded", () => {
-    const series = {
-      "monthDataSeries1": {
-        "prices": [
-          8107.85,
-          8128.0,
-          8122.9,
-          8165.5,
-          8340.7,
-          8423.7,
-          8423.5,
-          8514.3,
-          8481.85,
-          8487.7,
-          8506.9,
-          8626.2,
-          8668.95,
-          8602.3,
-          8607.55,
-          8512.9,
-          8496.25,
-          8600.65,
-          8881.1,
-          9340.85
-        ],
-        "dates": [
-          "13 Nov 2017",
-          "14 Nov 2017",
-          "15 Nov 2017",
-          "16 Nov 2017",
-          "17 Nov 2017",
-          "20 Nov 2017",
-          "21 Nov 2017",
-          "22 Nov 2017",
-          "23 Nov 2017",
-          "24 Nov 2017",
-          "27 Nov 2017",
-          "28 Nov 2017",
-          "29 Nov 2017",
-          "30 Nov 2017",
-          "01 Dec 2017",
-          "04 Dec 2017",
-          "05 Dec 2017",
-          "06 Dec 2017",
-          "07 Dec 2017",
-          "08 Dec 2017"
-        ]
-      }
-    };
-  
-    new ApexCharts(document.querySelector("#recetteChart"), {
-      series: [{
-        name: "STOCK ABC",
-        data: series.monthDataSeries1.prices
-      }],
-      chart: {
-        type: 'area',
-        height: 350,
-        zoom: {
-          enabled: true // Activer le zoom
-        }
-      },
-      dataLabels: {
-        enabled: false // Activer les étiquettes de données
-      },
-      stroke: {
-        curve: 'smooth' // Changer la courbe de la ligne à 'smooth'
-      },
-      colors: ['#E63D36'], // Changer la couleur de la ligne
-    
-      subtitle: {
-        text: 'Mouvements de Prix', // Titre en français
-        align: 'left'
-      },
-      labels: series.monthDataSeries1.dates,
-      xaxis: {
-        type: 'datetime',
-        labels: {
-          format: 'dd MMM' // Format des dates
-        }
-      },
-      yaxis: {
-        opposite: true,
-       
-      },
-      legend: {
-        horizontalAlign: 'left'
-      }
-    }).render();
-  });
+function benefDash(url){
+   ///create the xhr
+   var xhr = createXHR();
+   xhr.onreadystatechange = function () {
+       if (xhr.readyState === XMLHttpRequest.DONE) {
+           if (xhr.status === 200) {
+               var recettes = JSON.parse(xhr.responseText, true)
+               var values = []
+               for (var key in recettes) {
+                   values.push(recettes[key])
+               }
+               benefDashChart(Object.keys(recettes),values)
+           } else {
+               console.log(xhr.responseText)
+           }
+       }
+   };
+   var data=new FormData()
+   data.append('annee','2023')
+   sendXHR(xhr, "POST", url, false, data)
 }
+
