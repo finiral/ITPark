@@ -25,6 +25,11 @@ create table Place(
     id_Parking int references Parking(id_Parking),
     status smallInt
 );
+-- vaovao
+create table Status_Utilisateur(
+    id_Status serial primary key,
+    status_nom varchar(20)
+);
 --vaovao
 create table Utilisateur(
     id_Utilisateur serial primary key,
@@ -33,6 +38,10 @@ create table Utilisateur(
     status smallInt,
     check(status = 0 or status = 1 or status = 2)
 );
+-- vaovao
+alter table Utilisateur
+add column etat smallint default 1;
+
 --vaovao
 create table Accessproprietaire(
     id_Accessproprietaire serial primary key,

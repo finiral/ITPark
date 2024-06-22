@@ -29,6 +29,13 @@ INSERT INTO Parking (id_Classe, id_Lieu, nombre_place, prix, description) VALUES
 (2, 9, 80, 14.00, 'Parking est 1'),
 (2, 10, 85, 13.00, 'Parking est 2');
 
+-- vaovao
+-- Insertion de 3 données dans la table Status_Utilisateur
+INSERT INTO Status_Utilisateur (status_nom) VALUES
+('Gardien'),
+('Proprietaire'),
+('Administrateur');
+
 -- Insertion de 3 données de propriétaires 
 INSERT INTO Utilisateur (identifiant, mdp, status) VALUES
 ('proprietaire1', 'mdp1', 1),
