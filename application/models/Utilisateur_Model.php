@@ -18,12 +18,12 @@ class Utilisateur_Model extends CI_Model
 
     public function getParkings($id_user)
     {
-    $this->db->select('accessproprietaire.id_parking, parking.id_parking, parking.id_classe, parking.id_lieu, parking.nombre_place, parking.prix, parking.description');
-    $this->db->from('parking');
-    $this->db->join('accessproprietaire', 'accessproprietaire.id_parking = parking.id_parking');
-    $this->db->where('accessproprietaire.id_utilisateur', $id_user);
-    $query = $this->db->get();
-    return $query->result_array();
+        $this->db->select('accessproprietaire.id_parking, parking.id_parking, parking.id_classe, parking.id_lieu, parking.nombre_place, parking.prix, parking.description');
+        $this->db->from('parking');
+        $this->db->join('accessproprietaire', 'accessproprietaire.id_parking = parking.id_parking');
+        $this->db->where('accessproprietaire.id_utilisateur', $id_user);
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
 
@@ -56,20 +56,11 @@ class Utilisateur_Model extends CI_Model
     // Insertion d'un utilisateur
     public function insert($data)
     {
-        // Vérification du champ status
-        if (in_array($data['status'], [0, 1, 2])) {
-            return $this->db->insert('utilisateur', $data);
-        } else {
-            throw new InvalidArgumentException('Invalid status value. It must be 0, 1, or 2.');
-        }
+        return $this->db->insert('utilisateur', $data);
     }
 
     public function addUtilisateur()
     {
-        if (!in_array($this->status, [0, 1, 2])) {
-            throw new InvalidArgumentException('Invalid status value. It must be 0, 1, or 2.');
-        }
-
         $data = array(
             'identifiant' => $this->identifiant,
             'mdp' => $this->mdp,
@@ -81,13 +72,8 @@ class Utilisateur_Model extends CI_Model
     // Mise à jour d'un utilisateur
     public function update($id, $data)
     {
-        // Vérification du champ status
-        if (in_array($data['status'], [0, 1, 2])) {
-            $this->db->where('id_utilisateur', $id);
-            return $this->db->update('utilisateur', $data);
-        } else {
-            throw new InvalidArgumentException('Invalid status value. It must be 0, 1, or 2.');
-        }
+        $this->db->where('id_utilisateur', $id);
+        return $this->db->update('utilisateur', $data);
     }
 
     // Suppression d'un utilisateur
@@ -99,14 +85,16 @@ class Utilisateur_Model extends CI_Model
 
     // vaovao
     // Modification de l'état de l'utilisateur(mbola ao sa tsia)
-    public function update_etat($id) {
+    public function update_etat($id)
+    {
         $this->db->where('id_utilisateur', $id);
         return $this->db->update('utilisateur', array('etat' => 0));
     }
 
     // vaovao
     // Recherche utilisateur(s) à partir de son id et de son identifiant
-    public function searchUser($id, $identifiant) {
+    public function searchUser($id, $identifiant)
+    {
         $this->db->where('etat', 1);
         if (!empty($id)) {
             $this->db->like('cast(id_utilisateur as text)', $id);
@@ -120,9 +108,9 @@ class Utilisateur_Model extends CI_Model
 
     // vaovoa
     // Récupération des status des utilisateurs
-    public function getAllStatusUser() {
+    public function getAllStatusUser()
+    {
         $query = $this->db->get('status_utilisateur');
         return $query->result_array();
     }
 }
-?>

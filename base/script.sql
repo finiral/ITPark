@@ -35,9 +35,13 @@ create table Utilisateur(
     id_Utilisateur serial primary key,
     identifiant VARCHAR(100),
     mdp varchar(255),
-    status smallInt,
-    check(status = 0 or status = 1 or status = 2)
+    status int references status_utilisateur(id_status)
 );
+---changement
+alter table utilisateur alter column status type int
+alter table utilisateur 
+add constraint status_user_fk FOREIGN KEY (status) references status_utilisateur(id_status)
+
 -- vaovao
 alter table Utilisateur
 add column etat smallint default 1;
