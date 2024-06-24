@@ -21,6 +21,8 @@
   <link href=" <?php echo base_url("assets/vendor/simple-datatables/style.css") ?>" rel="stylesheet">
 
 
+  <script src="<?php echo base_url("assets/js/bootstrap.min.js") ?>"></script>
+  <script src="<?php echo base_url("NiceAdmin\assets\vendor\bootstrap\js\bootstrap.bundle.min.js") ?>"></script>
   <!-- Template Main CSS File -->
   <link href=" <?php echo base_url("assets/css/style.css") ?>" rel="stylesheet">
   <title><?php echo $title ?></title>
@@ -71,11 +73,11 @@
               <div class="row mt-2 justify-content-center">
                 <div class="col col-md-4">
                   <div class="collapse multi-collapse" id="multiCollapseExample1" style="background-color:white;border-radius:17px">
-                    <div class="card card-body critere">
+                    <!-- <div class="card card-body critere">
                       <div class="form-check">
                         <input class="personalSearch ps-3" type="text" placeholder="rechercher" style="color:black; ">
                       </div>
-                    </div>
+                    </div> -->
                     <div class="card card-body critere">
                     <div class="input-group">
                       <span class="input-group-text">min</span>
@@ -107,7 +109,7 @@
                     <div class="card card-body critere  ">
                       <div class="row justify-content-end">
                         <button class="btn btn-danger me-3" type="button" data-bs-target="#multiCollapseExample1" aria-expanded="true"  data-bs-toggle="collapse" style="width: 100px; ">Annuler</button> 
-                        <button class="btn btn-primary me-3" type="submit" data-bs-target="#multiCollapseExample1" aria-expanded="false" style="width: 100px; ">Valider</button> 
+                        <button class="btn btn-primary me-3" type="submit" data-bs-target="#multiCollapseExample1" aria-expanded="false" style="width: 100px; ">Appliquer</button> 
                       </div>
                     </div>
                   </div>
