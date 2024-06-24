@@ -6,12 +6,14 @@ CREATE TABLE Corbeille (
     id_Parking int REFERENCES Parking(id_Parking),
     date_suppression date
 );
-CREATE or replace VIEW v_parkingActu AS
+/* CREATE or replace VIEW v_parkingActu AS
 SELECT p.id_Parking, p.id_Classe, p.id_Lieu, p.nombre_place, p.prix, p.description
 FROM Parking p
 LEFT JOIN Corbeille c ON p.id_Parking = c.id_Parking
 WHERE c.id_Parking IS NULL;
+ */
 
+ 
 CREATE OR REPLACE VIEW v_ParkingActu AS
 SELECT
     p.id_Parking,

@@ -25,7 +25,12 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
+.rounded-5 {
+  border-radius: 2rem !important  ;
+}
+#box{
+  background-color: #9E9A97;
+}
 a {
   color: #4154f1;
   text-decoration: none;

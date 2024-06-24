@@ -35,9 +35,13 @@ create table Utilisateur(
     id_Utilisateur serial primary key,
     identifiant VARCHAR(100),
     mdp varchar(255),
-    status smallInt,
-    check(status = 0 or status = 1 or status = 2)
+    status int references status_utilisateur(id_status)
 );
+---changement
+alter table utilisateur alter column status type int
+alter table utilisateur 
+add constraint status_user_fk FOREIGN KEY (status) references status_utilisateur(id_status)
+
 -- vaovao
 alter table Utilisateur
 add column etat smallint default 1;
@@ -84,6 +88,49 @@ create table MouvementPlace(
     status smallint,
     check(status = 0 or status = 1 )
 );
+
+--vaovao
+CREATE VIEW v_Parking AS
+ SELECT
+     p.id_Parking,
+     c.intitule AS classe_nom,
+     l.nom AS lieu_nom,
+     p.nombre_place,
+     p.prix,
+     p.description
+ FROM
+     Parking p
+ JOIN
+     Classe c ON p.id_Classe = c.id_Classe
+ JOIN
+     Lieu l ON p.id_Lieu = l.id_Lieu;
+
+-- vaovao
+drop function GetResarvationsForOneParking;
+
+CREATE OR REPLACE FUNCTION GetResarvationsForOneParking(idParking INT)
+    RETURNS TABLE(
+        id_Reservation INT,
+        classe_nom VARCHAR(30),
+        lieu_nom VARCHAR(250),
+        nombre_place smallINT,
+        prix DECIMAL(10, 2),
+        description VARCHAR(250),
+        numero_place smallINT,
+        numero_telephone_2 varChar(13),
+        date_heure_reservation TIMESTAMP WITHOUT TIME ZONE,
+        duree smallInt
+    ) AS $$
+    BEGIN
+        RETURN QUERY
+        SELECT r.id_Reservation, v_p.classe_nom, v_p.lieu_nom, v_p.nombre_place, v_p.prix, v_p.description, 
+               pl.numero_place, r.numero_telephone::VARCHAR, r.date_heure_reservation, r.duree 
+        FROM Reservation r
+        JOIN v_Parking v_p ON r.id_Parking = v_p.id_Parking
+        JOIN Place pl ON r.id_Parking = pl.id_Parking WHERE r.id_Parking = idParking;
+    END;
+    $$ LANGUAGE plpgsql;
+
 -- 1. Fonction vueFonctionBase
 -- Description: Fonction qui retourne les parkings avec des places libres dans un lieu spécifique.
 CREATE OR REPLACE FUNCTION  GetPlaceParkingFreeOnPlace(param_idLieu INT) 

@@ -32,7 +32,7 @@ class Utilisateur extends CI_Controller
         $data['contents'] = "insert/insert_utilisateur";
         $data['action'] = "utilisateur/updateUser";
         $data['status']=$this->umodel->getAllStatusUser();
-        $data['name'] = "User";
+        $data['name'] = "Modification user";
         $data['user'] = $this->umodel->getById($id);
         $this->load->view("templates/template", $data);
     }

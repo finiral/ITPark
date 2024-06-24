@@ -10,12 +10,21 @@
 .color-dark{
     color: black;
 }
+<<<<<<< HEAD
 .color-red{
     color: #E63E37;
 }
 .without-after::after{
     background-image: none !important ;
   }
+=======
+.rounded-5 {
+    border-radius: 2rem !important  ;
+}
+#box{
+    background-color: #9E9A97;
+}
+>>>>>>> 8aceb87be3724d17054f112a4ffc02046dd90f7c
 .mt-6{
     margin-top: 4rem !important;
 }
