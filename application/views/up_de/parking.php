@@ -77,15 +77,6 @@
 
 <center class="pt-5 mt-5">
     <div class="main-content min-vh-100 mt-5 p-3">
-        <div class="titlePage col-7 col-lg-3 row position-absolute pub pt-2 pe-2">
-            <div class="col-10 col-lg-11 ps-3 pt-1">
-                <h5 style="font-weight: bold;color:#E63D36 ;"> réduction 10% </h5>
-                <p style="color: black;">en heure creuse</p>
-            </div>
-            <div class="col-2 col-md-1 col-lg-1 p-0">
-                <button class="quit-but w-100" onclick="delPub()">x</button>
-            </div>
-        </div><!-- End Page Title -->
         
         
         <?php if (isset($recherche)) : ?>

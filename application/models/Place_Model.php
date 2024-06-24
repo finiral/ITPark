@@ -120,4 +120,9 @@ class Place_Model extends CI_Model{
 
         return $montantApayer;
     }
+
+    public function getCountUsed(){
+        $query=$this->db->get("v_count_place_used");
+        return $query->row_array();
+    }
 }

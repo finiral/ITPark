@@ -13,7 +13,7 @@ function benefDashChart(keys,values) {
 
     benefChart = new ApexCharts(document.querySelector("#benefChart"), {
       series: [{
-        name: "STOCK ABC",
+        name: "Recette du mois",
         data: series.monthDataSeries1.prices
       }],
       chart: {

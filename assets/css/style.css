@@ -428,3 +428,31 @@ h6 {
   margin-top: 10px;
   /* Add some margin above the credits section */
 }
+
+.icone{
+  font-size: 2.5rem;
+  margin-right: 20px;
+}
+.blue-icone{
+  
+  color: rgb(34, 122, 245);
+  background-color: rgba(0, 106, 255, 0.159);
+  padding: 15px;
+  border-radius: 100px;
+}
+
+.green-icone{
+  
+  color: rgb(63, 227, 60);
+  background-color: rgba(12, 227, 9, 0.159);
+  padding: 15px;
+  border-radius: 100px;
+}
+
+.red-icone{
+  
+  color: rgb(245, 41, 34);
+  background-color: rgba(255, 13, 0, 0.159);
+  padding: 15px;
+  border-radius: 100px;
+}

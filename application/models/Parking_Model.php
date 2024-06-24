@@ -269,4 +269,26 @@ class Parking_Model extends CI_Model
          
          return $rep;  
     }
+
+    public function getPopularParking($annee){
+        $query=$this->db->query("SELECT
+                                        p.id_Parking,
+                                        l.nom AS lieu_nom,
+                                        COUNT(mp.id_Mouvementplace) AS nombre_entrees
+                                    FROM
+                                        Parking p
+                                    JOIN
+                                        Lieu l ON p.id_Lieu = l.id_Lieu
+                                    JOIN
+                                        MouvementPlace mp ON p.id_Parking = mp.id_Parking
+                                    WHERE
+                                        mp.status = 1 -- 1 indicates entry
+                                        AND EXTRACT(YEAR FROM mp.date_Heure_MouvementPlace) = $annee
+                                    GROUP BY
+                                        p.id_Parking,
+                                        l.nom
+                                    ORDER BY
+                                        nombre_entrees DESC;");
+        return $query->result_array();
+    }
 }
