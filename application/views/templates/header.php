@@ -8,6 +8,10 @@
     <meta name="description" content="<?php echo $description ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo base_url("assets/css/stylecrud.css")?>">
+    <link rel="stylesheet" href="<?php echo base_url("assets/css/style2.css")?>">
+    <script src="<?php echo base_url("assets/js/bootstrap.min.js") ?>"></script>
+    <script src="<?php echo base_url("assets/js/angular.min.js")?>"></script>
+    <script src="<?php echo base_url("assets/js/app.js")?>"></script>
     <title><?php echo $title?></title>
 </head>
 

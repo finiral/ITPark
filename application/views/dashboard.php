@@ -1,4 +1,9 @@
-<script src="<?php echo base_url("assets/js/dashboard.js"); ?>"></script>
+<script src="<?php echo base_url("assets/js/ajax.js"); ?>"></script>
+
+<script src="<?php echo base_url("assets/js/dashboard.js"); ?>">
+
+
+</script>
 
 
 </head>
@@ -18,19 +23,29 @@
         <div class="row mt-4">
           <div class="col-12 col-lg-6">
             <div class="input-group">
-              <span class="input-group-text">annee</span>
+              <span class="input-group-text">Annee</span>
               <input name="annee" type="number" aria-label="Last name" class="form-control">
               <button class="btn btn-danger" type="submit" id="button-addon1">valider</button>
             </div>
-
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="input-group">
+              <span class="input-group-text">Choix des parkings</span>
+              <select name="" id="">
+                <?php for($i=0; $i<count($parkings);$i++){?>
+                <option value=""><?php echo $parkings[$i]["lieu_nom"]?></option>
+                <?php }?>
+              </select>
+              <button class="btn btn-danger" type="submit" id="button-addon1">valider</button>
+            </div>
           </div>
         </div>
         <div class="row mt-4">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">bénéfice</h5>
+              <h5 class="card-title">Recettes</h5>
               <script>
-                benefDash();
+                benefDash("<?php echo site_url("dashboard/beneficeAnnee") ?>");
               </script>
               <!-- Area Chart -->
               <div id="benefChart"></div>
@@ -66,16 +81,17 @@
 
 </body>
 
-<script src="<?php echo base_url("assets/js/ajax.js"); ?>"></script>
 <script src="<?php echo base_url("assets/js/dashboard_ajax.js"); ?>"></script>
 <script>
-  window.addEventListener("load", function() {
+  
+window.addEventListener("load", function() {
     var form = document.getElementById("formBenefice")
     form.addEventListener("submit", function(event) {
       event.preventDefault(); // évite de faire le submit par défaut
       getRecetteAnnee(new FormData(form), "<?php echo site_url("dashboard/beneficeAnnee") ?>");
     })
   });
+
 </script>
 
 </html>
