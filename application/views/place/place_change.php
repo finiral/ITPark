@@ -39,7 +39,7 @@
                             <div class="col-5 bg-dark numero p-2"><?php echo $i+1 ?></div>    
                         </div>
                     </div>
-                    
+                
                     <div class="col-7  p-1 colon-2 justify-content-center"><button href="" class="btn btn-dark bouton w-100" data-bs-toggle="modal" data-bs-target="#modalPayer">Reserver</button></div>
                     <div class="modal fade" id="modalPayer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -66,7 +66,7 @@
                                 <input type="hidden" class="val" ng-model="value" name="val" >
                                 <div class="boule h-100 bg-light bl-slide" ></div>
                             </div>
-                            
+               
                         </form>
                     </div>
                 </div>
@@ -76,3 +76,4 @@
     </div>
 </div>
 <script src="<?php echo base_url("assets/js/moov-menu.js") ?>"></script>
+

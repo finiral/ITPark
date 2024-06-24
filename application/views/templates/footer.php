@@ -6,11 +6,10 @@
                 Copyright © 2024 IT Park Inc. Tous droits réservés.
                 Engagement de confidentialité Utilisation des cookies Conditions d’utilisation Ventes et remboursements Mentions légales Plan du site 
           </div> -->
-<div class="card-footer text-center fixed-bottom text-muted bg-dark color-white p-3 fs-6 fw-light fh-sm">
+<div class="card-footer text-center text-muted bg-dark color-white p-3 fs-6 fw-light fh-sm">
   Copyright © 2024 IT Park Inc. Tous droits réservés.
   <!-- Engagement de confidentialité Utilisation des cookies Conditions d’utilisation Ventes et remboursements Mentions légales Plan du site  -->
 </div>
 </div>
 </body>
-
 </html>

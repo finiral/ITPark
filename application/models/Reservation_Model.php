@@ -41,4 +41,12 @@ class Reservation_Model extends CI_Model
         
         return $this->insert($data);
     }
+
+    // vaovao
+    // Fonction qui récupère toutes les réservations d'une parking
+    public function getResarvationsForOneParking($id_parking) {  
+        $query = $this->db->query("SELECT * FROM getresarvationsforoneparking(?)", array($id_parking));
+        return $query->result_array();
+    }
+    
 }
