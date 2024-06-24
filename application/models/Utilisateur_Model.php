@@ -31,7 +31,7 @@ class Utilisateur_Model extends CI_Model
     public function getById($id)
     {
         $query = $this->db->get_where('utilisateur', array('id_utilisateur' => $id));
-        return $query->row();
+        return $query->row_array();
     }
 
     //Récuperer un utilisateur avec sont nom , mdp, et status 
@@ -42,7 +42,7 @@ class Utilisateur_Model extends CI_Model
             'mdp' => md5($mdp),
             'status' => $status
         ));
-        return $query->row();
+        return $query->row_array();
     }
 
     // Insertion d'un utilisateur

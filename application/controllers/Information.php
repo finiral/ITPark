@@ -3,31 +3,27 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Information extends CI_Controller
 {
+    public function index(){
+        redirect("information/parking");
+    }
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     *	- or -
-     * 		http://example.com/index.php/welcome/index
-     *	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see https://codeigniter.com/userguide3/general/urls.html
-     */
-    public function getInfo()
+    public function parking($idParking)
     {
-        $id = 1;
-        $this->load->model("Parking_Model","pmodel");
-        $parking=$this->pmodel->getViewParkingById($id);
-        $data['title'] = "Information Parking";
-        $data['description'] = "Page d'information pour un parking donné";
-        $data['contents'] = "information/information";
-        $data['parking'] = $parking;
-        $this->load->view("templates/template", $data);
+        $this->load->model("Parking_Model");
+        $this->load->model("Place_Model");
+        $data["nblibre"]=count($this->Place_Model->getPlaceFreeForOneParking($idParking));
+        $parking=$this->Parking_Model->getInfoParkingCompletId($idParking);
+        $data["title"]="Information du parking";
+        $data["description"] = "Page d'informations d'un parking";
+        $data["contents"] = "information/information";
+        $data["id"]=$parking["id_parking"];
+        $data["prix"]=$parking["prix"];
+        $data["lieu"]=$parking["lieu_nom"];
+        $data["classe"]=$parking["classe_nom"];
+        $data["debutpointe"]=$this->Parking_Model->getDebutHeurePointe(6,2023,$idParking);
+        $data["finpointe"]=$this->Parking_Model->getFinHeurePointe(6,2023,$idParking);
+        $this->load->view("templates2/template2",$data);
     }
 }
+
+?>
