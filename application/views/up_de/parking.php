@@ -47,8 +47,8 @@
                             </div>
                         </a>
                         <div class="col-2">
-                                            <div class="row"><a class="btn btn-dark">modifier</a></div>
-                                            <div class="row my-1"><a class="btn btn-danger">suprimer</a></div>
+                                            <div class="row"><a href="#"class="btn btn-dark">modifier</a></div>
+                                            <div class="row my-1"><a href="<?php echo site_url("up_de/deleteParking/$id")?> " class="btn btn-danger">suprimer</a></div>
                                         </div>  
                                         </div>
                 <?php }
