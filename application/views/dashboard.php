@@ -41,7 +41,7 @@
                                 <div class="accordion-body">
                                 <ol class="list-group list-group-flush">
                                         <a href="<?php echo site_url("utilisateur/index") ?>" class="list-group-item list-group-item-action">Liste</a>
-                                        <a href="<?php echo site_url("Insert_Utilisateur/index") ?>" class="list-group-item list-group-item-action">Inserer</a>
+                                        <a href="<?php echo site_url("insert_utilisateur/index") ?>" class="list-group-item list-group-item-action">Inserer</a>
                                     </ol>
                                 </div>
                             </div>
