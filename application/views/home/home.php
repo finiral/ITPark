@@ -48,7 +48,7 @@
                             <div class="col-5 ">
                                 <div class="row text-wrap">
                                     <div class="icon-text-inline">
-                                        <i class="bi bi-geo-alt-fill"></i> <!-- Exemple d'icône Font Awesome -->
+                                        <i class="bi bi-geo-alt-fill"></i>
                                         <span class="lieu"><?php echo $p['lieu_nom'] ?></span>
                                     </div>
                                 </div>

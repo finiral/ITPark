@@ -31,6 +31,13 @@ class Parking_Model extends CI_Model
         return $query->row_array();
     }
 
+    // vaovao
+    public function getViewParkingById($id)
+    {
+        $query = $this->db->get_where('v_parking', array('id_parking' => $id));
+        return $query->row_array();
+    }
+
     public function getAll()
     {
         $query = $this->db->get('parking');
@@ -318,4 +325,11 @@ class Parking_Model extends CI_Model
                                         nombre_entrees DESC;");
         return $query->result_array();
     }
+
+    public function getPrixById($idParking) {
+        $query = $this->db->select('prix')->get_where('parking', array('id_parking' => $idParking));
+        $result = $query->row_array();
+        return isset($result['prix']) ? $result['prix'] : 0;
+    }
+    
 }
