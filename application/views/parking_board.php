@@ -82,27 +82,27 @@
         <!-- ////////////////////////////////offcanvas ////////////////////////////////// -->
 
         <div class="container">
-            <h2 class="mt-4">Dashboard</h2>
-            <div class="row mt-4">
+
+            <h2 class="mt-4">Détails <?php echo $parking["lieu_nom"]?></h2>
+            <div class="row mt-4 text-start">
                 <div class="border border-input bg-input  border-2 rounded-3 col-4 col-lg-2">
-                    <a class="" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                        <span class="fs-4 color-red"><i class="bi bi-list toggle-sidebar-btn"></i></span>
-                        <span class="fs-3 color-red">Menu</span>
+                    <a class="" href="<?php echo site_url("dashboard/index") ?>">
+                        <span class="fs-4 me-3 color-red"><i class="fa fa-arrow-left"></i></span>
+                        <span class="fs-3 color-red">Retour</span>
                     </a>
                 </div>
             </div>
-
             <div class="row mt-4">
                 <!-- Default Card -->
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title mb-4 fw-bold">Voitures garés en ce moment</h5>
+                            <h5 class="card-title mb-4 fw-bold">Prix</h5>
                             <div class="d-flex align-items-center">
                                 <span>
                                     <i class="ri-car-line icone blue-icone"></i>
                                 </span>
-                                <h5><span class="fw-bold"><?php echo $nbUsed ?></span> voitures</h5>
+                                <h5><span class="fw-bold"><?php echo $parking["prix"] ?></span> Ariary</h5>
                             </div>
                         </div>
                     </div>
@@ -112,13 +112,12 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title mb-4 fw-bold">Recette total cette année</h5>
+                            <h5 class="card-title mb-4 fw-bold">Nombre de places</h5>
                             <div class="d-flex align-items-center">
                                 <span>
-                                    <i class="ri-money-dollar-box-line icone green-icone"></i>
-                                    </i>
+                                    <i class="ri-car-line icone blue-icone"></i>
                                 </span>
-                                <h5><span class="fw-bold"><?php echo $recetteTotal ?></span> Ariary</h5>
+                                <h5><span class="fw-bold"><?php echo $parking["nombre_place"] ?></span> places</h5>
                             </div>
                         </div>
                     </div>
@@ -128,15 +127,12 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title mb-4 fw-bold">Parking le plus populaire</h5>
+                            <h5 class="card-title mb-4 fw-bold">Classe du parking</h5>
                             <div class="d-flex align-items-center">
                                 <span>
-                                    <i class="ri-fire-line icone red-icone"></i>
+                                    <i class="ri-car-line icone blue-icone"></i>
                                 </span>
-                                <div class="ps-3">
-                                    <h5><span class="fw-bold"><?php echo $mostPopular ?></span></h5>
-                                    <p><span class="text-muted small"><?php echo $mostPopularCount ?> entrées</span></p>
-                                </div>
+                                <h5><span class="fw-bold"><?php echo $parking["classe_nom"] ?></span></h5>
 
                             </div>
                         </div>
@@ -168,145 +164,31 @@
                     </div>
                 </div>
             </div>
-            <!-- CHOIX PARKING -->
+            <!-- Graphe Prevision -->
             <div class="row mt-4">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title">Détail parking</h3>
-                        <form action="<?php echo site_url("dashboard/parking_board")?>" method="get">
+                        <h3 class="card-title">Prévisions</h3>
+                        <form id="formBenefice" method="post">
                             <div class="row mt-4">
-                                <div class="col-12 col-lg-6 mb-2">
+                                <div class="col-12 col-lg-4 mb-2">
                                     <div class="input-group">
-                                        <span class="input-group-text col-6 text-wrap">Choix de parking</span>
-                                        <select name="idPark" id="" class="col-6 col-lg-3">
-                                            <?php for ($i = 0; $i < count($parkings); $i++) { ?>
-                                                <option value="<?php echo $parkings[$i]["id_parking"]?>"><?php echo $parkings[$i]["lieu_nom"] ?></option>
-                                            <?php } ?>
-                                        </select>
+                                        <span class="input-group-text">Annee</span>
+                                        <input name="annee" type="number" aria-label="Last name" class="form-control col-3">
+                                        <button class="btn btn-danger" type="submit" id="button-addon1">valider</button>
                                     </div>
-                                    <br>
-                                    <button class="btn btn-danger" type="submit" id="button-addon1">voir les détails</button>
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Parking populaires -->
-            <div class="row mt-4">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="POST" id="formPopular">
-                            <h3 class="card-title">Parkings les plus populaires</h3>
-                            <div class="col-12 col-lg-4 mb-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Annee</span>
-                                    <input name="anneepopular" type="number" aria-label="Last name" class="form-control col-3" required>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4 mb-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Mois</span>
-                                    <input name="moispopular" type="number" aria-label="Last name" class="form-control col-3">
-                                </div>
-                            </div>
-                            <button class="btn btn-danger" type="submit" x>Filtrer</button>
-                        </form>
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Nom Parking</th>
-                                        <th>Classe</th>
-                                        <th>Description</th>
-                                        <th>Nombre d'entrées</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="bodyPopular">
-                                    <?php for ($i = 0; $i < count($lsPopular); $i++) { ?>
-                                        <tr>
-                                            <td><?php echo $lsPopular[$i]["lieu_nom"] ?></td>
-                                            <td><?php echo $lsPopular[$i]["classe_nom"] ?></td>
-                                            <td><?php echo $lsPopular[$i]["description"] ?></td>
-                                            <td><?php echo $lsPopular[$i]["nombre_entrees"] ?></td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Lieu recette -->
-            <div class="row mt-4">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="POST" id="">
-                            <h3 class="card-title">Lieux qui rapportent le plus</h3>
-                            <div class="col-12 col-lg-4 mb-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Annee</span>
-                                    <input name="" type="number" aria-label="Last name" class="form-control col-3" required>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4 mb-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Mois</span>
-                                    <input name="" type="number" aria-label="Last name" class="form-control col-3">
-                                </div>
-                            </div>
-                            <button class="btn btn-danger" type="submit" x>Filtrer</button>
-                        </form>
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Nom lieu</th>
-                                        <th>Total de revenue</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="bodyLieu">
-                                    <?php for ($i = 0; $i < count($lieuList); $i++) { ?>
-                                        <tr>
-                                            <td><?php echo $lieuList[$i]["lieu_nom"] ?></td>
-                                            <td><?php echo $lieuList[$i]["total_revenue"] ?></td>
-                                        </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Stat classe -->
-            <div class="row mt-4">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="POST" id="">
-                            <h3 class="card-title">Recettes par classe</h3>
-                            <div class="col-12 col-lg-4 mb-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Annee</span>
-                                    <input name="" type="number" aria-label="Last name" class="form-control col-3" required>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4 mb-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Mois</span>
-                                    <input name="" type="number" aria-label="Last name" class="form-control col-3">
-                                </div>
-                            </div>
-                            <button class="btn btn-danger" type="submit" x>Filtrer</button>
-                        </form>
-                        <div id="pieChart" style="min-height: 400px;" class="echart"></div>
-
                         <script>
-                            camembertClasse()
+                            prevDash("<?php echo site_url("dashboard/beneficeAnnee") ?>");
                         </script>
+                        <!-- Area Chart -->
+                        <div id="prevChart"></div>
+                        <!-- End Area Chart -->
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>
