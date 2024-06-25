@@ -288,7 +288,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
 -- 8. Fonction GetPlaceOutCount
 -- Description: Fonction qui compte le nombre d'entrée dans un parking 
 -- pour chaque intervalle d'heure lors d'un mois donné
@@ -323,7 +322,48 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+--9.Fonction fonctions insertion-update(ok)
+-- Description:Fonction  qui insert des donnees dans les tables: reservation,MouvementPlace.Update de la table place
+CREATE OR REPLACE FUNCTION InsertReservation(
+    p_id_Parking INT,
+    p_id_Place INT,
+    p_numero_telephone VARCHAR(15),
+    p_date_heure_reservation TIMESTAMP WITHOUT TIME ZONE,
+    p_duree SMALLINT,
+    p_matricule VARCHAR(20)
+)
+RETURNS VOID AS $$
+BEGIN
+    INSERT INTO Reservation (id_Parking, id_Place, numero_telephone, date_heure_reservation, duree)
+    VALUES (p_id_Parking, p_id_Place, p_numero_telephone, p_date_heure_reservation, p_duree);
+
+    INSERT INTO MouvementPlace (id_Parking, id_Place, matricule, date_Heure_MouvementPlace, status)
+    VALUES (p_id_Parking, p_id_Place, p_matricule, p_date_heure_reservation, 1);
+
+    UPDATE Place
+    SET status = 1
+    WHERE id_Place = p_id_Place;
+END;
+$$ LANGUAGE plpgsql;
+
+---10-fonction qui recupere le id_place
+CREATE OR REPLACE FUNCTION get_place(id_parking_param INT, numero_place_param INT)
+RETURNS INT AS $$
+DECLARE
+    id_place_result INT;
+BEGIN
+    SELECT id_place
+    INTO id_place_result
+    FROM place
+    WHERE id_parking = id_parking_param AND numero_place = numero_place_param;
+
+    RETURN id_place_result;
+END;
+$$ LANGUAGE plpgsql;
+
+
 -- view
+/*
  CREATE VIEW v_Parking AS
  SELECT
      p.id_Parking,
@@ -338,10 +378,36 @@ $$ LANGUAGE plpgsql;
      Classe c ON p.id_Classe = c.id_Classe
  JOIN
      Lieu l ON p.id_Lieu = l.id_Lieu;
+*/
+
+CREATE VIEW v_Parking AS
+ SELECT
+    p.id_Parking,
+    c.intitule AS classe_nom,
+    l.nom AS lieu_nom,
+    COUNT(pl.id_place) AS nombre_place,
+    p.prix,
+    p.description
+FROM
+    Parking p
+JOIN
+    Classe c ON p.id_Classe = c.id_Classe
+JOIN
+    Lieu l ON p.id_Lieu = l.id_Lieu
+JOIN
+    Place pl ON p.id_Parking = pl.id_Parking
+GROUP BY
+    p.id_Parking,
+    c.intitule,
+    l.nom,
+    p.nombre_place,
+    p.prix,
+    p.description;
+
 
 --view paiement par jour
-    date_Paiement DATE,
-    date_Paiement DATE,
+  --  date_Paiement DATE,
+    --date_Paiement DATE,
     
 create or replace view v_PaiementDay as select id_parking,sum(montant),date_Paiement from paiement group by 
 date_Paiement,id_Parking order by date_Paiement;
@@ -354,4 +420,5 @@ from
     place 
 where 
     status = 1;
+
 

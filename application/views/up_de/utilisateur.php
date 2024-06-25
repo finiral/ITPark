@@ -29,7 +29,7 @@
                         <ol class="list-group list-group-flush">
                             <a href="<?php echo site_url("utilisateur/index") ?>"
                                 class="list-group-item list-group-item-action">Liste</a>
-                            <a href="#" class="list-group-item list-group-item-action">Inserer</a>
+                            <a href="<?php echo site_url("insert_utilisateur/index") ?>" class="list-group-item list-group-item-action">Inserer</a>
                         </ol>
                     </div>
                 </div>
@@ -83,7 +83,6 @@
         </div><!-- End Page Title -->
 
 
-<<<<<<< HEAD
         <div class="information  pb-3 col-lg-7">
             <div class="row mt-4 text-start">
                 <div class="border border-input bg-input  border-2 rounded-3 col-4 col-lg-2">
@@ -157,63 +156,6 @@
                         </a>
                     </div>
                 </div>
-=======
-            <div class="information  pb-3 col-lg-7">
-                <form method="get" action="<?php echo site_url("utilisateur/recherche") ?>">
-                    <div class="row">
-                        <div class="col-8 p-3 ">
-                            <div class="row float-right">
-                                <div class="col-2 form-group"><input type="number" class="form-control" name="id"></div>
-                                <div class="col-8 form-group"><input type="text" class="form-control" name="identifiant"></div>
-                                <div class="col-2"><input type="submit" class="btn btn-danger" value="trouver"></div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <?php
-                if (count($utilisateurs) == 0) { ?>
-                    <h1>Aucun utilisateur</h1>
-                    <?php } else {
-                    for ($i = 0; $i < count($utilisateurs); $i++) {
-                        $user = $utilisateurs[$i]; ?>
-                        <div class="row element-2 opt-2 my-2">
-                            <a href="<?php
-                                        $id = $user['id_utilisateur'];
-                                        echo site_url("information/utilisateur/$id"); ?>" style="color: black;" class="col-9">
-                                <div class="element col-11 col-lg-10 mt-3">
-                                    <div class="">
-                                        <div class="row justify-content-center">
-                                            <div class="col-2">
-                                                <div class="number-place">
-                                                    <p><?php echo $utilisateurs[$i]["id_utilisateur"] ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 ">
-                                                <div class="row text-wrap">
-                                                    <div class="icon-text-inline">
-                                                        
-                                                        <span class="lieu"><?php echo $user['identifiant'] ?></span>
-                                                    </div>
-                                                </div>
-                                                <div class="row text-wrap">
-                                                    <div class="icon-text-inline">
-                                                        <span class="lieu"><?php echo "Status : ".$utilisateurs[$i]["status"] ?></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="col-2">
-                                <div class="row"><a class="btn btn-dark" href="<?php echo site_url("utilisateur/redirectForm/$id") ?>">modifier</a></div>
-                                <div class="row my-1"><a class="btn btn-danger" href="<?php echo site_url("utilisateur/delete/$id") ?>">suprimer</a></div>
-                            </div>
-                        </div>
-                <?php }
-                } ?>
->>>>>>> 8aceb87be3724d17054f112a4ffc02046dd90f7c
             </div>
             <?php }
                 } ?>
