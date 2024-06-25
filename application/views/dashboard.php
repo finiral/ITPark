@@ -97,7 +97,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title mb-4 fw-bold">Voitures garés en ce moment</h5>
+                            <h5 class="card-title mb-4 fw-bold">Places occupés en ce moment</h5>
                             <div class="d-flex align-items-center">
                                 <span>
                                     <i class="ri-car-line icone blue-icone"></i>
