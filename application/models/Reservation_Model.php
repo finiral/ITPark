@@ -49,4 +49,12 @@ class Reservation_Model extends CI_Model
         return $query->result_array();
     }
     
+    
+    ///fonction insertReservation,insert mouvement place,update place 
+    public function insertReservation($idParking, $idPlace, $numeroTelephone, $dateHeureReservation, $duree, $matricule)
+    {
+        $sql = "SELECT InsertReservation(?, ?, ?, ?, ?, ?)";
+        $params = array($idParking, $idPlace, $numeroTelephone, $dateHeureReservation, $duree, $matricule);
+        return $this->db->query($sql, $params);
+    }
 }

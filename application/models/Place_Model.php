@@ -44,11 +44,14 @@ class Place_Model extends CI_Model{
     }
 
     // Fonction qui récupère tout les places libre pour un parking donné
-        // Fonction dans la database
-    public function getPlaceFreeForOneParking($id_parking) {     
-        $query = $this->db->query("SELECT * FROM getplacefreeforoneparking(?)", array($id_parking));
-        return $query->result_array();
-    }
+        public function getPlaceFreeForOneParking($id_parking) {     
+            $query = $this->db->query("SELECT * FROM getplacefreeforoneparking(?)", array($id_parking));
+            if ($query && $query->num_rows() > 0) {
+                return $query->result_array();
+            }
+            return array();
+        }
+        
 
     // vaovao
     // Fonction qui récupère toutes les places d'une parking donnée
@@ -127,4 +130,11 @@ class Place_Model extends CI_Model{
 
         return $montantApayer;
     }
+    
+    //fonction qui recupere les id_place d'un parking en fonction du numero  place
+    public function getPlace($id_parking, $numero_place) {
+        $query = $this->db->query('SELECT get_place(?, ?) as place_id', array($id_parking, $numero_place));
+        $result = $query->row_array(); 
+        return $result['place_id']; 
+    } 
 }
