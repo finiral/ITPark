@@ -54,7 +54,8 @@ class Lieu_Model extends CI_Model
                                 GROUP BY
                                     l.nom
                                 ORDER BY
-                                    total_revenue DESC;
+                                    total_revenue DESC
+                                LIMIT 10;
                                     ");
         return $query->result_array();
     }
@@ -73,7 +74,8 @@ class Lieu_Model extends CI_Model
                                 GROUP BY
                                     l.nom
                                 ORDER BY
-                                    total_revenue DESC;
+                                    total_revenue DESC
+                                LIMIT 10
                                     ");
         return $query->result_array();
     }

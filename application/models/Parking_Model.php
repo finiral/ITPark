@@ -230,7 +230,7 @@ class Parking_Model extends CI_Model
                 $mfinal = $mois;
             }
             for ($m = 1; $m <= $mfinal; $m++) {
-                $res[$a][$m] = $this->getRecette($m, $a, $idParking);
+                $res[$a][$m] = $this->getRecetteAdmin($m, $a, $idParking);
             }
         }
         return $res;
@@ -243,7 +243,6 @@ class Parking_Model extends CI_Model
         $mois = $moisAnnee["mois"];
         $an = $moisAnnee["annee"];
         $moyenneVariation = $this->getMoyenneVariation($mois, $an, $idParking);
-        echo "VARIATION : $moyenneVariation\n";
         ///PREPARATION DU TABLEAU
         $tab = $this->prepareRecette2D($idParking);
         while ($an <= $anneeTarget) {
@@ -262,8 +261,60 @@ class Parking_Model extends CI_Model
             }
             $an++;
         }
-        return $tab;
+        return $tab[$anneeTarget];
     }
+
+
+    public function prepareRecette2DCollab($idParking)
+    {
+        $this->load->model("Paiement_Model");
+        $res = array(array());
+        $moisAnnee = $this->Paiement_Model->getMostRecent($idParking);
+        $mois = $moisAnnee["mois"];
+        $an = $moisAnnee["annee"];
+        for ($a = $an - 2; $a <= $an; $a++) {
+            $mfinal = 12;
+            if ($a == $an) {
+                $mfinal = $mois;
+            }
+            for ($m = 1; $m <= $mfinal; $m++) {
+                $res[$a][$m] = $this->getRecetteCollab($m, $a, $idParking);
+            }
+        }
+        return $res;
+    }
+
+    public function getPrevision2DCollab($moisTarget, $anneeTarget, $idParking)
+    {
+        $this->load->model("Paiement_Model");
+        $moisAnnee = $this->Paiement_Model->getMostRecent($idParking);
+        $mois = $moisAnnee["mois"];
+        $an = $moisAnnee["annee"];
+        $moyenneVariation = $this->getMoyenneVariation($mois, $an, $idParking);
+        ///PREPARATION DU TABLEAU
+        $tab = $this->prepareRecette2DCollab($idParking);
+        while ($an <= $anneeTarget) {
+            $mfinal = 12;
+            $mdebut = $mois + 1;
+            if ($an != $moisAnnee["annee"]) {
+                $mdebut = 1;
+            }
+            if ($an == $anneeTarget) {
+                $mfinal = $moisTarget;
+            }
+            for ($m = $mdebut; $m <= $mfinal; $m++) {
+                $moyenne = ($tab[$an - 1][$m] + $tab[$an - 2][$m]) / 2;
+                
+                $tab[$an][$m] = $moyenne * $moyenneVariation;
+            }
+            $an++;
+        }
+        return $tab[$anneeTarget];
+    }
+
+
+
+
     public function getParkingActu()
     {
         $requete = "SELECT * FROM  v_parkingActu";
@@ -297,7 +348,9 @@ class Parking_Model extends CI_Model
                                         p.description,
                                         p.classe_nom
                                     ORDER BY
-                                        nombre_entrees DESC;");
+                                        nombre_entrees DESC
+                                    LIMIT 10;
+                                    ");
         return $query->result_array();
     }
 
@@ -322,7 +375,9 @@ class Parking_Model extends CI_Model
                                         p.description,
                                         p.classe_nom
                                     ORDER BY
-                                        nombre_entrees DESC;");
+                                        nombre_entrees DESC
+                                        
+                                        ");
         return $query->result_array();
     }
 

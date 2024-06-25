@@ -20,64 +20,7 @@
     <div class="main-content min-vh-100 ">
 
         <!-- ////////////////////////////////offcanvas ////////////////////////////////// -->
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div class="accordion accordion-flush" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <span class="me-2"><i class="fa fa-user"></i></span>
-                                Utilisateur
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#">
-                            <div class="accordion-body">
-                                <ol class="list-group list-group-flush">
-                                    <a href="<?php echo site_url("utilisateur/index") ?>" class="list-group-item list-group-item-action">Liste</a>
-                                    <a href="<?php echo site_url("insert_utilisateur/index") ?>" class="list-group-item list-group-item-action">Inserer</a>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <span class="me-2"><i class="fa fa-car"></i></span>
-                                Parking
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#">
-                            <div class="accordion-body">
-                                <ol class="list-group list-group-flush">
-                                    <a href="<?php echo site_url('up_de/index') ?>" class="list-group-item list-group-item-action">Liste</a>
-                                    <a href="<?php echo site_url('parking/indexe') ?>" class="list-group-item list-group-item-action">Inserer</a>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                <span class="me-2"><i class="fa fa-map-location"></i></span>
-                                Lieu
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#">
-                            <div class="accordion-body">
-                                <ol class="list-group list-group-flush">
-                                    <a href="#" class="list-group-item list-group-item-action">Liste</a>
-                                    <a href="<?php echo site_url("lieu/indexe") ?>" class="list-group-item list-group-item-action">Inserer</a>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php $this->load->view("offcanvas.php") ?>
 
         <!-- ////////////////////////////////offcanvas ////////////////////////////////// -->
 
@@ -102,7 +45,7 @@
                                 <span>
                                     <i class="ri-car-line icone blue-icone"></i>
                                 </span>
-                                <h5><span class="fw-bold"><?php echo $nbUsed ?></span> voitures</h5>
+                                <h5><span class="fw-bold"><?php echo $nbUsed ?></span> places</h5>
                             </div>
                         </div>
                     </div>
@@ -143,31 +86,62 @@
                     </div>
                 </div><!-- End Default Card -->
             </div>
-            <!-- Graphe Recette -->
             <div class="row mt-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">Recettes</h3>
-                        <form id="formBenefice" method="post">
-                            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <!-- Graphe Recette -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Recettes</h3>
+                            <form id="formBenefice" method="post">
+                                <div class="row mt-4">
+                                    <div class="col-12 col-lg-6 mb-2">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Annee</span>
+                                            <input name="annee" type="number" aria-label="Last name" class="form-control col-3">
+                                            <button class="btn btn-danger" type="submit" id="button-addon1">valider</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <script>
+                                benefDash("<?php echo site_url("dashboard/beneficeAnnee") ?>");
+                            </script>
+                            <!-- Area Chart -->
+                            <div id="benefChart"></div>
+                            <!-- End Area Chart -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Stat classe -->
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="POST" id="formClasse">
+                                <h3 class="card-title">Recettes par classe</h3>
                                 <div class="col-12 col-lg-4 mb-2">
                                     <div class="input-group">
                                         <span class="input-group-text">Annee</span>
-                                        <input name="annee" type="number" aria-label="Last name" class="form-control col-3">
-                                        <button class="btn btn-danger" type="submit" id="button-addon1">valider</button>
+                                        <input name="annee" type="number" aria-label="Last name" class="form-control col-3" required>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                        <script>
-                            benefDash("<?php echo site_url("dashboard/beneficeAnnee") ?>");
-                        </script>
-                        <!-- Area Chart -->
-                        <div id="benefChart"></div>
-                        <!-- End Area Chart -->
+                                <div class="col-12 col-lg-4 mb-2">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Mois</span>
+                                        <input name="mois" type="number" aria-label="Last name" class="form-control col-3">
+                                    </div>
+                                </div>
+                                <button class="btn btn-danger" type="submit" x>Filtrer</button>
+                            </form>
+
+                            <script>
+                                classeRecette("<?php echo base_url("dashboard/classerevenue") ?>")
+                            </script>
+                            <div id="pieChart" style="min-height: 400px;" class="echart"></div>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <!-- CHOIX PARKING -->
             <div class="row mt-4">
                 <div class="card">
@@ -241,18 +215,18 @@
             <div class="row mt-4">
                 <div class="card">
                     <div class="card-body">
-                        <form method="POST" id="">
-                            <h3 class="card-title">Lieux qui rapportent le plus</h3>
+                        <form method="POST" id="formLieu">
+                            <h3 class="card-title">Lieux avec recettes les plus hautes</h3>
                             <div class="col-12 col-lg-4 mb-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Annee</span>
-                                    <input name="" type="number" aria-label="Last name" class="form-control col-3" required>
+                                    <input name="annee" type="number" aria-label="Last name" class="form-control col-3" required>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4 mb-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Mois</span>
-                                    <input name="" type="number" aria-label="Last name" class="form-control col-3">
+                                    <input name="mois" type="number" aria-label="Last name" class="form-control col-3">
                                 </div>
                             </div>
                             <button class="btn btn-danger" type="submit" x>Filtrer</button>
@@ -262,7 +236,8 @@
                                 <thead>
                                     <tr>
                                         <th>Nom lieu</th>
-                                        <th>Total de revenue</th>
+                                        <th>Total de recette</th>
+                                        <th>Gain admin</th>
                                     </tr>
                                 </thead>
                                 <tbody id="bodyLieu">
@@ -270,6 +245,10 @@
                                         <tr>
                                             <td><?php echo $lieuList[$i]["lieu_nom"] ?></td>
                                             <td><?php echo $lieuList[$i]["total_revenue"] ?></td>
+                                            <td><?php
+                                                $soixante = $lieuList[$i]["total_revenue"] * 0.6;
+
+                                                echo $soixante - $soixante * 0.165 ?></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -278,34 +257,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Stat classe -->
-            <div class="row mt-4">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="POST" id="">
-                            <h3 class="card-title">Recettes par classe</h3>
-                            <div class="col-12 col-lg-4 mb-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Annee</span>
-                                    <input name="" type="number" aria-label="Last name" class="form-control col-3" required>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4 mb-2">
-                                <div class="input-group">
-                                    <span class="input-group-text">Mois</span>
-                                    <input name="" type="number" aria-label="Last name" class="form-control col-3">
-                                </div>
-                            </div>
-                            <button class="btn btn-danger" type="submit" x>Filtrer</button>
-                        </form>
 
-                        <script>
-                            classeRecette("<?php echo base_url("dashboard/classerevenue") ?>")
-                        </script>
-                        <div id="pieChart" style="min-height: 400px;" class="echart"></div>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
@@ -344,6 +296,16 @@
         formPopular.addEventListener("submit", function(event) {
             event.preventDefault();
             getPopularParking(new FormData(formPopular), "<?php echo site_url("dashboard/popularParking") ?>");
+        })
+        var formLieu = document.getElementById("formLieu")
+        formLieu.addEventListener("submit", function(event) {
+            event.preventDefault();
+            getLieuRecette(new FormData(formLieu), "<?php echo site_url("dashboard/lieuRecette") ?>");
+        })
+        var formClasse = document.getElementById("formClasse")
+        formClasse.addEventListener("submit", function(event) {
+            event.preventDefault();
+            classeRecetteForm(new FormData(formClasse), "<?php echo site_url("dashboard/classerevenue") ?>");
         })
     });
 </script>
