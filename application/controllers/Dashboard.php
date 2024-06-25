@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller
         $this->load->model("Parking_Model");
         $this->load->model("Place_Model");
         $this->load->model("Admin_Model");
+        $this->load->model("Lieu_Model");
         $parkings=$this->Parking_Model->getInfoParkingComplet();
         $data["title"]="Dashboard";
         $data["description"] = "Dashboard Parking ITpark";
@@ -16,6 +17,7 @@ class Dashboard extends CI_Controller
         $data["lsPopular"]=$mps;
         $data["mostPopular"]=$mps[0]["lieu_nom"];
         $data["mostPopularCount"]=$mps[0]["nombre_entrees"];
+        $data["lieuList"]=$this->Lieu_Model->getLieuBestPaiement(2023);
         $res=0;
         for($i=1 ; $i<=12 ;$i++){
             $res=$res+$this->Admin_Model->getTotalRecetteAdmin($i,2023);

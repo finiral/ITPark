@@ -54,7 +54,7 @@
                             <div class="accordion-body">
                                 <ol class="list-group list-group-flush">
                                     <a href="<?php echo site_url('up_de/index') ?>" class="list-group-item list-group-item-action">Liste</a>
-                                    <a href="#" class="list-group-item list-group-item-action">Inserer</a>
+                                    <a href="<?php echo site_url('parking/indexe') ?>" class="list-group-item list-group-item-action">Inserer</a>
                                 </ol>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
         <div class="container">
             <h2 class="mt-4">Dashboard</h2>
             <div class="row mt-4">
-                <div class="border border-input bg-input  border-2 rounded-3 col-4 col-lg-1">
+                <div class="border border-input bg-input  border-2 rounded-3 col-4 col-lg-2">
                     <a class="" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                         <span class="fs-4 color-red"><i class="bi bi-list toggle-sidebar-btn"></i></span>
                         <span class="fs-3 color-red">Menu</span>
@@ -143,7 +143,7 @@
                     </div>
                 </div><!-- End Default Card -->
             </div>
-
+            <!-- Filtres recette -->
             <form id="formBenefice" method="post">
                 <div class="row mt-4">
                     <div class="col-12 col-lg-4 mb-2">
@@ -166,6 +166,7 @@
                     </div>
                 </div>
             </form>
+            <!-- Graphe Recette -->
             <div class="row mt-4">
                 <div class="card">
                     <div class="card-body">
@@ -180,6 +181,7 @@
 
                 </div>
             </div>
+            <!-- Parking populaires -->
             <div class="row mt-4">
                 <div class="card">
                     <div class="card-body">
@@ -221,6 +223,75 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Lieu recette -->
+            <div class="row mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" id="">
+                            <h3 class="card-title">Lieux qui rapportent le plus</h3>
+                            <div class="col-12 col-lg-4 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text">Annee</span>
+                                    <input name="" type="number" aria-label="Last name" class="form-control col-3" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text">Mois</span>
+                                    <input name="" type="number" aria-label="Last name" class="form-control col-3">
+                                </div>
+                            </div>
+                            <button class="btn btn-danger" type="submit"x>Filtrer</button>
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nom lieu</th>
+                                        <th>Total de revenue</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bodyLieu">
+                                    <?php for ($i = 0; $i < count($lieuList); $i++) { ?>
+                                        <tr>
+                                            <td><?php echo $lieuList[$i]["lieu_nom"] ?></td>
+                                            <td><?php echo $lieuList[$i]["total_revenue"] ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Stat classe -->
+            <div class="row mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" id="">
+                            <h3 class="card-title">Recettes par classe</h3>
+                            <div class="col-12 col-lg-4 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text">Annee</span>
+                                    <input name="" type="number" aria-label="Last name" class="form-control col-3" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text">Mois</span>
+                                    <input name="" type="number" aria-label="Last name" class="form-control col-3">
+                                </div>
+                            </div>
+                            <button class="btn btn-danger" type="submit"x>Filtrer</button>
+                        </form>
+                        <div id="pieChart" style="min-height: 400px;" class="echart"></div>
+
+              <script>
+                camembertClasse()
+              </script>
                     </div>
                 </div>
             </div>

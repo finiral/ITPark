@@ -37,5 +37,45 @@ class Lieu_Model extends CI_Model
         $query = $this->db->get('lieu');
         return $query->result_array();
     }
+
+    public function getLieuBestPaiementMonth($annee,$mois){
+        $query=$this->db->query("SELECT
+                                    l.nom AS lieu_nom,
+                                    SUM(pai.montant) AS total_revenue
+                                FROM
+                                    Paiement pai
+                                JOIN
+                                    Parking p ON pai.id_Parking = p.id_Parking
+                                JOIN
+                                    Lieu l ON p.id_Lieu = l.id_Lieu
+                                WHERE
+                                    EXTRACT(YEAR FROM pai.date_Paiement) = $annee
+                                    AND EXTRACT(MONTH FROM pai.date_Paiement) = $mois
+                                GROUP BY
+                                    l.nom
+                                ORDER BY
+                                    total_revenue DESC;
+                                    ");
+        return $query->result_array();
+    }
+    public function getLieuBestPaiement($annee){
+        $query=$this->db->query("SELECT
+                                    l.nom AS lieu_nom,
+                                    SUM(pai.montant) AS total_revenue
+                                FROM
+                                    Paiement pai
+                                JOIN
+                                    Parking p ON pai.id_Parking = p.id_Parking
+                                JOIN
+                                    Lieu l ON p.id_Lieu = l.id_Lieu
+                                WHERE
+                                    EXTRACT(YEAR FROM pai.date_Paiement) = $annee
+                                GROUP BY
+                                    l.nom
+                                ORDER BY
+                                    total_revenue DESC;
+                                    ");
+        return $query->result_array();
+    }
     
 }

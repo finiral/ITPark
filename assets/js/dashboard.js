@@ -76,3 +76,44 @@ function benefDash(url){
    sendXHR(xhr, "POST", url, false, data)
 }
 
+function camembertClasse(){
+  document.addEventListener("DOMContentLoaded", () => {
+    echarts.init(document.querySelector("#pieChart")).setOption({
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      series: [{
+        name: 'Access From',
+        type: 'pie',
+        radius: '90%',
+        data: [{
+            value: 1048,
+            name: 'Moyen de gamme'
+          },
+          {
+            value: 735,
+            name: 'Intermédiaire'
+          },
+          {
+            value: 580,
+            name: 'VIP'
+          },
+        ],
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }]
+    });
+  });
+}
+
+
+

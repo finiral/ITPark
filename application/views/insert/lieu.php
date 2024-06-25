@@ -1,10 +1,20 @@
 
 
-    <div class="container ">
-        <div class="row mt-5 pt-5">
-            <div class="col-lg-4  m-auto rounded-5 mt-5 px-4" id="box">
+    <div class="container" style="min-height:77dvh">
+        
+        <div class="row mt-5 pt-5 justify-content-center">
+            <div class="col-lg-4 mt-5 text-start ">
+                <div class="border border-input bg-input  border-2 rounded-3 col-4 col-lg-5 ps-4">
+                    <a class="" href="<?php echo site_url("dashboard/index") ?>">
+                    <span class="fs-4 me-3 color-red"><i class="fa fa-arrow-left"></i></span>
+                    <span class="fs-3 color-red">Menu</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4  m-auto rounded-5 mt-5 px-4 bg-light" id="box" >
                 
-                <h1 class="text-center mt-4"><span style="color: #E63D36;">IT-</span>Park</h1>
                 <h2 class="text-center mt-5">Insertion du Lieu</h2>
                 <div class="text-center">
                     <p><?php  echo $error ?></p>

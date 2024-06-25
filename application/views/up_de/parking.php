@@ -75,7 +75,7 @@
 </div> -->
 <!-- <script src="<?php echo base_url("assets/vendor/bootstrap/js/bootstrap.bundle.min.js") ?>"></script> -->
 
-<center class="pt-5 mt-5">
+<center class="row pt-5 mt-5">
     <div class="main-content min-vh-100 mt-5 p-3">
         
         
