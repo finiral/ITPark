@@ -25,7 +25,7 @@ class Lieu extends CI_Controller
         
         
         $input['nom'] = $this->input->post("nom");
-        $input['longitude'] = $this->input->post("latitude");
+        $input['longitude'] = $this->input->post("longitude");
         $input['latitude'] = $this->input->post("latitude");
         $data["error"] ="";
          if($input['nom']==null ||  $input['longitude']==null || $input['latitude'] == null ){
