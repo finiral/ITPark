@@ -173,14 +173,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">Détail parking</h3>
-                        <form action="<?php echo site_url("dashboard/parking_board")?>" method="get">
+                        <form action="<?php echo site_url("dashboard/parking_board") ?>" method="get">
                             <div class="row mt-4">
                                 <div class="col-12 col-lg-6 mb-2">
                                     <div class="input-group">
                                         <span class="input-group-text col-6 text-wrap">Choix de parking</span>
-                                        <select name="idPark" id="" class="col-6 col-lg-3">
+                                        <select name="idPark" id="" class="">
                                             <?php for ($i = 0; $i < count($parkings); $i++) { ?>
-                                                <option value="<?php echo $parkings[$i]["id_parking"]?>"><?php echo $parkings[$i]["lieu_nom"] ?></option>
+                                                <option value="<?php echo $parkings[$i]["id_parking"] ?>"><?php echo $parkings[$i]["lieu_nom"] ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -298,11 +298,11 @@
                             </div>
                             <button class="btn btn-danger" type="submit" x>Filtrer</button>
                         </form>
-                        <div id="pieChart" style="min-height: 400px;" class="echart"></div>
 
                         <script>
-                            camembertClasse()
+                            classeRecette("<?php echo base_url("dashboard/classerevenue") ?>")
                         </script>
+                        <div id="pieChart" style="min-height: 400px;" class="echart"></div>
                     </div>
                 </div>
             </div>

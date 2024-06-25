@@ -151,7 +151,7 @@ function prevDash(url){
    sendXHR(xhr, "POST", url, false, data)
 }
 
-function camembertClasse(){
+function camembertClasse(datas){
   document.addEventListener("DOMContentLoaded", () => {
     echarts.init(document.querySelector("#pieChart")).setOption({
       tooltip: {
@@ -165,7 +165,7 @@ function camembertClasse(){
         name: 'Access From',
         type: 'pie',
         radius: '90%',
-        data: [{
+        data: datas,/*  [{
             value: 1048,
             name: 'Moyen de gamme'
           },
@@ -177,7 +177,7 @@ function camembertClasse(){
             value: 580,
             name: 'VIP'
           },
-        ],
+        ], */ 
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -188,6 +188,30 @@ function camembertClasse(){
       }]
     });
   });
+}
+function classeRecette(url){
+  ///create the xhr
+  var xhr = createXHR();
+  xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+              var recettes = JSON.parse(xhr.responseText, true)
+              var datas=[]
+              recettes.forEach(recette => {
+                datas.push({
+                  value:recette["total_revenue"],
+                  name:recette["classe_nom"]
+                })
+              });
+              camembertClasse(datas)
+          } else {
+              console.log(xhr.responseText)
+          }
+      }
+  };
+  var data=new FormData()
+  data.append('annee','2023')
+  sendXHR(xhr, "POST", url, false, data)
 }
 
 

@@ -77,6 +77,12 @@ class Dashboard extends CI_Controller
         echo json_encode($mps);
 
     }
+
+    public function classeRevenue(){
+        $annee=$this->input->post("annee");
+        $this->load->model("Classe_Model");
+        echo json_encode($this->Classe_Model->getClasseRecette($annee));
+    }
     public function beneficeAnneeStatic(){
         $this->load->model("Admin_Model");
         $resultat=array();

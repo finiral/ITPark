@@ -83,7 +83,7 @@
 
         <div class="container">
 
-            <h2 class="mt-4">Détails <?php echo $parking["lieu_nom"]?></h2>
+            <h2 class="mt-4">Détails du parking <?php echo $parking["lieu_nom"]?></h2>
             <div class="row mt-4 text-start">
                 <div class="border border-input bg-input  border-2 rounded-3 col-4 col-lg-2">
                     <a class="" href="<?php echo site_url("dashboard/index") ?>">
