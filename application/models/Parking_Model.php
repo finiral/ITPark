@@ -264,23 +264,4 @@ class Parking_Model extends CI_Model
         }
         return $tab;
     }
-    public function getParkingActu()
-    {
-        $requete = "SELECT * FROM  v_parkingActu";
-        $query = $this->db->query($requete);
-         // Stockez les résultats dans un tableau
-         $rep = array();
-         foreach ($query->result_array() as $row) {
-             $rep[] = $row;
-         }
-         
-         return $rep;  
-    }
-
-    public function getPrixById($idParking) {
-        $query = $this->db->select('prix')->get_where('parking', array('id_parking' => $idParking));
-        $result = $query->row_array();
-        return isset($result['prix']) ? $result['prix'] : 0;
-    }
-    
 }
