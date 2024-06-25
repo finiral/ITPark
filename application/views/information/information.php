@@ -46,16 +46,6 @@
                 <?php if($nblibre > 0) { ?>
                     <div class="row mt-4">
                         <div class="col-12">
-                            <label for="numero_place">Choisissez un numéro de place :</label>
-                            <select name="numero_place" id="numero_place" class="form-control" required>
-                                <?php foreach ($numeros_places as $numero_place) { ?>
-                                    <option value="<?php echo $numero_place; ?>"><?php echo $numero_place; ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-12">
                             <h3 class="place" style="color: #E63D36;">Nombre de places disponibles : <?php echo $nblibre; ?></h3>
                         </div>
                     </div>

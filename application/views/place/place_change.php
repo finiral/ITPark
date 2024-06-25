@@ -50,7 +50,7 @@
                 <div class="row text-center sub-title p-2 mb-2">
                     <div class="col-2 colon-1 ">
                         <div class="contenue row justify-content-start h-100">
-                            <div class="col-5 bg-dark numero p-2"><?php echo $i+1 ?></div>
+                            <div class="col-5 bg-dark numero p-2"><?php echo $place_free[$i]['numero_place'] ?></div>
                         </div>
                     </div>
 
