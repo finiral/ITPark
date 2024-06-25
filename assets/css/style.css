@@ -318,7 +318,7 @@ h6 {
 .headerRecherche {
   transition: all 0.5s;
   z-index: 997;
-  height: 160px;
+  height: 6rem !important;
   background-color: rgba(0, 0, 0);
   /* Opacité 74% */
   padding-left: 20px;
