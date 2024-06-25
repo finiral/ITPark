@@ -37,6 +37,20 @@ class Paiement_Model extends CI_Model
 
     }
 
+    public function calculMontant($duree, $idParking) {
+        $this->db->select('prix');
+        $this->db->from('v_parking');
+        $this->db->where('id_parking', $idParking);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+            return $result->prix * $duree;
+        } else {
+            return 0; 
+        }
+    }
+
 }
 
 ?>
