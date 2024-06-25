@@ -33,10 +33,40 @@ function updateBenefDash(keys, values) {
                 }
                 updateBenefDash(Object.keys(recettes),values)
             } else {
-                alert(xhr.status);
+                alert(xhr.responseText);
+                console.log(xhr.responseText)
             }
         }
     };
     sendXHR(xhr, "POST", url, true, form)
+  }
+
+  function getPopularParking(form, url) {
+    ///create the xhr
+    var xhr = createXHR();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var parkings = JSON.parse(xhr.responseText, true)
+                let rows = '';
+                parkings.forEach(parking => {
+                  rows += `
+                  <tr>
+                      <td>${parking.lieu_nom}</td>
+                      <td>${parking.classe_nom}</td>
+                      <td>${parking.description}</td>
+                      <td>${parking.nombre_entrees}</td>
+                  </tr>
+              `
+              });
+              document.getElementById("bodyPopular").innerHTML=rows
+            } else {
+                alert(xhr.responseText);
+                console.log(xhr.responseText)
+            }
+        }
+    };
+    sendXHR(xhr, "POST", url, true, form)
+    document.getElementById("bodyPopular").innerHTML="Chargement ...."
   }
   

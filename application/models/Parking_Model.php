@@ -273,12 +273,12 @@ class Parking_Model extends CI_Model
     public function getPopularParking($annee){
         $query=$this->db->query("SELECT
                                         p.id_Parking,
-                                        l.nom AS lieu_nom,
+                                        p.lieu_nom AS lieu_nom,
+                                        p.classe_nom as classe_nom,
+                                        p.description,
                                         COUNT(mp.id_Mouvementplace) AS nombre_entrees
                                     FROM
-                                        Parking p
-                                    JOIN
-                                        Lieu l ON p.id_Lieu = l.id_Lieu
+                                        v_parking p
                                     JOIN
                                         MouvementPlace mp ON p.id_Parking = mp.id_Parking
                                     WHERE
@@ -286,7 +286,34 @@ class Parking_Model extends CI_Model
                                         AND EXTRACT(YEAR FROM mp.date_Heure_MouvementPlace) = $annee
                                     GROUP BY
                                         p.id_Parking,
-                                        l.nom
+                                        p.lieu_nom,
+                                        p.description,
+                                        p.classe_nom
+                                    ORDER BY
+                                        nombre_entrees DESC;");
+        return $query->result_array();
+    }
+
+    public function getPopularParkingMois($annee,$mois){
+        $query=$this->db->query("SELECT
+                                        p.id_Parking,
+                                        p.lieu_nom AS lieu_nom,
+                                        p.classe_nom as classe_nom,
+                                        p.description,
+                                        COUNT(mp.id_Mouvementplace) AS nombre_entrees
+                                    FROM
+                                        v_parking p
+                                    JOIN
+                                        MouvementPlace mp ON p.id_Parking = mp.id_Parking
+                                    WHERE
+                                        mp.status = 1 -- 1 indicates entry
+                                        AND EXTRACT(YEAR FROM mp.date_Heure_MouvementPlace) = $annee 
+                                        AND EXTRACT(MONTH FROM mp.date_Heure_MouvementPlace) = $mois
+                                    GROUP BY
+                                        p.id_Parking,
+                                        p.lieu_nom,
+                                        p.description,
+                                        p.classe_nom
                                     ORDER BY
                                         nombre_entrees DESC;");
         return $query->result_array();
