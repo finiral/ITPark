@@ -81,7 +81,7 @@
                             data-bs-parent="#">
                             <div class="accordion-body">
                                 <ol class="list-group list-group-flush">
-                                    <a href="#" class="list-group-item list-group-item-action">Liste</a>
+                                    <a href="<?php echo site_url("lieu/liste") ?>" class="list-group-item list-group-item-action">Liste</a>
                                     <a href="<?php echo site_url("lieu/indexe") ?>"
                                         class="list-group-item list-group-item-action">Inserer</a>
                                 </ol>
