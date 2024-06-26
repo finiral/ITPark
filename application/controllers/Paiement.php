@@ -9,7 +9,6 @@ class Paiement extends CI_Controller {
         $this->load->model('Parking_Model');  
         $this->load->model('Place_Model');  
         $this->load->model('Reservation_Model');  
-        $this->load->model('MouvementPlace_Model');  
         $this->load->library('form_validation');
     }
 
@@ -26,13 +25,7 @@ class Paiement extends CI_Controller {
         $data["numero_place"] = $this->input->post('numero_place');
         $this->load->view("templates2/template2", $data);
     }
-    public function redirectGaurdian($idgardien = 0){
-        $this->load->model("MouvementGardien_Model","mvmodel");
-        $gardien=$this->mvmodel->getMouvementGardienById($idgardien);
-        $this->session->set_userdata('status', 1);
-        $this->session->set_userdata('guard',$idgardien);
-        redirect("place/change?idparking=".$gardien['id_parking']);
-    }
+
     public function insert() {
         // Affiche toutes les données POST pour vérifier leur contenu(debug)
         /*
@@ -52,20 +45,11 @@ class Paiement extends CI_Controller {
         $this->form_validation->set_rules('date', 'Date', 'required');
         $this->form_validation->set_rules('duree', 'Duree', 'required|numeric');
         $this->form_validation->set_rules('numero_place', 'Numero de place', 'required|numeric');
-        $stat=$this->session->userdata('status');
+    
         if ($this->form_validation->run() == FALSE) {
             $data["title"] = "Page de paiement";
             $data["description"] = "Page de paiement pour ITpark";
-            if (is_null($stat) ) {
-                $data["contents"] = "insert/paiement";
-            } else {
-                $gardien=$this->session->userdata('guard');
-                if(!is_null($gardien)){
-                // echo $gardien;
-                    $this->redirectGaurdian($gardien);
-                }
-            }
-
+            $data["contents"] = "insert/paiement";
             $this->load->view("templates2/template2", $data);
         }else {
             $prix_parking = $this->Parking_Model->getPrixById($idparking);
@@ -80,21 +64,11 @@ class Paiement extends CI_Controller {
                 'numero_telephone' => $numero,
                 'isreservation' => 1
             );
-            $gardien=$this->session->userdata('guard');
-            $this->Paiement_Model->insert($data_paiement);
+    
             $date_heure_reservation = date('Y-m-d H:i:s');
-            if (is_null($gardien)) {
-                $this->Reservation_Model->insertReservation($idparking, $idPlace, $numero, $date_heure_reservation, $duree, $immatriculation);
-            } else {
-                $input = [];
-                $input['id_parking'] = $idparking;
-                $input['id_place'] = $idPlace;
-                $input['matricule'] = $immatriculation;
-                $input['date_heure_mouvementplace'] = $date;
-                $input['status'] = 0;
-                $this->MouvementPlace_Model->insert($input);
-                $this->Place_Model->changeState($idPlace , 0);
-            }
+    
+            $this->Paiement_Model->insert($data_paiement);
+            $this->Reservation_Model->insertReservation($idparking, $idPlace, $numero, $date_heure_reservation, $duree, $immatriculation);
 
             $parking = $this->Parking_Model->getInfoParkingCompletId($idparking);
             $data['numero'] = $numero;

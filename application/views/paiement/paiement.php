@@ -7,9 +7,7 @@
                     <h1 class="Title-resa" style="color: rgb(255, 255, 255);">Transaction par mobile money</h1>
 
                     <div class="col-8 col-lg-3 col-md-3 col-md-2" style="color: white;">
-                        <form action="<?php  echo site_url('paiement/insert'); ?>" method="post">
-                        
-                        <input type="hidden" name="idparking" value="<?php echo $id ?>" class="elementinput">
+                        <form action="<?php  echo site_url('insert/paiement'); ?>" method="post">
                             <div class="row mt-4">
                                 <span>numero</span>
                                 <input type="number" name="numero" class="elementinput">

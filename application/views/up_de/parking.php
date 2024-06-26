@@ -142,7 +142,7 @@
                             <span class="d-block d-lg-none"><i class="fa fa-pen"></i></span>
                         </a></div>
                     <div class="row my-1"><a class="btn btn-danger"
-                            href="<?php echo site_url("Up_de/deleteParking/$id") ?>">
+                            href="<?php echo site_url("utilisateur/delete/$id") ?>">
                             <span class="d-none d-lg-block">suprimer</span>
                             <span class="d-block d-lg-none"><i class="fa fa-trash"></i></span>
                         </a>

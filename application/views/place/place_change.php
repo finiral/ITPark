@@ -30,7 +30,7 @@
                             </li>
                             <?php } ?>
                             <li class="detail list-group-item "><span class="fw-bold">Nombre de place libre :</span>
-                                <span class="badge bg-red"><?php echo $count_free ?></span>
+                                <span class="badge bg-red"><?php echo count($place_free) ?></span>
                             </li>
                         </ul>
                     </div>
@@ -43,8 +43,8 @@
                     <div class="col-4  p-1 ">Changer</div>
                 </div> -->
                 <form action="<?php echo site_url("accueil/recherche");?>" method="POST">
-                    <button type="submit" class="btn btn-warning mb-3">Retour</button>
-                </form>
+                            <button type="submit" class="btn btn-warning mb-3">Retour</button>
+                        </form>
                 <?php if(count($place_free) > 0) { ?>
                 <?php for($i = 0; $i < count($place_free); $i++) { ?>
                 <div class="row text-center sub-title p-2 mb-2">
@@ -57,8 +57,7 @@
                     <div class="col-7  p-1 colon-2 justify-content-center">
                         <form action="<?php echo site_url("paiement/indexe");?>" method="post">
                             <input type="hidden" name="idparking" value="<?php echo $id ?>">
-                            <input type="hidden" name="numero_place"
-                                value="<?php echo $place_free[$i]['numero_place'] ?>">
+                            <input type="hidden" name="numero_place" value="<?php echo $place_free[$i]['numero_place'] ?>">
                             <button type="submit" class="btn btn-dark bouton w-100" data-bs-toggle="modal"
                                 data-bs-target="#modalPayer">Reserver</button>
                         </form>
@@ -156,7 +155,7 @@
                         </div>
                         <?php } ?>
 
-                        <!-- </form> -->
+                        </form>
                     </div>
                 </div>
                 <?php } ?>

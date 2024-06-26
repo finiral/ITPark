@@ -22,9 +22,6 @@ class Place extends CI_Controller
     public function change()
     {
         $id_parking = $this->input->post('idparking');
-        if (is_null($id_parking)) {
-            $id_parking = (int)$this->input->get('idparking');    
-        }
         $this->load->model("Parking_Model","pmodel");
         $parking = $this->pmodel->getViewParkingById($id_parking);
         $this->load->model("Reservation_Model","rmodel");
@@ -32,12 +29,7 @@ class Place extends CI_Controller
         $this->load->model("Place_Model","plmodel");
         $places = $this->plmodel->getPlacesByParking($id_parking);
         $place_free = $this->plmodel->getPlaceFreeForOneParking($id_parking);
-        $isa = count($place_free);
         $status = $this->session->userdata('status');
-        if(!is_null($status)){
-            $place_free = $places;
-        }
-
         $data['id']=$id_parking;
         $data['title'] = "Changement Place";
         $data['description'] = "Page de changement de place";
@@ -46,7 +38,6 @@ class Place extends CI_Controller
         $data['reservations'] = $reservations;
         $data['places'] = $places;
         $data['place_free'] = $place_free;
-        $data['count_free'] = $isa;
         $data['status'] = $status;
         $this->load->view("templates/template", $data);
     }
