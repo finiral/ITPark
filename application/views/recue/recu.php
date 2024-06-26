@@ -3,7 +3,11 @@
     <div class="mt-8 p-3 ">
         <div class="row justify-content-center my-3">
             <div class="col-10 col-md-4 col-lg-4">
-                <a href="<?php echo site_url("accueil/index") ?>" class="btn btn-danger" >Home</a>
+                <?php if(!is_null($this->session->userdata("guard"))) { ?>
+                    <a href="<?php echo site_url("login/redirectGaurdian/".$this->session->userdata("guard")) ?>" class="btn btn-danger" >Home</a>
+                <?php } else { ?>
+                    <a href="<?php echo site_url("accueil/index") ?>" class="btn btn-danger" >Home</a>
+                <?php } ?>
             </div>
         </div>
         <div class="row justify-content-center">    

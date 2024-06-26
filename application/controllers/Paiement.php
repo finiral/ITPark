@@ -24,6 +24,7 @@ class Paiement extends CI_Controller {
         $data["contents"] = "insert/paiement";
         $data["idparking"] = $this->input->post('idparking');
         $data["numero_place"] = $this->input->post('numero_place');
+        $data["action"] = $this->input->post('action');
         $this->load->view("templates2/template2", $data);
     }
     public function redirectGaurdian($idgardien = 0){
@@ -46,6 +47,7 @@ class Paiement extends CI_Controller {
         $duree = $this->input->post('duree');
         $idparking = $this->input->post('idparking'); 
         $numero_place = $this->input->post('numero_place');
+        $action = $this->input->post('action');
     
         $this->form_validation->set_rules('numero', 'Numero', 'required|numeric');
         $this->form_validation->set_rules('immatriculation', 'Immatriculation', 'required');
@@ -81,9 +83,10 @@ class Paiement extends CI_Controller {
                 'isreservation' => 1
             );
             $gardien=$this->session->userdata('guard');
+
             $this->Paiement_Model->insert($data_paiement);
             $date_heure_reservation = date('Y-m-d H:i:s');
-            if (is_null($gardien)) {
+            if ($action == "rsrv") {
                 $this->Reservation_Model->insertReservation($idparking, $idPlace, $numero, $date_heure_reservation, $duree, $immatriculation);
             } else {
                 $input = [];

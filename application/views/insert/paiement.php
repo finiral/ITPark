@@ -15,6 +15,8 @@
                         <div class="row mt-4">
                             <input type="hidden" name="numero_place" value="<?php echo $numero_place ?>" class="elementinput">
                         </div>
+
+                        <input type="hidden" name="action" value="<?php echo $action ?>">
                         
                         <div class="row mt-4">
                             <span>numero</span>

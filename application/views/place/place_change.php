@@ -59,6 +59,7 @@
                             <input type="hidden" name="idparking" value="<?php echo $id ?>">
                             <input type="hidden" name="numero_place"
                                 value="<?php echo $place_free[$i]['numero_place'] ?>">
+                            <input type="hidden" name="action" value="rsrv">
                             <button type="submit" class="btn btn-dark bouton w-100" data-bs-toggle="modal"
                                 data-bs-target="#modalPayer">Reserver</button>
                         </form>
@@ -93,6 +94,7 @@
                                                                     value="<?php echo $id ?>"> <input type="hidden"
                                                                     name="numero_place"
                                                                     value="<?php echo $place_free[$i]['numero_place'] ?>">
+                                                                    <input type="hidden" name="action" value="pr">
                                                                 <div class="row mt-4 color-dark">
                                                                     <span>numero</span>
                                                                     <input type="number" name="numero"
