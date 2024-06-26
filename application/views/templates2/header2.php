@@ -33,7 +33,7 @@
         <div class="row ">    
                 <div class="list-logo" >
                         <span>
-                            <span class="car-icon"><i class="ri-car-line"></i> </span><span class="brand-1">IT-</span><span class="brand-2">Park</span>
+                            <a href="<?php echo site_url("accueil")?>"><span class="car-icon"><i class="ri-car-line"></i> </span></a><span class="brand-1">IT-</span><span class="brand-2">Park</span>
                         </span>
                 </div>
         </div>

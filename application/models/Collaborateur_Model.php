@@ -21,12 +21,53 @@ class Collaborateur_Model extends CI_Model
     // Méthode pour obtenir les parkings d'un collaborateur
     public function getParkingsByCollaborateur($id_Utilisateur)
     {
-        $this->db->select('id_parking');
-        $this->db->from('accessproprietaire');
-        $this->db->where('id_utilisateur', $id_Utilisateur);
-        $query = $this->db->get();
+        $query = $this->db->query("SELECT
+                                    vp.id_Parking as id_parking,
+                                    vp.classe_nom as classe_nom,
+                                    vp.lieu_nom as lieu_nom,
+                                    vp.nombre_place as nb_place,
+                                    vp.prix as prix,
+                                    vp.description as description
+                                    FROM
+                                    v_Parking vp
+                                    JOIN
+                                    Accessproprietaire ap ON vp.id_Parking = ap.id_Parking
+                                    JOIN
+                                    Utilisateur u ON ap.id_Utilisateur = u.id_Utilisateur
+                                    WHERE
+                                    u.id_Utilisateur = $id_Utilisateur; 
+                                    ");
         return $query->result_array();
     }
+
+    public function getParkingsByCollaborateurLike($id_Utilisateur, $nom)
+    {
+        // Escape the input parameters to prevent SQL injection
+        $id_Utilisateur = $this->db->escape($id_Utilisateur);
+        $nom = $this->db->escape_like_str($nom);
+
+        // Construct the query
+        $query = $this->db->query("SELECT
+                                vp.id_Parking as id_parking,
+                                vp.classe_nom as classe_nom,
+                                vp.lieu_nom as lieu_nom,
+                                vp.nombre_place as nb_place,
+                                vp.prix as prix,
+                                vp.description as description
+                                FROM
+                                v_Parking vp
+                                JOIN
+                                Accessproprietaire ap ON vp.id_Parking = ap.id_Parking
+                                JOIN
+                                Utilisateur u ON ap.id_Utilisateur = u.id_Utilisateur
+                                WHERE
+                                u.id_Utilisateur = $id_Utilisateur 
+                                AND vp.lieu_nom LIKE '%$nom%';");
+
+        // Return the result as an array
+        return $query->result_array();
+    }
+
 
     // Méthode pour calculer la recette totale de chaque parking pour chaque collaborateur
     public function getTotalRecetteCollaborateur($mois, $annee, $id_Utilisateur)
@@ -44,7 +85,7 @@ class Collaborateur_Model extends CI_Model
     }
 
     // Fonction pour avoir la total de prevision d'un mois annee d'un collaborateur
-    public function getTotalPrevision($mois, $annee,$idCollab)
+    public function getTotalPrevision($mois, $annee, $idCollab)
     {
     }
 }
