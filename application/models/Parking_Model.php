@@ -10,7 +10,9 @@ class Parking_Model extends CI_Model
 
     public function insert($data)
     {
-        return $this->db->insert('parking', $data);
+        $this->db->insert('parking', $data);
+        $id = $this->db->insert_id();
+        return $id;
     }
 
     public function update($id, $data)
