@@ -48,6 +48,40 @@ class Up_de extends CI_Controller
         $data['recherche'] = $this->Parking_Model->getParkingActu();
         redirect("up_de/recherche");
     }
+    public function redirectForm($id)
+    {
+        $this->load->model("Parking_Model");
+        $this->load->model("Classe_Model");
+        $this->load->model("Lieu_Model");
+        $data["title"] = "Modification Parking";
+        $data["description"] = "Page de modification parking ITpark";
+        $data['contents'] = "insert/parking";
+        $data['action'] = "up_de/updateParking";  
+        $data['parking'] = $this->Parking_Model->getById($id);      
+        $data['classe'] = $this->Classe_Model->getAll();
+        $data['lieu'] = $this->Lieu_Model->getAll();
+        $data['button'] = "Modifier";
+        $this->load->view("templates2/template2", $data);
+    }
+    public function updateParking()
+    {        
+        $id=$this->input->post("id");
+        $id_classe=$this->input->post("classe");
+        $id_lieu=$this->input->post("lieu");
+        $nombre_place=$this->input->post("nombre_place");
+        $prix=$this->input->post("prix");
+        $description=$this->input->post("description");
+        $data = array(
+            'id_classe'=>$id_classe,
+            'id_lieu'=>$id_lieu,
+            'nombre_place'=>$nombre_place,
+            'prix'=>$prix,
+            'description'=>$description,
+        );
+        $this->load->model("Parking_Model","pmodel");
+        $this->pmodel->update($id, $data);
+        $this->recherche();
+    }
 }
 
 ?>

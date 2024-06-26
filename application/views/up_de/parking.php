@@ -93,8 +93,7 @@
             <div class="mx-auto col-lg-7 ps-3">
 
                 <button class="  toolbox-active btn btn-outline-danger " type="button" data-bs-toggle="collapse"
-                    data-bs-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample3"
-                    style="">
+                    data-bs-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample3" style="">
                     <span><i class="fa-solid fa-sliders"></i></span>
                     Tous les filtres
                 </button>
@@ -137,7 +136,7 @@
                 </a>
                 <div class="col-2">
                     <div class="row"><a class="btn btn-warning"
-                            href="<?php echo site_url("utilisateur/redirectForm/$id") ?>">
+                            href="<?php echo site_url("up_de/redirectForm/$id") ?>">
                             <span class="d-none d-lg-block">modifier</span>
                             <span class="d-block d-lg-none"><i class="fa fa-pen"></i></span>
                         </a></div>

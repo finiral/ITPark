@@ -17,9 +17,11 @@ class Parking extends CI_Controller
         $data["description"] = "Page de recherche Parking ITpark";
         $data["contents"] = "insert/parking";
         $data["error"] = "";
+        $data["action"] = "parking/insert";
         
         $data['classe'] = $this->Classe_Model->getAll();
         $data['lieu'] = $this->Lieu_Model->getAll();
+        $data['button'] = "Insérer";
         
         $this->load->view("templates2/template2", $data);
     }
