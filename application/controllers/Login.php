@@ -46,13 +46,31 @@ class Login extends CI_Controller
         $this->load->view("templates/template", $data);
     }
 
+    public function redirectGaurdian($idgardien = 0){
+        $this->load->model("MouvementGardien_Model","mvmodel");
+        $gardien=$this->mvmodel->getMouvementGardienById($idgardien);
+        $this->session->set_userdata('status', 1);
+        $this->session->set_userdata('guard',$idgardien);
+        redirect("place/change?idparking=".$gardien['id_parking']);
+    }
+
     public function checkLogin(){
         $identifiant=$this->input->post("identifiant");
         $mdp=$this->input->post("mdp");
         $status=$this->input->post("status");
         $redirect=$this->input->post("redirect");
         $this->load->model("Utilisateur_Model","umodel");
-        $user=$this->umodel->getByNamePwdType($identifiant,$mdp,$status);
+        $user=$this->umodel->getByNamePwdTypeS($identifiant,$mdp);
+
+        if ($user['status']==1) {
+            $redirect = "gardien";
+        } else if ($user['status']== 2){
+            $redirect = "collaborateur";
+        } else if ($user['status']==3){
+            $redirect = "admin";
+        }
+        // echo $user['status'];
+
         if($user==null){
             redirect("login/$redirect");
         }
@@ -60,14 +78,19 @@ class Login extends CI_Controller
             $this->session->set_userdata("user",$user);
             if($user["status"]==3){
                 redirect("dashboard/index");
+            } else if($user["status"]==1) {            
+                $this->redirectGaurdian($user['id_utilisateur']);
             }
             else if($user["status"]==2){
                 redirect("collaborateur/index");
-            }
-            else if($user["status"]==1){
+            }else {
                 redirect("accueil/recherche");
             }
             
         }
+    }
+    public function logout(){
+        $this->session->sess_destroy();
+        redirect("accueil/recherche");
     }
 }

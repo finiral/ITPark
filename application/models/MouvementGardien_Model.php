@@ -14,15 +14,31 @@
             return $query->result_array();
         }
 
+        public function getMouvementGardienById($id){
+            // echo $id;
+            $query = $this->db->get_where('mouvementgardien', array('id_utilisateur' => $id));
+            return $query->row_array();
+        }
+
         // Fonction pour ajouter un mouvement
         public function insertMouvementGardien($data) {
-            $this->db->insert('mouvementgardien', $data);
+            if ($this->db->insert('mouvementgardien', $data)) {
+                return "Insertion successful."; 
+            }
+            else {
+                return "Insertion failed.";
+            }
         }
         
         // Fonction pour mettre à jour les informations d'un Gardien
         public function updateMovementGardien($id, $data) {
             $this->db->where('id_mouvementgardien', $id);
-            $this->db->update('mouvementgardien', $data);
+            if ($this->db->update('mouvementgardien', $data)) {
+                return "Update successful.";
+            }
+            else {
+                return "Update failed.";
+            }
         }
         
         // Fonction pour supprimer un gardien

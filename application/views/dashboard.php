@@ -28,7 +28,8 @@
             <h2 class="mt-4">Dashboard</h2>
             <div class="row mt-4">
                 <div class="border border-input bg-input  border-2 rounded-3 col-4 col-lg-2">
-                    <a class="" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                    <a class="" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+                        aria-controls="offcanvasExample">
                         <span class="fs-4 color-red"><i class="bi bi-list toggle-sidebar-btn"></i></span>
                         <span class="fs-3 color-red">Menu</span>
                     </a>
@@ -77,7 +78,9 @@
                                     <i class="ri-fire-line icone red-icone"></i>
                                 </span>
                                 <div class="ps-3">
-                                    <h5><span class="fw-bold"><?php echo $mostPopular ?></span></h5>
+                                    <h5><span class="fw-bold">
+                                            <?php echo $mostPopular ?>
+                                        </span></h5>
                                     <p><span class="text-muted small"><?php echo $mostPopularCount ?> entrées</span></p>
                                 </div>
 
@@ -159,7 +162,8 @@
                                         </select>
                                     </div>
                                     <br>
-                                    <button class="btn btn-danger" type="submit" id="button-addon1">voir les détails</button>
+                                    <button class="btn btn-danger" type="submit" id="button-addon1">voir les
+                                        détails</button>
                                 </div>
                             </div>
                         </form>
@@ -175,13 +179,15 @@
                             <div class="col-12 col-lg-4 mb-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Annee</span>
-                                    <input name="anneepopular" type="number" aria-label="Last name" class="form-control col-3" required>
+                                    <input name="anneepopular" type="number" aria-label="Last name"
+                                        class="form-control col-3" required>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-4 mb-2">
                                 <div class="input-group">
                                     <span class="input-group-text">Mois</span>
-                                    <input name="moispopular" type="number" aria-label="Last name" class="form-control col-3">
+                                    <input name="moispopular" type="number" aria-label="Last name"
+                                        class="form-control col-3">
                                 </div>
                             </div>
                             <button class="btn btn-danger" type="submit" x>Filtrer</button>
@@ -198,12 +204,12 @@
                                 </thead>
                                 <tbody id="bodyPopular">
                                     <?php for ($i = 0; $i < count($lsPopular); $i++) { ?>
-                                        <tr>
-                                            <td><?php echo $lsPopular[$i]["lieu_nom"] ?></td>
-                                            <td><?php echo $lsPopular[$i]["classe_nom"] ?></td>
-                                            <td><?php echo $lsPopular[$i]["description"] ?></td>
-                                            <td><?php echo $lsPopular[$i]["nombre_entrees"] ?></td>
-                                        </tr>
+                                    <tr>
+                                        <td><?php echo $lsPopular[$i]["lieu_nom"] ?></td>
+                                        <td><?php echo $lsPopular[$i]["classe_nom"] ?></td>
+                                        <td><?php echo $lsPopular[$i]["description"] ?></td>
+                                        <td><?php echo $lsPopular[$i]["nombre_entrees"] ?></td>
+                                    </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>

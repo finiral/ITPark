@@ -44,6 +44,14 @@ class Utilisateur_Model extends CI_Model
         ));
         return $query->row_array();
     }
+    public function getByNamePwdTypeS($identifiant, $mdp)
+    {
+        $query = $this->db->get_where('utilisateur', array(
+            'identifiant' => $identifiant,
+            'mdp' => md5($mdp)
+        ));
+        return $query->row_array();
+    }
 
     // vaovao
     // Fonction pour récupérer tous les utilisateurs présents

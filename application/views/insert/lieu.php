@@ -22,18 +22,20 @@
                 <form action="<?php echo site_url("Lieu/insert")?>" method="post">
                     <p class="mt-4 me-3">Nom:</p>
                     <div class="input-group mb-2">
+                        <input type="hidden" name="mode" value="<?php echo $mode ?>">
+                        <input type="hidden" name="id" value="<?php echo $id ?>">
                         
                         <span class="input-group-text mt-3" id="span">
                             <i class="fas fa-id-badge mt-2"></i>
                         </span>
-                        <input type="text" class="form-control mt-3" id="input" placeholder="Nom" name="nom">
+                        <input type="text" class="form-control mt-3" id="input" placeholder="Nom" name="nom" value="<?php echo $nom ?>">
 
                     </div>
                     
                     <p class="mt-4 me-3">Coordonnée:</p>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control me-2" id="input" placeholder="Longitude" name="longitude">
-                        <input type="text" class="form-control" id="input" placeholder="Latitude" name="latitude">
+                        <input type="text" class="form-control me-2" id="input" placeholder="Longitude" name="longitude" value="<?php echo $longitude ?>">
+                        <input type="text" class="form-control" id="input" placeholder="Latitude" name="latitude" value="<?php echo $latitude ?>">
                     </div>
 
                     <div class="d-grid mb-3">

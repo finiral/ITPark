@@ -55,7 +55,16 @@ class Parking extends CI_Controller
         } else {
             $this->load->model("Parking_Model");
             $parking = $this->Parking_Model->insert($input);
+            // echo $parking;
             if ($parking) {
+                $this->load->model("Place_Model");
+                for ($i=1; $i <= $input['nombre_place'] ; $i++) {
+                    $place = [];
+                    $place['numero_place'] = $i;
+                    $place['id_parking']  = (int)$parking;
+                    $place['status'] = 0; 
+                    $place = $this->Place_Model->insert($place);
+                }
                 $data["error"] = "Insertion réussie";
             } else {
                 $data["error"] = "Erreur d'insertion";
@@ -63,6 +72,31 @@ class Parking extends CI_Controller
         }
 
         $this->load->view("templates2/template2", $data);
+    }
+    public function moov_owner() {
+        $data["title"] = "Page de recherche";
+        $data["description"] = "Page de recherche Parking ITpark";
+        $data["contents"] = "up_de/access";
+        $data["error"] = "";
+        $this->load->model("Utilisateur_Model");
+        $this->load->model("Parking_Model");
+        $collab = $this->Utilisateur_Model->getAll();
+        $parking =  $this->Parking_Model->getParkingActu();
+        $data["parking"] = $parking;
+        $data["owner"] = $collab;
+        // var_dump($collab);
+        // var_dump($parking);
+        $this->load->view("templates2/template2", $data);
+    }
+    public function change_owner(){
+        $this->load->model("Accessproprietaire_Model");
+        $owner = $this->input->post("owner");
+        $parking = $this->input->post("parking");
+        $in = [];
+        $in['id_utilisateur'] = $owner;
+        $in['id_parking'] = $parking;
+        $this->Accessproprietaire_Model->insert($in);
+        $this->indexe();
     }
 }
 ?>

@@ -123,11 +123,11 @@ CREATE OR REPLACE FUNCTION GetResarvationsForOneParking(idParking INT)
     ) AS $$
     BEGIN
         RETURN QUERY
-        SELECT r.id_Reservation, v_p.classe_nom, v_p.lieu_nom, v_p.nombre_place, v_p.prix, v_p.description, 
+        SELECT distinct r.id_Reservation, v_p.classe_nom, v_p.lieu_nom, v_p.nombre_place, v_p.prix, v_p.description, 
                pl.numero_place, r.numero_telephone::VARCHAR, r.date_heure_reservation, r.duree 
         FROM Reservation r
         JOIN v_Parking v_p ON r.id_Parking = v_p.id_Parking
-        JOIN Place pl ON r.id_Parking = pl.id_Parking WHERE r.id_Parking = idParking;
+        JOIN Place pl ON r.id_Parking = pl.id_Parking WHERE r.id_Parking = idParking and pl.status = 1;
     END;
     $$ LANGUAGE plpgsql;
 
