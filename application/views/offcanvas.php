@@ -33,6 +33,8 @@
                                 <ol class="list-group list-group-flush">
                                     <a href="<?php echo site_url('up_de/index') ?>" class="list-group-item list-group-item-action">Liste</a>
                                     <a href="<?php echo site_url('parking/indexe') ?>" class="list-group-item list-group-item-action">Inserer</a>
+                                    <a href="<?php echo site_url('parking/moov_owner') ?>"
+                                        class="list-group-item list-group-item-action">Changement proprietaire</a>
                                 </ol>
                             </div>
                         </div>
@@ -47,12 +49,34 @@
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#">
                             <div class="accordion-body">
                                 <ol class="list-group list-group-flush">
-                                    <a href="#" class="list-group-item list-group-item-action">Liste</a>
-                                    <a href="<?php echo site_url("lieu/indexe") ?>" class="list-group-item list-group-item-action">Inserer</a>
+                                <a href="<?php echo site_url("lieu/liste") ?>" class="list-group-item list-group-item-action">Liste</a>
+                                    <a href="<?php echo site_url("lieu/indexe") ?>"
+                                        class="list-group-item list-group-item-action">Inserer</a>
                                 </ol>
                             </div>
                         </div>
                     </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingfour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThreeguard" aria-expanded="false" aria-controls="collapseThree">
+                                <span class="me-2"><i class="fa fa-map-location"></i></span>
+                                Mouvement gardien
+                            </button>
+                        </h2>
+                        <div id="collapseThreeguard" class="accordion-collapse collapse" aria-labelledby="headingfour"
+                            data-bs-parent="#">
+                            <div class="accordion-body">
+                                <ol class="list-group list-group-flush">
+                                    <a href="<?php echo site_url("Mouvement_gardien/liste") ?>" class="list-group-item list-group-item-action">Liste</a>
+                                    <a href="<?php echo site_url("Mouvement_gardien/indexe") ?>"
+                                        class="list-group-item list-group-item-action">Inserer</a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
