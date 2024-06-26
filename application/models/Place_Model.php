@@ -9,7 +9,9 @@ class Place_Model extends CI_Model{
 
     public function insert($data)
     {
-        return $this->db->insert('place', $data);
+        $this->db->insert('place', $data);
+        $id = $this->db->insert_id();
+        return $id;
     }
 
     public function update($id, $data)

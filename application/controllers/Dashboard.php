@@ -14,9 +14,14 @@ class Dashboard extends CI_Controller
         $data["contents"] = "dashboard";
         $data["nbUsed"]=$this->Place_Model->getCountUsed()["count_place"];
         $mps=$this->Parking_Model->getPopularParking(2023);
-        $data["lsPopular"]=$mps;
-        $data["mostPopular"]=$mps[0]["lieu_nom"];
-        $data["mostPopularCount"]=$mps[0]["nombre_entrees"];
+        $data["lsPopular"] = [];
+        $data["mostPopular"] = "";
+        $data["mostPopularCount"] = 0;
+        if($mps != null){
+            $data["lsPopular"]=$mps;
+            $data["mostPopular"]=$mps[0]["lieu_nom"];
+            $data["mostPopularCount"]=$mps[0]["nombre_entrees"];
+        }
         $data["lieuList"]=$this->Lieu_Model->getLieuBestPaiement(2023);
         $res=0;
         for($i=1 ; $i<=12 ;$i++){
