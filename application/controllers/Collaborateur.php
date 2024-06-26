@@ -3,12 +3,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Collaborateur extends CI_Controller
 {
+
+    public function __construct(){
+        parent::__construct();
+        if($this->session->userdata("user")==null || $this->session->userdata("user")["status"]==1){
+            redirect("accueil/index");
+        }
+    }
+
+
     public function index()
     {
         $this->load->model("Parking_Model");
         $this->load->model("Collaborateur_Model");
         $this->load->model("Utilisateur_Model");
-        $id=3;
+        $id=$this->session->userdata("user")["id_utilisateur"];
         $parkings=$this->Collaborateur_Model->getParkingsByCollaborateur($id);
         $total=0;
         for($i=0;$i<count($parkings);$i++){
@@ -34,7 +43,7 @@ class Collaborateur extends CI_Controller
         $this->load->model("Parking_Model");
         $this->load->model("Collaborateur_Model");
         $this->load->model("Utilisateur_Model");
-        $id=3;
+        $id=$this->session->userdata("user")["id_utilisateur"];
         $parkingss=$this->Collaborateur_Model->getParkingsByCollaborateurLike($id,$nom);
         $parkings=$this->Collaborateur_Model->getParkingsByCollaborateur($id);
         $total=0;

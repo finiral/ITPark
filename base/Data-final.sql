@@ -5,29 +5,24 @@ INSERT INTO Classe (intitule) VALUES
 ('VIP');
 
 INSERT INTO Lieu (nom, longitude, latitude) VALUES 
-('Parking Ankorondrano', 47.529, -18.879),
-('Parking Analakely', 47.524, -18.911),
-('Parking Ambatobe', 48.540, -18.897),
-('Parking Antanimena', 47.530, -18.900),
-('Parking Behoririka', 47.125, -15.782),
-('Parking Mahamasina', 46.222, -14.913),
-('Parking Andavamamba', 47.518, -18.917),
-('Parking Ambohijatovo', 47.522, -18.916),
-('Parking 67 Ha', 46.400, -14.800),
-('Parking Itaosy', 28.470, -15.954);
+('Ankorondrano', 47.529, -18.879),
+('Analakely', 47.524, -18.911),
+('Ambatobe', 48.540, -18.897),
+('Antanimena', 47.530, -18.900),
+('Behoririka', 47.125, -15.782),
+('Mahamasina', 46.222, -14.913),
+('Andavamamba', 47.518, -18.917),
+('Ambohijatovo', 47.522, -18.916),
+('67 Ha', 46.400, -14.800),
+('Itaosy', 28.470, -15.954);
 
 -- Insertion de 10 données dans la table Parking 
 INSERT INTO Parking (id_Classe, id_Lieu, nombre_place, prix, description) VALUES
-(1, 1, 50, 10000.00, 'Parking central 1'),
-(1, 2, 100, 12000.00, 'Parking central 2'),
-(2, 3, 75, 15000, 'Parking nord 1'),
-(2, 4, 60, 8000, 'Parking nord 2'),
-(3, 5, 90, 12000, 'Parking sud 1'),
-(3, 6, 110, 12000, 'Parking sud 2'),
-(1, 7, 120, 15500, 'Parking ouest 1'),
-(1, 8, 70, 20000, 'Parking ouest 2'),
-(2, 9, 80, 10000.00, 'Parking est 1'),
-(2, 10, 85, 13000.00, 'Parking est 2');
+(1, 1, 50, 500, 'Parking central 1'),
+(1, 2, 100, 500, 'Parking central 2'),
+(2, 3, 75, 1000, 'Parking nord 1'),
+(2, 4, 60, 1000, 'Parking nord 2'),
+(3, 5, 90, 2000, 'Parking sud 1');
 
 INSERT INTO Place (numero_place, id_Parking, status) VALUES
 ---1 parking
@@ -92,9 +87,9 @@ INSERT INTO Status_Utilisateur (status_nom) VALUES
 
 -- Insertion de 3 données de propriétaires 
 INSERT INTO Utilisateur (identifiant, mdp, status) VALUES
-('proprietaire2', 'mdp1', 1),
-('proprietaire2', 'mdp2', 1),
-('proprietaire3', 'mdp3', 1);
+('proprietaire1', sha1('mdp1'), 1),
+('proprietaire2', sha1('mdp2'), 1),
+('proprietaire3', sha1('mdp3'), 1);
 
 INSERT INTO Accessproprietaire (id_Utilisateur, id_Parking) VALUES
 (1, 1),

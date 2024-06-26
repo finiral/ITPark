@@ -3,6 +3,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Login extends CI_Controller
 {
+
+    public function __construct(){
+        parent::__construct();
+    }
+
     public function index()
     {
         redirect("login/admin");
@@ -52,10 +57,14 @@ class Login extends CI_Controller
             redirect("login/$redirect");
         }
         else{
+            $this->session->set_userdata("user",$user);
             if($user["status"]==3){
                 redirect("dashboard/index");
             }
-            else{
+            else if($user["status"]==2){
+                redirect("collaborateur/index");
+            }
+            else if($user["status"]==1){
                 redirect("accueil/recherche");
             }
             

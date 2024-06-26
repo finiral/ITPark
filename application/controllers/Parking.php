@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Parking extends CI_Controller
 {
+
+    public function __construct(){
+        parent::__construct();
+        if($this->session->userdata("user")==null || $this->session->userdata("user")["status"]!=3){
+            redirect("accueil/index");
+        }
+    }
     public function index()
     {
         redirect("parking/indexe");
