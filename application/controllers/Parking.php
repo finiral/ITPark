@@ -66,5 +66,30 @@ class Parking extends CI_Controller
 
         $this->load->view("templates2/template2", $data);
     }
+    public function moov_owner() {
+        $data["title"] = "Page de recherche";
+        $data["description"] = "Page de recherche Parking ITpark";
+        $data["contents"] = "up_de/access";
+        $data["error"] = "";
+        $this->load->model("Utilisateur_Model");
+        $this->load->model("Parking_Model");
+        $collab = $this->Utilisateur_Model->getAll();
+        $parking =  $this->Parking_Model->getParkingActu();
+        $data["parking"] = $parking;
+        $data["owner"] = $collab;
+        // var_dump($collab);
+        // var_dump($parking);
+        $this->load->view("templates2/template2", $data);
+    }
+    public function change_owner(){
+        $this->load->model("Accessproprietaire_Model");
+        $owner = $this->input->post("owner");
+        $parking = $this->input->post("parking");
+        $in = [];
+        $in['id_utilisateur'] = $owner;
+        $in['id_parking'] = $parking;
+        $this->Accessproprietaire_Model->insert($in);
+        $this->indexe();
+    }
 }
 ?>

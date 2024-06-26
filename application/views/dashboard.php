@@ -65,6 +65,8 @@
                                         class="list-group-item list-group-item-action">Liste</a>
                                     <a href="<?php echo site_url('parking/indexe') ?>"
                                         class="list-group-item list-group-item-action">Inserer</a>
+                                    <a href="<?php echo site_url('parking/moov_owner') ?>"
+                                        class="list-group-item list-group-item-action">Changement proprietaire</a>
                                 </ol>
                             </div>
                         </div>
