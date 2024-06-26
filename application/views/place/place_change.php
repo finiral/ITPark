@@ -93,7 +93,6 @@
                                                                     value="<?php echo $id ?>"> <input type="hidden"
                                                                     name="numero_place"
                                                                     value="<?php echo $place_free[$i]['numero_place'] ?>">
-                                                                etttoooo
                                                                 <div class="row mt-4 color-dark">
                                                                     <span>numero</span>
                                                                     <input type="number" name="numero"

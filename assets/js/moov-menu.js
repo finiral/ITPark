@@ -56,13 +56,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const childinput = element.querySelector('input');
         // element.classList.toggle('mooved');
         if (childinput.value == 1) {
-            element.classList.remove('bg-dark');
+            element.classList.remove('bg-success');
             element.classList.add('mooved');
             element.classList.add('bg-red');
         } else if (childinput.value == 0) {
             element.classList.remove('bg-red');
             element.classList.remove('mooved');
-            element.classList.add('bg-dark');
+            element.classList.add('bg-success');
         }
     };
 

@@ -71,8 +71,13 @@
                     <div class="col-md-2 col-lg-4 col-1">
                       <div class="row justify-content-md-end ps-2">
                         <div class="col-2 col-md-3 ps-md-5">
-                          <a href="<?php echo site_url("login/index") ?>" ><button type="button" class="btn btn-outline-secondary d-none d-md-none d-lg-block">Log-in</button></a>
-                          <a href="<?php echo site_url("login/index") ?>" ><button type="button" class="btn btn-outline-secondary d-block d-md-block d-lg-none">sign</button></a>
+                          <?php if (is_null($this->session->userdata("status"))) { ?>
+                            <a href="<?php echo site_url("login/index") ?>" ><button type="button" class="btn btn-outline-secondary d-none d-md-none d-lg-block">Login</button></a>
+                            <a href="<?php echo site_url("login/index") ?>" ><button type="button" class="btn btn-outline-secondary d-block d-md-block d-lg-none">sign</button></a>
+                          <?php } else { ?>
+                            <a href="<?php echo site_url("login/logout") ?>" ><button type="button" class="btn btn-outline-secondary d-none d-md-none d-lg-block">Logout</button></a>
+                            <a href="<?php echo site_url("login/logout") ?>" ><button type="button" class="btn btn-outline-secondary d-block d-md-block d-lg-none">sign</button></a>
+                          <?php } ?>
                         </div>
                       </div>
                     </div>
