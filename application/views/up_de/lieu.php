@@ -1,6 +1,6 @@
 <!-- Ajouter l'élément de fond flou -->
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<!-- <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -72,8 +72,8 @@
             </div>
         </div>
     </div>
-</div>
-
+</div> -->
+<?php $this->load->view("offcanvasdash.php") ?>
 <center class="pt-5 mt-5">
     <div class="main-content min-vh-100 mt-5 p-3">
         <div class="">
