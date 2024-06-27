@@ -98,30 +98,30 @@ INSERT INTO Accessproprietaire (id_Utilisateur, id_Parking) VALUES
 
 -- Insertion de 1 donnée d'admin dans la table Utilisateur
 INSERT INTO Utilisateur (identifiant, mdp, status) VALUES
-('admin1@gmail.com', MD5('adminmdp'), 2);
+('admin1@gmail.com', MD5('adminmdp'), 3);
 
 -- Insertion de 20 données de gardiens dans la table Utilisateur et Mouvementgardien
 INSERT INTO Utilisateur (identifiant, mdp, status) VALUES
-('gardien1@gmail.com', MD5('mdpg1'), 1),
-('gardien2@gmail.com', MD5('mdpg2'), 1),
-('gardien3@gmail.com', MD5('mdpg3'), 1),
-('gardien4@gmail.com', MD5('mdpg4'), 1),
-('gardien5@gmail.com', MD5('mdpg5'), 1),
-('gardien6@gmail.com', MD5('mdpg6'), 1),
-('gardien7@gmail.com', MD5('mdpg7'), 1),
-('gardien8@gmail.com', MD5('mdpg8'), 1),
-('gardien9@gmail.com', MD5('mdpg9'), 1),
-('gardien10@gmail.com', MD5('mdpg10'), 1),
-('gardien11@gmail.com', MD5('mdpg11'), 1),
-('gardien12@gmail.com', MD5('mdpg12'), 1),
-('gardien13@gmail.com', MD5('mdpg13'), 1),
-('gardien14@gmail.com', MD5('mdpg14'), 1),
-('gardien15@gmail.com', MD5('mdpg15'), 1),
-('gardien16@gmail.com', MD5('mdpg16'), 1),
-('gardien17@gmail.com', MD5('mdpg17'), 1),
-('gardien18@gmail.com', MD5('mdpg18'), 1),
-('gardien19@gmail.com', MD5('mdpg19'), 1),
-('gardien20@gmail.com', MD5('mdpg20'), 1);
+('gardien1@gmail.com', MD5('mdpg1'), 1 ),
+('gardien2@gmail.com', MD5('mdpg2'), 1 ),
+('gardien3@gmail.com', MD5('mdpg3'), 1 ),
+('gardien4@gmail.com', MD5('mdpg4'), 1 ),
+('gardien5@gmail.com', MD5('mdpg5'), 1 ),
+('gardien6@gmail.com', MD5('mdpg6'), 1 ),
+('gardien7@gmail.com', MD5('mdpg7'), 1 ),
+('gardien8@gmail.com', MD5('mdpg8'), 1 ),
+('gardien9@gmail.com', MD5('mdpg9'), 1 ),
+('gardien10@gmail.com', MD5('mdpg10'), 1 ),
+('gardien11@gmail.com', MD5('mdpg11'), 1 ),
+('gardien12@gmail.com', MD5('mdpg12'), 1 ),
+('gardien13@gmail.com', MD5('mdpg13'), 1 ),
+('gardien14@gmail.com', MD5('mdpg14'), 1 ),
+('gardien15@gmail.com', MD5('mdpg15'), 1 ),
+('gardien16@gmail.com', MD5('mdpg16'), 1 ),
+('gardien17@gmail.com', MD5('mdpg17'), 1 ),
+('gardien18@gmail.com', MD5('mdpg18'), 1 ),
+('gardien19@gmail.com', MD5('mdpg19'), 1 ),
+('gardien20@gmail.com', MD5('mdpg20'), 1 );
 
 INSERT INTO Mouvementgardien (id_Utilisateur, id_Parking, Date_Mouvementgardien) VALUES
 (4, 1, '2023-06-01'),

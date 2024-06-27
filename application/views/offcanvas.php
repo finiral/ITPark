@@ -77,6 +77,14 @@
                         </div>
                     </div>
 
+                    <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <a class="accordion-button without-after collapsed" type="button" href="<?php echo site_url("login/logout") ?>">
+                        <span class="me-2"><i class="fa fa-dashboard"></i></span>
+                        Logout
+                    </a>
+                </h2>
+            </div>
                 </div>
             </div>
         </div>
