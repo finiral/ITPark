@@ -52,6 +52,8 @@ class Mouvement_gardien extends CI_Controller
                 $data['error'] = $this->moov->updateMovementGardien($gardien,$in);
             }
         }
+        $this->load->model("Parking_Model","umodel");
+        $data["parking"] = $this->umodel->getParkingActu();
         
         $this->load->view("templates2/template2",$data);
     }
