@@ -13,6 +13,10 @@
   scroll-behavior: smooth;
 }
 
+.mt-8{
+  margin-top: 8rem  !important;
+}
+
 body {
   font-family:Arial, Helvetica, sans-serif ; 
   /* CSS */
@@ -44,6 +48,32 @@ h6 {
 /*--------------------------------------------------Personal */
 
 
+.brand-1{
+  color: white;
+  font-weight: bolder;
+}
+
+.brand-2{
+  color: #E63D36;
+  font-weight: bolder;
+
+}
+
+.info-parking
+{
+  font-size : 200% ; 
+  font-weight: bold;
+  color:#E63D36 ;
+}
+.list-logo
+{
+  font-size: 50px;qaaaaaaaqa
+}
+.car-icon
+{
+   color: #E63D36;
+}
+
 .mytext-info 
 {
   font-weight: bold;
@@ -52,13 +82,12 @@ h6 {
 }
 .information {
   position: relative;
-  background-color: #959595 ; 
-  border-radius: 50px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
+  /* background-color: #959595 ;  */
+  /* border-radius: 50px; */
   color: rgb(0, 0, 0);
   padding: 2px;
 }
+
 .information :hover
 {
    /* background-color: #000000;  */
@@ -76,14 +105,15 @@ h6 {
   height: 40px;
   padding: 7px;
 } 
+             
 
 .element-2 {
   padding-top: 13px; 
-  border-radius: 50px;
+  border-radius: 11px;
   height: 70px;
   padding-top: 13px; 
   background-color: #ffffff;
-  border-radius: 50px;
+  box-shadow: 1px 1px 1px 1px;
   border : none ; 
   transition: 0.5s;
 }
@@ -97,16 +127,38 @@ h6 {
   margin-top: 20px;
 }
 
-
-.button-resa
+.Title-resa
 {
- border-radius: 30px ;
- background-color: #23303b;
+  font-size: 40px;
+  font-weight: bold;
 }
-.elementinput {
+
+.button-resa 
+{
+   text-align: center;
+   padding: 5%;
+}
+.button-resa button
+{
+ 
+  /* margin-top: 20px; */
+  font-weight: bold;
   color: white;
+  /* height:40px; */
+  border-radius: 30px ;
+  background-color: #000000;
+  border: none;
+  transition: 0.5s;
+}
+
+.button-resa button:hover
+{
+    background-color: #E63D36; 
+} 
+.elementinput {
+  color: rgb(0, 0, 0);
   border-radius: 30px;
-  background-color: rgb(255, 255,  255 , 0.5);
+  background-color: rgb(220, 220,  220 , 0.8);
   border: none;
   height: 50px;
 }
@@ -124,9 +176,15 @@ h6 {
 {
   background-repeat: no-repeat;
   background-size: cover;
+  background-size: 150%;
   background-image: url(../img/resa.jpg);
-  min-height: 100dvh;
+  /* min-height: 100dvh; */
+ /*  margin-top: -10px;  */
   background-position: center;
+}
+.img-represent
+{
+    border-radius: 20px;  
 }
 
 .buttonSearche {
@@ -134,7 +192,33 @@ h6 {
   border-radius: 40px;
   background-color: #E63D36;
   border: none;
-  }
+}
+
+/* css niampi blur */
+.blur-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  z-index: 1; /* Assurez-vous que le flou soit en dessous du contenu de la collapsible */
+}
+.hidden {
+  display: none;
+}
+
+.collapse.show + .blur-background {
+  display: block;
+}
+
+.blur-background.hidden {
+  display: none;
+}
+
+/* fin */
+
+
   .place{
     color: white;
     font-weight: bold;
@@ -157,6 +241,18 @@ h6 {
   {
     background-color:#E63D36;
     color: white;
+  }
+
+  .headerRecherche {
+    transition: all 0.5s;
+    z-index: 997;
+    height: 160px;
+    background-color: rgba(0, 0, 0); /* Opacité 74% */
+    padding-left: 20px;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
   }
 
   .header {

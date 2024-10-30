@@ -5,8 +5,13 @@
     color: #E63E37;
 }
 .bg-gray{
-    background-color: #D3D4CF;
+    background-color: #8f908c;
 }
+
+.bg-white{
+    background-color: #fbfbfb;
+}
+
 .bg-dark-gray{
     background-color: #434343;
 }
