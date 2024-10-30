@@ -14,13 +14,14 @@ class Welcome extends CI_Controller {
 	 * Since this controller is set as the default controller in
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
-	 * So any other public methods not prefixed with an underscore will
+	 * So any other public methoaccds not prefixed with an underscore will
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
 	public function index()
 	{
-		$this->load->model("Utilisateur_Model");
-		var_dump($this->Utilisateur_Model->getByNamePwdType("user1@example.com","password123",1));
+		$this->load->model("Parking_Model");
+		/* var_dump($this->Parking_Model->prepareRecette2D(1)); */
+		var_dump($this->Parking_Model->getPrevision2D(1,2024,1));
 	}
 }
